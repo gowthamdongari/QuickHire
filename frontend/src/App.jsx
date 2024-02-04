@@ -5,14 +5,15 @@ import SignUp from "./auth/signUp";
 import LandingPage from "./auth/LandingPage";
 import Home from "./pages/Home";
 
+
 const App = () => {
   return (
     <Routes>
       <Route index element={<LandingPage />} />
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/SignUp" element={<SignUp />} />
-      <Route element={<Home/>}>
-          
+      <Route path="/home" element={<Home/>}>
+          {/* childrens */}
       </Route>
     </Routes>
   );
