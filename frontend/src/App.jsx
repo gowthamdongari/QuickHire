@@ -4,6 +4,7 @@ import SignIn from "./auth/SignIn";
 import SignUp from "./auth/signUp";
 import LandingPage from "./auth/LandingPage";
 import Home from "./pages/Home";
+import './globals.css';
 
 
 const App = () => {
@@ -14,6 +15,8 @@ const App = () => {
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/home" element={<Home/>}>
           {/* childrens */}
+          <Route path="/home/Gowtham" element={<SignIn/>}/>
+          <Route path="/home/Jaya" element={<SignUp/>}/>
       </Route>
     </Routes>
   );
