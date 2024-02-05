@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TopNavBar from "../components/TopNavBar";
 
 const LandingPage = () => {
   return (
     <div>
-      this is LandingPage
+      <TopNavBar></TopNavBar>
       <div>
         <Link to={"/SignIn"}>SignIn</Link>
       </div>
