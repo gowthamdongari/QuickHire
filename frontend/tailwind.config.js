@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      fbblue: '#1877F2',
+      violet: 'rgb(56 189 248)'
+    }
   },
   plugins: [],
 }
