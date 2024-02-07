@@ -11,6 +11,6 @@ export default {
       violet: 'rgb(56 189 248)'
     }
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 }
 
