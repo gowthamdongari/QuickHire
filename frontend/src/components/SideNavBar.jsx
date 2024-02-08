@@ -1,27 +1,37 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-const styles = {
-  Card: {
-    top: "89px",
-    left: "0px",
-    width: "264px",
-    height: "1532px",
-    backgroundColor: "#161616",
-    border: "1px solid #282828",
-    boxSizing: "border-box",
-  },
-};
+'use client';
 
-const SideNavBar = () => {
+import { Sidebar } from 'flowbite-react';
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+
+const SideNavBar=() =>{
+  const navsData =[
+    {
+      "title":"create",
+      "id":1
+    },
+    {
+      "title":"Review",
+      "id":2
+    }
+  ]
   return (
-    <aside className="fixed top-14 left-10 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      SideNavBar
-    </aside>
+    <Sidebar className='w-full md:w-56 bg-fbblue'>
+      <Sidebar.Items>
+          <Sidebar.ItemGroup className='flex flex-col gap-1'>
+             {
+              navsData.map((val)=>{
+                return (
+                  <Link key={val.id} to={`/home/${val.title}`}>
+                    <Sidebar.Item>{val.title}</Sidebar.Item>
+                  </Link>
+                )
+              })
+             }
+          </Sidebar.ItemGroup>
+      </Sidebar.Items>
+    </Sidebar>
   );
-};
+}
 
 export default SideNavBar;
-
-
-
-
