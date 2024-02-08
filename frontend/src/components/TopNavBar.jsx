@@ -3,7 +3,7 @@ import React from "react";
 
 const TopNavBar = () => {
   return (
-    <header className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
+    <header className="flex gap-10 bg-violet lg:gap-20 justify-between pt-2 mb-6 mx-4">
         <div className="flex gap-4 items-center flex-shrink-0">
              <button >
               <Menu />

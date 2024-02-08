@@ -7,7 +7,10 @@ const Home = () => {
   return (
     <div className="max-h-screen flex flex-col">
       <TopNavBar />
-      
+      <main>
+         <SideNavBar />
+         <Outlet /> 
+      </main>
     </div>
   );
 };

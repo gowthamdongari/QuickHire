@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/lib/esm//*.js'
   ],
   theme: {
     extend: {},
@@ -11,6 +12,6 @@ export default {
       violet: 'rgb(56 189 248)'
     }
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'),require('flowbite/plugin')],
 }
 
