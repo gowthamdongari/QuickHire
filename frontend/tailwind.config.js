@@ -6,12 +6,16 @@ export default {
     'node_modules/flowbite-react/lib/esm//*.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Montserrat: "Montserrat",
+      },
+    },
     colors: {
       fbblue: '#1877F2',
       violet: 'rgb(56 189 248)'
     }
   },
-  plugins: [require('tailwindcss-animate'),require('flowbite/plugin')],
+  plugins: [require('tailwindcss-animate'),require('flowbite/plugin'),require('tailwind-scrollbar')]
 }
 
