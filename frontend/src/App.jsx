@@ -13,6 +13,7 @@ import Notifications from "./pages/Notifications";
 import AccountSettings from "./pages/Staff/AccountSettings";
 import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
+import RegistrationPage from "./auth/Forms/RegistrationPage";
 
 
 const App = () => {
@@ -22,7 +23,8 @@ const App = () => {
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/qualifications" element ={<Category/>}/>
-      <Route path="/home" element={<Home/>}>
+      <Route path="/RegistrationPage" element={<RegistrationPage/>} />
+      <Route path="/home" element={<Home/>} >
           {/* childrens */}
          <Route path="/home/viewJobs" element={<JobList/>}/>
          <Route path="/home/review" element={<Profiles/>}/>
