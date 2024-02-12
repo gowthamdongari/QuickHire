@@ -9,7 +9,13 @@ const TopNavBar = () => {
               <Menu />
              </button>
              <p>
-              logo
+              <img 
+              width="50px"
+              height="50px"
+              className="rounded"
+               src="/assets/logo.png"
+               alt="logo"
+              />
                {/* img with height h-6 */}
              </p>
         </div>

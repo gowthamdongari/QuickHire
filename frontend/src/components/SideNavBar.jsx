@@ -68,13 +68,28 @@ const SideNavBar = () => {
         <div className="flex flex-col h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white ">
             <li >
-              <NavLink to="/home/sample1" className={"link"}>
-                 sample1
+            <NavLink to="/home/revie" className={"link"}>
+                 Professional reviews
               </NavLink>
             </li>
             <li >
-              <NavLink to="/home/sample2" className={"link"}>
-                 sample2
+              <NavLink to="/home/review" className={"link"}>
+                Empolyee reviews
+              </NavLink>
+            </li>
+            {/* <li >
+              <NavLink to="/home/individual" className={"link"}>
+                 Individual
+              </NavLink>
+            </li> */}
+            <li >
+              <NavLink to="/home/notifcations" className={"link"}>
+                  Notifications
+              </NavLink>
+            </li>
+            <li >
+              <NavLink to="/home/accountSettings" className={"link"}>
+                  Account Settings
               </NavLink>
             </li>
           </ul>
