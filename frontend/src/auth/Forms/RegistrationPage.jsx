@@ -67,7 +67,7 @@ const RegistrationPage = () => {
   };
   return (
     <div>
-      <h1 style={mystyle.Header}>QuickHire</h1>
+
       <h3 style={mystyle.Registration}>Employer Registration</h3>
       <p style={mystyle.Para}>Enter your company details to continue</p>
       <form className="flex flex-col justify-center ml-[220px]">

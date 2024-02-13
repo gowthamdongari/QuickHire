@@ -16,6 +16,7 @@ import StaffAccounts from "./pages/Staff/StaffAccounts";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
 import Education from "./auth/Forms/Education";
 
+import RegistrationPageProfessional from "./auth/Forms/RegistrationPageProfessional";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Route path="/RegistrationPage" element={<RegistrationPage/>} />
       <Route path="/education" element={<Education/>} />
 
+      <Route path="/RegistrationPageProfessional" element={<RegistrationPageProfessional/>} />
       <Route path="/home" element={<Home/>} >
           {/* childrens */}
          <Route path="/home/viewJobs" element={<JobList/>}/>
