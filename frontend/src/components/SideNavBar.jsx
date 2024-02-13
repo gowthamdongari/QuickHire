@@ -18,6 +18,10 @@ const SideNavBar = () => {
   {
      title:"Empolyee Lists",
      link:"/home/Empolyee?op=listing"
+  },
+  {
+    title:"Settings",
+    link:"/home/Settings"
   }
  ]
   
