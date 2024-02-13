@@ -15,7 +15,8 @@ import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
 import ProfessionalDetails from "./components/ProfessionalProfile/ProfessionalDetails";
-
+import Education from "./auth/Forms/Education";
+import RegistrationPageProfessional from "./auth/Forms/RegistrationPageProfessional";
 
 const App = () => {
   return (
@@ -24,12 +25,13 @@ const App = () => {
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/qualifications" element ={<Category/>}/>
-      <Route path="/RegistrationPage" element={<RegistrationPage/>} />
+      <Route path="/RegistrationPage" element={<RegistrationPage/>} /> 
+      <Route path="/education" element={<Education/>} />
+
+      <Route path="/RegistrationPageProfessional" element={<RegistrationPageProfessional/>} />
       <Route path="/home" element={<Home/>} >
           {/* childrens */}
-         <Route path="/home/viewJobs" element={<JobList/>}/>
-         <Route path="/home/review" element={<Profiles/>}/>
-         <Route path="/home/individual" element={<IndividualDetails/>}/>
+         <Route path="/home/:type" element={<Profiles/>}/>
          <Route path="/home/notifcations" element={<Notifications/>}/>
          <Route path="/home/accountSettings" element={<AccountSettings/>}/>
          <Route path="/home/ProfessionalDetails" element={<ProfessionalDetails/>} />
