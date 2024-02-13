@@ -11,6 +11,8 @@ import RegistrationPage from "./auth/Forms/RegistrationPage";
 import Education from "./auth/Forms/Education";
 import RegistrationPageProfessional from "./auth/Forms/RegistrationPageProfessional";
 import Settings from "./pages/Settings";
+import AddAccount from "./pages/Staff/AddAccount";
+import StaffAccounts from "./pages/Staff/StaffAccounts";
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
           {/* childrens */}
          <Route path="/home/:type" element={<Profiles/>}/>
          <Route path="/home/settings" element={<Settings />}/>
+         <Route path="/home/settings/createAccount" element={<AddAccount/>}/>
+         <Route path="/home/settings/staffAccounts" element={ <StaffAccounts/> }/>
       </Route>
     </Routes>
   );
