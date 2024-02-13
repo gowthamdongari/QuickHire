@@ -1,7 +1,7 @@
 import { color } from 'framer-motion'
 import React from 'react'
 
-const RegistrationPage = () => {
+const RegistrationPageProfessional = () => {
     const mystyle = {
         Header: {
         color: '#5856d6',
@@ -70,7 +70,7 @@ const RegistrationPage = () => {
   return (
     <div>
 
-      <h3 style={mystyle.Registration}>Employer Registration</h3>
+      <h3 style={mystyle.Registration}>Professional Registration</h3>
       <p style={mystyle.Para}>Enter your company details to continue</p>
       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <label style={mystyle.Firstname}>First Name</label>
@@ -80,8 +80,6 @@ const RegistrationPage = () => {
       <label style={mystyle.Firstname}>Last Name</label>
       <input style={mystyle.InputField} placeholder='Last Name'/>
       </div>
-      <label style={mystyle.Firstname}>Company Name</label>
-      <input style={mystyle.InputField} placeholder='Company Name'/>
       <label style={mystyle.Firstname}>Preferred Username</label>
       <input style={mystyle.InputField} placeholder='Preferred Username'/>
       <label style={mystyle.Firstname}>Email</label>
@@ -101,4 +99,4 @@ const RegistrationPage = () => {
   )
 }
 
-export default RegistrationPage
+export default RegistrationPageProfessional
