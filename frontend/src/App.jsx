@@ -14,6 +14,7 @@ import AccountSettings from "./pages/Staff/AccountSettings";
 import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
+import Education from "./auth/Forms/Education";
 
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/qualifications" element ={<Category/>}/>
       <Route path="/RegistrationPage" element={<RegistrationPage/>} />
+      <Route path="/education" element={<Education/>} />
+
       <Route path="/home" element={<Home/>} >
           {/* childrens */}
          <Route path="/home/viewJobs" element={<JobList/>}/>
