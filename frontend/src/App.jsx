@@ -14,6 +14,7 @@ import AccountSettings from "./pages/Staff/AccountSettings";
 import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
+import ProfessionalDetails from "./components/ProfessionalProfile/ProfessionalDetails";
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
          <Route path="/home/individual" element={<IndividualDetails/>}/>
          <Route path="/home/notifcations" element={<Notifications/>}/>
          <Route path="/home/accountSettings" element={<AccountSettings/>}/>
+         <Route path="/home/ProfessionalDetails" element={<ProfessionalDetails/>} />
 
       </Route>
     </Routes>
