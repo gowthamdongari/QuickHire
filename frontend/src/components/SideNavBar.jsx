@@ -24,7 +24,7 @@ const SideNavBar = () => {
 
   return (
     <aside>
-      <div className="w-64 h-screen mt-2 ml-3 bg-white p-4 space-y-2">
+      <div className="w-64 h-screen mt-2 ml-3 bg-gray-900 p-4 space-y-2">
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}{
@@ -33,7 +33,7 @@ const SideNavBar = () => {
                 <NavLink
                 to={item.link}
                 key={item.link}
-                className="flex items-center p-2 mt-2 hover:bg-blue-200 rounded link"
+                className="flex items-center p-2 mt-2 text-white hover:bg-blue-200 rounded link"
               >
                 {/* Use your icons library here */}
                 <span className="ml-3">{item.title}</span>

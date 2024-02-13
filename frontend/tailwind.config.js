@@ -13,6 +13,8 @@ export default {
     },
     colors: {
       fbblue: '#1877F2',
+      accept: '#2f667f',
+      details: '#c2c2c2',
       violet: 'rgb(56 189 248)'
     }
   },
