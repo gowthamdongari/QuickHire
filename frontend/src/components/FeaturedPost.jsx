@@ -16,7 +16,6 @@ function FeaturedPost(props) {
       <CardActionArea component="a" href="#">
         <Card sx={{ display: "flex" }}>
           <CardContent sx={{ flex: 1 }}>
-           
             <div className="bg-blue-100 rounded-lg p-2 m-3 ">
               <div className="flex flex-col items-center justify-between">
                 <h1 className="text-xl text-center font-bold text-blue-900 m-3 p-3">
@@ -25,12 +24,13 @@ function FeaturedPost(props) {
                 <h3 className="text-blue-700 text-xs font-semibold m-3 p-3">
                   {post.headline}
                 </h3>
-                <p className="text-gray-700 text-xs font-semibold m-3 p-3">{post.description}</p>
+                <p className="text-gray-700 text-xs font-semibold m-3 p-3">
+                  {post.description}
+                </p>
                 <button className="bg-blue-500 text-white text-sm py-2 m-3 px-2 rounded hover:bg-blue-600">
-                Sign Up
-              </button>
+                  Sign Up
+                </button>
               </div>
-              
             </div>
           </CardContent>
           <CardMedia

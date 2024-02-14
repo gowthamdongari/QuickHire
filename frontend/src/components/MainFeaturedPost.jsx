@@ -40,7 +40,7 @@ function MainFeaturedPost(props) {
           backgroundColor: "rgba(0,0,0,.3)",
         }}
       />
-      
+
       <Grid container>
         <Grid item md={6}>
           <Box
@@ -51,12 +51,12 @@ function MainFeaturedPost(props) {
             }}
           >
             <div>
-        <div className="flex flex-col items-center justify-between">
-          <h1 className="text-2xl text-center font-bold text-white m-3 p-3">
-            {post.description}
-          </h1>
-        </div>
-      </div>
+              <div className="flex flex-col items-center justify-between">
+                <h1 className="text-2xl text-center font-bold text-white m-3 p-3">
+                  {post.description}
+                </h1>
+              </div>
+            </div>
           </Box>
         </Grid>
       </Grid>
