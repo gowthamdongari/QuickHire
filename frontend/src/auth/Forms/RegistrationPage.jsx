@@ -67,7 +67,6 @@ const RegistrationPage = () => {
   };
   return (
     <div>
-
       <h3 style={mystyle.Registration}>Employer Registration</h3>
       <p style={mystyle.Para}>Enter your company details to continue</p>
       <form className="flex flex-col justify-center ml-[220px]">
@@ -128,7 +127,8 @@ const RegistrationPage = () => {
             />
           </div>
           <div className="m-4">
-            <label>Mailing Addres:</label><br></br>
+            <label>Mailing Addres:</label>
+            <br></br>
             <input
               className="regInput"
               placeholder="Enter your mail Address"
@@ -136,7 +136,8 @@ const RegistrationPage = () => {
             />
           </div>
           <div className="m-4">
-            <label>City:</label><br></br>
+            <label>City:</label>
+            <br></br>
             <input
               className="regInput"
               placeholder="Enter your mail Address"
@@ -144,7 +145,8 @@ const RegistrationPage = () => {
             />
           </div>
           <div className="m-4">
-            <label>State:</label><br></br>
+            <label>State:</label>
+            <br></br>
             <input
               className="regInput"
               placeholder="Enter your mail Address"
@@ -152,7 +154,8 @@ const RegistrationPage = () => {
             />
           </div>
           <div className="m-4">
-            <label>Zipcode:</label><br></br>
+            <label>Zipcode:</label>
+            <br></br>
             <input
               className="regInput"
               placeholder="Enter your mail Address"
@@ -160,7 +163,12 @@ const RegistrationPage = () => {
             />
           </div>
         </div>
-        <button type="submit" className="ml-[300px] w-[468px] h-[48px] p-2  rounded-3xl  bg-[#e22823] decoration-[#ffffff] cursor-pointer leading-5 font">Register</button>
+        <button
+          type="submit"
+          className="ml-[300px] w-[468px] h-[48px] p-2  rounded-3xl  bg-[#e22823] decoration-[#ffffff] cursor-pointer leading-5 font"
+        >
+          Register
+        </button>
       </form>
     </div>
   );
