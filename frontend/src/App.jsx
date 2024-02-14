@@ -38,8 +38,6 @@ const App = () => {
          <Route path="/home/settings/staffAccounts" element={ <StaffAccounts/> }/>
          <Route path="/home/individual" element ={<IndividualPage />}/>
          <Route path="/home/:type" element={<Profiles/>}/>
-         <Route path="/home/accountSettings" element={<AccountSettings/>}/>
-         <Route path="/home/ProfessionalDetails" element={<ProfessionalDetails/>} />
          <Route path="/home/PaymentHistory" element={<PaymentHistory/>} />
          <Route path="/home/ProfessionalJobListingPage" element={<ProfessionalJobListingPage/>} />
          <Route path="/home/JobPosting" element={<JobPosting/>} />
