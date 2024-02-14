@@ -71,8 +71,8 @@ const JobPosting = () => {
           </div>
           <div className="flex flex-wrap -mx-2 mb-2">
           <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
-          <div className="flex flex-row">
-            <div className="flex justify-between">
+          <div className="flex flex-row mt-4">
+            <div className="flex justify-between ">
                 <label htmlFor="start-date" className='text-xs font-semibold mb-2'>Start Date:</label>
                 <input type="date" id="start-date" className="px-4 border rounded p-2 shadow appearance-none text-grey-darke" />
             </div>
@@ -84,7 +84,7 @@ const JobPosting = () => {
             </div>
             </div>
             
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mt-8 mb-8">
             <div className="flex-1 ml-3">
             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full">
               Save & Finish
