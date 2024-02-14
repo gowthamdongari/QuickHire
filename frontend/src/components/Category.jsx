@@ -35,6 +35,8 @@ const Category = () => {
   const handleChange = (key, val) => {
     setCategory({ ...category, [key]: val });
   };
+  const isShowHeader = false;
+   
   const handleAdd = () => {
     if (categoryList.length > 0) {
       setCategoryList([...categoryList, category]);
@@ -46,15 +48,17 @@ const Category = () => {
     setCategory({ type: "", keywords: "" });
   };
   return (
-    <div>
+    <div>{isShowHeader &&
+      <div>
       <h1 style={mystyle.Header}>QuickHire</h1>
       <h3 style={mystyle.Registration}>Professional Registration</h3>
       <p style={mystyle.Para}>
         Enter your Role Specific Category details to continue
       </p>
+      </div>}
       <div>
-        <form className="justify-center ml-[500px] mt-[60px]">
-          <div className="flex flex-row gap-5">
+        <form >
+          <div className="flex flex-row gap-5 ml-8">
             <div>
               <label>Category Type:</label>
               <br></br>
