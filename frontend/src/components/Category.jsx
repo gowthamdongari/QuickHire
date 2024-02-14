@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryList from "./CategoryList";
@@ -28,7 +28,7 @@ const mystyle = {
     textAlign: "center",
   },
 };
-const Category = () => {
+const Category = ({isCategory}) => {
   const [category, setCategory] = useState({ type: "", keywords: "" });
   const [categoryList, setCategoryList] = useState([]);
   const navigation = useNavigate();
@@ -47,6 +47,16 @@ const Category = () => {
     console.log(category);
     setCategory({ type: "", keywords: "" });
   };
+  useEffect(()=>{
+       if(isCategory){
+        setCategoryList([
+          {
+            type:"skills",
+            keywords:"java"
+          }
+        ])
+       }
+  },[])
   return (
     <div>{isShowHeader &&
       <div>
