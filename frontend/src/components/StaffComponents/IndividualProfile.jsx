@@ -1,13 +1,19 @@
 import React from "react";
+import { FaUserTie } from 'react-icons/fa'; // react-icons for professional icon
+import { BsBank } from "react-icons/bs";
+import { IconContext } from 'react-icons';
+import { useNavigate } from "react-router-dom";
+
 
 const IndividualProfile = ({ OperationType, customerType }) => {
+  const navigate = useNavigate();
   const category = [
     {
-      type: "Experience",
+      type: "Experience :",
       keyword: "2 years in web development",
     },
     {
-      type: "Skills",
+      type: "Skills :",
       keyword: "Java, Python, sql, aws",
     },
   ];
@@ -17,19 +23,31 @@ const IndividualProfile = ({ OperationType, customerType }) => {
       address: "Newyork",
     }
   ];
+  
+  const navigator =()=>{
+       navigate("/home/individual?type="+customerType);
+  }
+  
   return (
     <div>
-      <div className="bg-white p-4 m-2 rounded-lg shadow-2xl">
-        <h2 className="text-lg font-medium mb-4">{customerType}</h2>
+      <div className="bg-white p-3 m-2 border-spacing-3  rounded-lg shadow-2xl">
+        <div className="flex justify-between mb-3">
+      <div className="flex-shrink-0">
+        {customerType=='Professional' ?
+        (<FaUserTie className="h-12 w-14" />):<BsBank className="h-12 w-14" />
+      }          
+        </div>
+        <h2 className="text-lg font-light text-xs mb-4 flex justify-end bg-teal-300 p-2 rounded-md">{customerType}</h2>
+        </div>
         <div className="flex items-center justify-between">
-          <h4 className="text-xl font-semibold">{customerType} Username</h4>
+          <h4 className="text-base font-semibold"> Username</h4>
         </div>
         {customerType == "Professional"
           ? category.map((item) => {
               return (
                 <div className="mt-4">
-                  <p className="mb-2 text-gray-600">{item.type}</p>
-                  <p className="font-medium">{item.keyword}</p>
+                  <p className="mb-2 text-gray-800 font-medium text-xs">{item.type} {item.keyword}</p>
+                  
                 </div>
               );
             })
@@ -44,12 +62,13 @@ const IndividualProfile = ({ OperationType, customerType }) => {
 
         <div className="flex items-center justify-between mt-4">
           {OperationType == "review" && (
-            <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+            <button className="bg-accept w-32 text-white px-4 py-2 hover:bg-green-600">
+              
               Accept
             </button>
           )}
 
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+          <button onClick={navigator} className="bg-details w-32 text-black text- px-4 py-2 hover:bg-blue-600">
             Details
           </button>
         </div>

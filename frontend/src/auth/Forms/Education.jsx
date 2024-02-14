@@ -56,20 +56,16 @@ const Education = () => {
               </button>
             </div>
           </div>
-          <div>
-            {/* Need to write table here */}
-          </div>
+          <div>{/* Need to write table here */}</div>
           <div className="mt-7">
-
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                next
-              </button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              next
+            </button>
           </div>
         </form>
       </div>
       <div className="w-[600px]">
-
-      <Category />
+        <Category />
       </div>
     </div>
   );

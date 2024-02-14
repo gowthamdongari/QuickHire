@@ -13,7 +13,7 @@ const StaffAccounts = () => {
   };
   return (
     <div>
-        <h2 className="text-xl font-semibold mb-2">New Applicant</h2>
+        <h2 className="text-xl font-semibold mb-2">Staff Accounts</h2>
       <div className="overflow-x-auto">
         <table className="table-auto min-w-full border-collapse border border-gray-300">
           <thead>
