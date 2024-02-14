@@ -2,24 +2,34 @@ import { NavLink } from "react-router-dom";
 
 const SideNavBar = () => {
   // write all the links here
-  const staffLinks = [
-    {
-      title: "Professional Reviews",
-      link: "/home/Professional?op=review",
-    },
-    {
-      title: "Empolyee Reviews",
-      link: "/home/Empolyee?op=review",
-    },
-    {
-      title: "Professional lists",
-      link: "/home/Professional?op=listing",
-    },
-    {
-      title: "Empolyee Lists",
-      link: "/home/Empolyee?op=listing",
-    },
-  ];
+ 
+ const staffLinks =[
+  {
+    title:"Professional Reviews",
+    link:"/home/Professional?op=review"
+  },
+  {
+    title:"Empolyee Reviews",
+    link:"/home/Empolyee?op=review"
+  },
+  {
+    title:"Professional lists",
+    link:"/home/Professional?op=listing"
+  },
+  {
+     title:"Empolyee Lists",
+     link:"/home/Empolyee?op=listing"
+  },
+  {
+    title:"Notifications",
+    link:"/home/notifications"
+  },
+  {
+    title:"Settings",
+    link:"/home/Settings"
+  }
+ ]
+  
 
   return (
     <aside>

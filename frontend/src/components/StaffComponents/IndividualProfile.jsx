@@ -26,23 +26,23 @@ const IndividualProfile = ({ OperationType, customerType }) => {
   
   return (
     <div>
-      <div className="bg-white p-4 m-2 border-spacing-3  rounded-lg shadow-2xl">
+      <div className="bg-white p-3 m-2 border-spacing-3  rounded-lg shadow-2xl">
         <div className="flex justify-between mb-3">
       <div className="flex-shrink-0">
         {customerType=='Professional' ?
-        (<FaUserTie className="h-12 w-12" />):<BsBank className="h-12 w-12" />
+        (<FaUserTie className="h-12 w-14" />):<BsBank className="h-12 w-14" />
       }          
         </div>
-        <h2 className="text-lg font-medium mb-4 flex justify-end bg-teal-300 p-2 rounded-md">{customerType}</h2>
+        <h2 className="text-lg font-light text-xs mb-4 flex justify-end bg-teal-300 p-2 rounded-md">{customerType}</h2>
         </div>
         <div className="flex items-center justify-between">
-          <h4 className="text-xl font-semibold"> Username</h4>
+          <h4 className="text-base font-semibold"> Username</h4>
         </div>
         {customerType == "Professional"
           ? category.map((item) => {
               return (
                 <div className="mt-4">
-                  <p className="mb-2 text-gray-800 font-medium">{item.type} {item.keyword}</p>
+                  <p className="mb-2 text-gray-800 font-medium text-xs">{item.type} {item.keyword}</p>
                   
                 </div>
               );

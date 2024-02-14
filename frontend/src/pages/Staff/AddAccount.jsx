@@ -13,7 +13,7 @@ const AddAccount = () => {
           <input
             type="text"
             id="firstName"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="regInput"
           />
         </div>
         <div>
@@ -23,7 +23,7 @@ const AddAccount = () => {
           <input
             type="text"
             id="lastName"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="regInput"
           />
         </div>
       </div>
@@ -35,7 +35,7 @@ const AddAccount = () => {
           <input
             type="text"
             id="firstName"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="regInput"
           />
         </div>
         <div>
@@ -45,7 +45,7 @@ const AddAccount = () => {
           <input
             type="text"
             id="lastName"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="regInput"
           />
         </div>
       </div>
@@ -56,12 +56,12 @@ const AddAccount = () => {
         <input
           type="text"
           id="phone"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="regInput"
         />
       </div>
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none mt-2"
       >
         Create Account
       </button>
