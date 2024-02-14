@@ -20,6 +20,7 @@ import Notifications from "./pages/Notifications";
 import IndividualPage from "./pages/Staff/IndividualPage";
 import PasswordChange from "./components/PasswordChange";
 import AccountSettings from "./components/AccountSettings";
+import JobLists from "./pages/JobLists";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
          <Route path="/home/PasswordChange" element={<PasswordChange/>} />
          <Route path="/home/AccountSettings" element={<AccountSettings/>} />
 
+         <Route path ="/home/JobLists" element={<JobLists/>}/>
       </Route>
     </Routes>
   );
