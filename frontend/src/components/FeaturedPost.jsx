@@ -7,13 +7,22 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function FeaturedPost(props) {
   const { post } = props;
-
+  const navigate = useNavigate();
+  const handleNavigation = () =>{
+     console.log(post)
+     if(post.title=="Employer Registration"){
+        navigate("/RegistrationPage?type=Employer");
+     }else{
+        navigate("/RegistrationPage?type=Professional");
+     }
+  }
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
+      <CardActionArea component="a" onClick={handleNavigation}>
         <Card sx={{ display: "flex" }}>
           <CardContent sx={{ flex: 1 }}>
             <div className="bg-blue-100 rounded-lg p-2 m-3 ">

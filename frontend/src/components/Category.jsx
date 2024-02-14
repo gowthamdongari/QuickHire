@@ -1,59 +1,110 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CategoryList from "./CategoryList";
 
+const mystyle = {
+  Header: {
+    color: "#5856d6",
+    fontsize: "48px",
+    fontFamily: "Roboto Slab",
+    fontWeight: "500",
+    lineHeight: "62px",
+    textAlign: "center",
+  },
+  Registration: {
+    color: "#3a3a3a",
+    fontSize: "40px",
+    fontFamily: "Source Sans Pro",
+    fontWeight: 700,
+    lineHeight: "38px",
+    textAlign: "center",
+  },
+  Para: {
+    color: "#3a3a3a",
+    fontSize: "18px",
+    fontFamily: "Source Sans Pro",
+    lineHeight: "31px",
+    textAlign: "center",
+  },
+};
 const Category = () => {
-  const data = [
-    { category: "Technology", keywords: "React, JavaScript, Tailwind CSS" },
-    { category: "Food", keywords: "Pizza, Sushi, Burger" },
-    { category: "Sports", keywords: "Football, Basketball, Tennis" },
-  ];
-
+  const [category, setCategory] = useState({ type: "", keywords: "" });
+  const [categoryList, setCategoryList] = useState([]);
+  const navigation = useNavigate();
+  const handleChange = (key, val) => {
+    setCategory({ ...category, [key]: val });
+  };
+  const handleAdd = () => {
+    if (categoryList.length > 0) {
+      setCategoryList([...categoryList, category]);
+    } else {
+      setCategoryList([category]);
+    }
+    console.log(categoryList);
+    console.log(category);
+    setCategory({ type: "", keywords: "" });
+  };
   return (
-    <>
-      <form className="flex flex-row">
-        <div className="flex flex-col">
-          <label>Enter Category</label>
-          <br />
-          <input placeholder="company name" type="text" />
-        </div>
-        <div className="flex flex-col ml-10">
-          <label>Enter Keywords or Description</label>
-          <input placeholder="Keywords" type="text" />
-        </div>
-      </form>
-      <div className="container mx-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+    <div>
+      <h1 style={mystyle.Header}>QuickHire</h1>
+      <h3 style={mystyle.Registration}>Professional Registration</h3>
+      <p style={mystyle.Para}>
+        Enter your Role Specific Category details to continue
+      </p>
+      <div>
+        <form className="justify-center ml-[500px] mt-[60px]">
+          <div className="flex flex-row gap-5">
+            <div>
+              <label>Category Type:</label>
+              <br></br>
+              <input
+                value={category.type}
+                onChange={(e) => handleChange("type", e.target.value)}
+                placeholder="Enter your Category Type"
+                type="text"
+              />
+            </div>
+            <div>
+              <label>Keywords</label>
+              <br></br>
+              <input
+                placeholder="Enter your keywwords"
+                value={category.keywords}
+                onChange={(e) => handleChange("keywords", e.target.value)}
+                type="text"
+              />
+            </div>
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Category
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                add
+              </button>
+            </div>
+          </div>
+          {
+             categoryList.length>0 && (
+              <div className="w-[600px] h-fit mt-6">
+                < CategoryList categoryList={categoryList}/>
+              </div>
+             )
+          }
+          <div className="mt-7">
+            {categoryList.length > 1 && (
+              <button
+                onClick={() => navigation("/home")}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Keywords
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((item, index) => (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{item.category}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{item.keywords}</div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                Finish
+              </button>
+            )}
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

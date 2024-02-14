@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import Category from "../../components/Category";
+import EducationList from "../../components/EducationList";
+import { useNavigate } from "react-router-dom";
 
 const Education = () => {
+  const [educationDetails, setEducationDetails] = useState({
+    schoolName: "",
+    major: "",
+    endTime: "",
+  });
+  const [totalEducationDetails, setTotalEducationDetails] = useState([]);
   const mystyle = {
     Header: {
       color: "#5856d6",
@@ -27,6 +35,21 @@ const Education = () => {
       textAlign: "center",
     },
   };
+  const navigation = useNavigate();
+  
+  const handleChange = (key, val) => {
+    setEducationDetails({ ...educationDetails, [key]: val });
+  };
+  const handleAdd = () => {
+    console.log(educationDetails);
+    if (totalEducationDetails) {
+      setTotalEducationDetails([...totalEducationDetails, educationDetails]);
+    } else {
+      setTotalEducationDetails([educationDetails]);
+    }
+    console.log(totalEducationDetails);
+    setEducationDetails({ schoolName: "", major: "", endTime: "" });
+  };
   return (
     <div>
       <h1 style={mystyle.Header}>QuickHire</h1>
@@ -38,34 +61,55 @@ const Education = () => {
             <div>
               <label>School Name:</label>
               <br></br>
-              <input placeholder="Enter your school name" type="text" />
+              <input
+                value={educationDetails.schoolName}
+                onChange={(e) => handleChange("schoolName", e.target.value)}
+                placeholder="Enter your school name"
+                type="text"
+              />
             </div>
             <div>
               <label>Major:</label>
               <br></br>
-              <input placeholder="Enter your major" type="text" />
+              <input
+                value={educationDetails.major}
+                onChange={(e) => handleChange("major", e.target.value)}
+                placeholder="Enter your major"
+                type="text"
+              />
             </div>
             <div>
               <label>Completion Time:</label>
               <br></br>
-              <input type="date" />
+              <input
+                value={educationDetails.endTime}
+                onChange={(e) => handleChange("endTime", e.target.value)}
+                type="date"
+              />
             </div>
             <div className="mt-6">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
                 add
               </button>
             </div>
           </div>
-          <div>{/* Need to write table here */}</div>
+          {totalEducationDetails && (
+            <div className="w-[800px] h-fit mt-6">
+              <EducationList educationDetails={totalEducationDetails} />
+            </div>
+          )}
           <div className="mt-7">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button 
+             onClick={()=>navigation("/category")}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               next
             </button>
           </div>
         </form>
-      </div>
-      <div className="w-[600px]">
-        <Category />
       </div>
     </div>
   );
