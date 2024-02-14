@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Category from "../../components/Category";
 import EducationList from "../../components/EducationList";
 import { useNavigate } from "react-router-dom";
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { FaUserTie } from 'react-icons/fa'; // react-icons for professional icon
 import { BsBank } from "react-icons/bs";
-import { IconContext } from 'react-icons';
 import { useNavigate } from "react-router-dom";
 
 
@@ -25,7 +24,7 @@ const IndividualProfile = ({ OperationType, customerType }) => {
   ];
   
   const navigator =()=>{
-       navigate("/home/individual?type="+customerType);
+       navigate("/home/individual?type="+customerType+"&"+"op="+OperationType);
   }
   
   return (
@@ -37,7 +36,7 @@ const IndividualProfile = ({ OperationType, customerType }) => {
         (<FaUserTie className="h-12 w-14" />):<BsBank className="h-12 w-14" />
       }          
         </div>
-        <h2 className="text-lg font-light text-xs mb-4 flex justify-end bg-teal-300 p-2 rounded-md">{customerType}</h2>
+        <h2 className="font-light text-xs mb-4 flex justify-end bg-teal-300 p-2 rounded-md">{customerType}</h2>
         </div>
         <div className="flex items-center justify-between">
           <h4 className="text-base font-semibold"> Username</h4>
@@ -62,8 +61,7 @@ const IndividualProfile = ({ OperationType, customerType }) => {
 
         <div className="flex items-center justify-between mt-4">
           {OperationType == "review" && (
-            <button className="bg-accept w-32 text-white px-4 py-2 hover:bg-green-600">
-              
+            <button className="bg-accept w-32 text-white px-4 py-2 hover:bg-green-600"> 
               Accept
             </button>
           )}
