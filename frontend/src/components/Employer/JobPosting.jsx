@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FiMail, FiPlusCircle } from "react-icons/fi";
 import Category from "../Category";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
 
 const JobPosting = ({isView=false}) => {
    const  [jobDetails,setJobDetails] = useState({position:"Software Developer",firstName:"John",lastName:"Doe",email:"john@gmail.com",pay:"35$",startDate:"2020-02-03",endDate:"2020-04-03"})
@@ -17,8 +20,16 @@ const JobPosting = ({isView=false}) => {
    },[])
   return (
     <div className="bg-gray-50 min-h-screen flex justify-center w-full">
-      <button onClick={()=>setIsEditable(true)}>Edit</button>
-      <div className="bg-white rounded-lg shadow-lg p-8 m-2 max-w-2xl w-full">
+      <div className="bg-white rounded-lg shadow-lg p-8 m-4 max-w-2xl w-full">
+      <div className='flex justify-evenly'>
+          <div className='flex justify-center'>
+            <h1 className="text-md font-semibold mb-4">Job Posting</h1>
+          </div>
+          <div className='flex justify-end ml-20'>
+            <MdEdit className="mr-3"/>
+            <MdDelete />
+          </div>
+        </div>
         <h1 className="text-xs font-semibold mb-2">Position</h1>
         <input
           className="mb-2 w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
@@ -67,12 +78,12 @@ const JobPosting = ({isView=false}) => {
           </div>
           <div className="w-1/2 ml-1">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {/* <FiMail className="text-gray-500" /> */}
+              <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                {/*} <FiMail className="text-gray-500" /> */}
               </div>
               <h1 className="text-xs font-semibold mb-2">Pay Per Hour</h1>
               <input
-                className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker pl-10"
+                className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
                 type="text"
                 placeholder="Enter pay per hour in $"
                 readOnly={!isEditable}
@@ -95,7 +106,7 @@ const JobPosting = ({isView=false}) => {
                 <input
                   type="date"
                   id="start-date"
-                  className="px-4 border rounded p-2 shadow appearance-none text-grey-darke"
+                  className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darke"
                   readOnly={!isEditable}
                   value={jobDetails.startDate}
                   onChange={(e)=>handleChange("startDate",e.target.value)}
@@ -108,7 +119,7 @@ const JobPosting = ({isView=false}) => {
                 <input
                   type="date"
                   id="end-date"
-                  className="px-4border rounded p-2 shadow appearance-none text-grey-darke"
+                  className="w-full px-4 py-2 text-xs border rounded shadow appearance-none text-grey-darke"
                   readOnly={!isEditable}
                   value={jobDetails.endDate}
                   onChange={(e)=>handleChange("endDate",e.target.value)}
@@ -120,15 +131,16 @@ const JobPosting = ({isView=false}) => {
         <div className="flex items-start mt-6 text-base font-medium">
           <Category isCategory={isView} />
         </div>
-        <div className="flex items-center justify-between mt-8 mb-8">
+        <div className="flex items-center justify-between mt-4 mb-8">
           <div className="flex-1 ml-3">
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full">
+            <button className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-1/2">
               Save & Finish
             </button>
           </div>
         </div>
       </div>
     </div>
+    
   );
 };
 
