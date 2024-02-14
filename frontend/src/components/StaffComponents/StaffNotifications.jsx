@@ -7,13 +7,13 @@ const StaffNotifications = () => {
     {
       userName: "professional",
       type: "jobRequest",
-      companyName: "Google",
+      companyName: " Google",
       
     },
     {
       userName: "professional2",
       type: "jobRequest",
-      companyName: "Facebook",
+      companyName: " Facebook",
     },
     {
       userName: "professional",
@@ -24,6 +24,21 @@ const StaffNotifications = () => {
       userName: "empolyee",
       type: "deleteRequest",
       companyName: null,
+    },
+    {
+      job: "FrontEnd Engineer",
+      type: "jobNotification",
+      companyName: " Facebook",
+    },
+    {
+      job: "BackendEnd Engineer",
+      type: "jobNotification",
+      companyName: " Linkedin",
+    },
+    {
+      job: "ML Engineer",
+      type: "jobNotification",
+      companyName: " Apple",
     },
   ];
   return (
@@ -36,12 +51,12 @@ const StaffNotifications = () => {
             <IoIosNotifications />
           </div>
  
-          {notifications.map((item, index) => {
+          {notifications.filter((item)=>item.type=="jobNotification").map((item, index) => {
             return (
-              <div key={index} className="rounded-lg m-3 py-2 border-l-0 border border-r-0 border-t-0 ">
+              <div key={index} className="rounded-lg m-3 py-2 border-l-0 border border-r-0 border-t-0  hover:bg-blue-300">
                 {item.type == "jobRequest" ? (
                   <>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between ">
                       <p className="text-base font-normal ml-6">
                         {item.userName} has Requested for job match in
                         {item.companyName}
@@ -58,7 +73,7 @@ const StaffNotifications = () => {
                       </button>
                     </div>
                   </>
-                ) : (
+                ) : item.type == "item.deleteRequest" ? (
                   <>
                     <div className="flex items-center justify-between ">
                       <p className="text-base font-normal ml-6">
@@ -71,6 +86,15 @@ const StaffNotifications = () => {
                       </button>
                     </div>
                   </>
+                ):(
+                  <>
+                    <div className="flex items-center justify-between ">
+                      <p className="text-base font-normal ml-6">
+                        Your Profile has been matched for {item.job} role with
+                        {item.companyName}
+                      </p>
+                    </div>
+                    </>
                 )}
               </div>
             );

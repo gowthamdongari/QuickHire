@@ -39,6 +39,10 @@ const SideNavBar = () => {
       title: "Job Lists",
       link: "/home/JobLists",
     },
+    {
+      title: "Notifications",
+      link: "/home/notifications",
+    },
   ];
 
   return (
