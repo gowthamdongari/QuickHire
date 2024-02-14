@@ -1,6 +1,15 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+function useQuery(){
+  const {search} = useLocation();
+  return React.useMemo(()=>new URLSearchParams(search),[search]);
+}
 
 const RegistrationPage = () => {
+  const query = useQuery();
+  const customerType = query.get("type");
+  const navigation = useNavigate();
   const mystyle = {
     Header: {
       color: "#5856d6",
@@ -65,9 +74,15 @@ const RegistrationPage = () => {
       fontSize: "16px",
     },
   };
+
+  const handleNavigation = () =>{
+      if(customerType=="Professional"){
+         navigation("/education");
+      }
+  }
   return (
     <div>
-      <h3 style={mystyle.Registration}>Employer Registration</h3>
+      <h3 style={mystyle.Registration}>{customerType} Registration</h3>
       <p style={mystyle.Para}>Enter your company details to continue</p>
       <form className="flex flex-col justify-center ml-[220px]">
         {/* Personal Details */}
@@ -164,10 +179,11 @@ const RegistrationPage = () => {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
+          onClick={handleNavigation}
           className="ml-[300px] w-[468px] h-[48px] p-2  rounded-3xl  bg-[#e22823] decoration-[#ffffff] cursor-pointer leading-5 font"
         >
-          Register
+        {customerType=="Professional" ? "Save Continue":"Register"}
         </button>
       </form>
     </div>
