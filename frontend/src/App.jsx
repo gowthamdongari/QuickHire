@@ -18,6 +18,7 @@ import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
 import Notifications from "./pages/Notifications";
 import IndividualPage from "./pages/Staff/IndividualPage";
+import JobLists from "./pages/JobLists";
 
 const App = () => {
   return (
@@ -42,7 +43,7 @@ const App = () => {
          <Route path="/home/PaymentHistory" element={<PaymentHistory/>} />
          <Route path="/home/ProfessionalJobListingPage" element={<ProfessionalJobListingPage/>} />
          <Route path="/home/JobPosting" element={<JobPosting/>} />
-
+         <Route path ="/home/JobLists" element={<JobLists/>}/>
       </Route>
     </Routes>
   );

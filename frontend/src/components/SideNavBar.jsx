@@ -2,40 +2,44 @@ import { NavLink } from "react-router-dom";
 
 const SideNavBar = () => {
   // write all the links here
- 
- const staffLinks =[
-  {
-    title:"Professional Reviews",
-    link:"/home/Professional?op=review"
-  },
-  {
-    title:"Empolyee Reviews",
-    link:"/home/Empolyee?op=review"
-  },
-  {
-    title:"Professional lists",
-    link:"/home/Professional?op=listing"
-  },
-  {
-     title:"Empolyee Lists",
-     link:"/home/Empolyee?op=listing"
-  },
-  {
-    title:"Notifications",
-    link:"/home/notifications"
-  },
-  {
-    title:"Settings",
-    link:"/home/Settings"
-  }
- ]
-  
- const employerLinks =[
-     {
-       title:"Create Job",
-       link:"/home/JobPosting"
-     }
- ]
+
+  const staffLinks = [
+    {
+      title: "Professional Reviews",
+      link: "/home/Professional?op=review",
+    },
+    {
+      title: "Empolyee Reviews",
+      link: "/home/Empolyee?op=review",
+    },
+    {
+      title: "Professional lists",
+      link: "/home/Professional?op=listing",
+    },
+    {
+      title: "Empolyee Lists",
+      link: "/home/Empolyee?op=listing",
+    },
+    {
+      title: "Notifications",
+      link: "/home/notifications",
+    },
+    {
+      title: "Settings",
+      link: "/home/Settings",
+    },
+  ];
+
+  const employerLinks = [
+    {
+      title: "Create Job",
+      link: "/home/JobPosting",
+    },
+    {
+      title: "Job Lists",
+      link: "/home/JobLists",
+    },
+  ];
 
   return (
     <aside>
