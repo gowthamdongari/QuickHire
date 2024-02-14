@@ -1,225 +1,52 @@
 import { Box } from "lucide-react";
 import React from "react";
-
+import { FaUserTie, FaPhoneAlt } from "react-icons/fa"; // react-icons for professional icon
+import { BsBank } from "react-icons/bs";
+import { IoIosMail } from "react-icons/io";
 
 const ProfessionalDetails = () => {
-  const styles = {
-    Username: {
-      color: "#030303",
-      fontSize: "24px",
-      fontFamily: "Source Sans Pro",
-      fontWeight: 600,
-      lineHeight: "36px",
-    },
-    ProfessionalDetails: {
-      color: "#030303",
-      fontSize: "24px",
-      fontFamily: "Source Sans Pro",
-      fontWeight: 600,
-      lineHeight: "36px",
-      textAlign: "center",
-    },
-    FirstName: {
-      color: "#030303",
-      fontSize: "12px",
-      fontFamily: "Source Sans Pro",
-      fontWeight: 150,
-      lineHeight: "23px",
-    },
-    Address: {
-      color: "#858585",
-      fontSize: "12px",
-      fontFamily: "Source Sans Pro",
-      lineHeight: "23px",
-    },
-    Email: {
-      color: "#858585",
-      fontSize: "12px",
-      fontFamily: "Source Sans Pro",
-      lineHeight: "23px",
-    },
-    PhoneNo: {
-      color: "#858585",
-      fontSize: "12px",
-      fontFamily: "Source Sans Pro",
-      lineHeight: "23px",
-    },
-    Education: {
-      color: "#030303",
-      fontSize: "14px",
-      fontFamily: "Source Sans Pro",
-      fontWeight: "500",
-      lineHeight: "23px",
-    },
-    Card: {
-      top: "470px",
-      left: "304px",
-      width: "500px",
-      height: "200px",
-      backgroundColor: "#ffffff",
-      borderRadius: "24px",
-      border: "1px solid #282828",
-      boxSizing: "border-box",
-    },
-    SmuHeading: {
-      color: "#030303",
-      fontSize: "14px",
-      fontFamily: "Source Sans Pro",
-      fontWeight: 600,
-      lineHeight: "36px",
-    },
-    SmuText: {
-      color: "#858585",
-      fontSize: "12px",
-      fontFamily: "Source Sans Pro",
-      lineHeight: "23px",
-    },
-    Card1: {
-      top: "725px",
-      left: "420px",
-      width: "437px",
-      height: "200px",
-      backgroundColor: "#f7f5ff",
-      borderRadius: "12px",
-      border: "1px solid #aa93f3",
-      boxSizing: "border-box",
-    },
-    VerticalDivider: {
-      top: "753px",
-      left: "598px",
-      width: "1px",
-      height: "200px",
-      backgroundColor: "#aa93f3",
-      borderRadius: "2px",
-    },
-    ExperienceHeader: {
-      color: "#aa93f3",
-      fontSize: "18px",
-      fontFamily: "DM Sans",
-      fontWeight: 500,
-      lineHeight: "26px",
-    },
-    ExperiencePara: {
-      color: "#3d3d3d",
-      fontSize: "14px",
-      fontFamily: "Poppins",
-      fontWeight: 300,
-      lineHeight: "18px",
-    },
-    Card2: {
-      top: "1074px",
-      left: "304px",
-      width: "555px",
-      height: "180px",
-      backgroundColor: "#ffffff",
-      borderRadius: "24px",
-      border: "1px solid #282828",
-      boxSizing: "border-box",
-    },
-    Para: {
-      color: "#545d7e",
-      fontSize: "14px",
-      fontFamily: "Roboto",
-      lineHeight: "31px",
-    },
-    Button: {
-      cursor: "pointer",
-      top: "1323px",
-      left: "304px",
-      width: "221px",
-      height: "57px",
-      padding: "0px 8px",
-      border: "0",
-      boxSizing: "border-box",
-      backgroundColor: "#2f667f",
-      color: "#ffffff",
-      fontSize: "14px",
-      fontFamily: "Roboto",
-      lineHeight: "24px",
-      outline: "none",
-    },
-    Button1: {
-      cursor: "pointer",
-      top: "1322px",
-      left: "840px",
-      width: "221px",
-      height: "57px",
-      padding: "0px 8px",
-      border: "0",
-      boxSizing: "border-box",
-      backgroundColor: "#e22823",
-      color: "#ffffff",
-      fontSize: "14px",
-      fontFamily: "Roboto",
-      lineHeight: "24px",
-      outline: "none",
-    },
-  };
   return (
     <div>
-      <div>
-        <h1 style={styles.ProfessionalDetails}>Professional Details</h1>
+      <div className="flex justify-center">
+        <h1 className="font-extrabold text-2xl">Professional Details</h1>
       </div>
-      <div>
-        <h3 style={styles.Username}>User Name</h3>
-        <div className="flex items-start">
-          <h5 style={styles.FirstName}>First Name</h5>
-          <h5 style={styles.FirstName}>Last Name</h5>
+      <div className="flex flex-col">
+        <div className="flex-shrink-0">
+          <FaUserTie className="h-20 w-24" />
         </div>
         <div>
-          <h5 style={styles.Address}>
-            Address: 5657, mcfarlein Blvd, Dallas, Texas, United States
-          </h5>
-          <text style={styles.Email}>profesional@gmail.com</text>
-          <p style={styles.PhoneNo}>1234567890</p>
-        </div>
-        <div>
-          <h5 style={styles.Education}>Education</h5>
-          <div
-            style={styles.Card}
-            className="bg-white p-4 rounded-lg shadow-md"
-          >
-            <h5 style={styles.SmuHeading}>Southern Methodist University</h5>
-            <p style={styles.SmuText}>
-              Master of Science - Computer Enginering
-            </p>
-            <p style={styles.SmuText}>Aug 2023 - May 2025</p>
-            <h5 style={styles.SmuHeading}>Southern Methodist University</h5>
-            <p style={styles.SmuText}>
-              Master of Science - Computer Enginering
-            </p>
-            <p style={styles.SmuText}>Aug 2023 - May 2025</p>
-          </div>
-        </div>
-        <h5 style={styles.Education}>Experience</h5>
-        <div style={styles.Card1} className="flex items-start justify-evenly">
-          <div>
-            <h5 style={styles.ExperienceHeader}>Header A</h5>
-            <p style={styles.ExperiencePara}>Cell Text A1</p>
-            <p style={styles.ExperiencePara}>Cell Text A2</p>
-            <p style={styles.ExperiencePara}>Cell Text A3</p>
-          </div>
-          <div style={styles.VerticalDivider}></div>
-          <div>
-            <h5 style={styles.ExperienceHeader}>Header B</h5>
-            <p style={styles.ExperiencePara}>Cell Text A1</p>
-            <p style={styles.ExperiencePara}>Cell Text A2</p>
-            <p style={styles.ExperiencePara}>Cell Text A3</p>
-          </div>
-          <div style={styles.VerticalDivider}></div>
-        </div>
-        <div style={styles.Card2} className="bg-white p-4 rounded-lg shadow-md">
-          <p style={styles.Para}>
-            Being late for the interview can have a negative impression on the
-            interviewer and give them the idea that you are less serious about
-            the position.
-          </p>
-        </div>
-        <div className="flex items-start justify-evenly">
-          <button style={styles.Button}>Accept</button>
-          <button style={styles.Button1}>Reject</button>
+          <h3 className="text-xl font-semibold m-3">User Name</h3>
         </div>
       </div>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col">
+          <div className="flex flex-row text-base font-medium ">
+            <h5 className="mr-3">First Name</h5>
+            <h5>Last Name</h5>
+          </div>
+          <div className="text-gray-400 text-sm mt-1">
+            <h5>Address: 5657, mcfarlein Blvd, Dallas, Texas, United States</h5>
+          </div>
+        </div>
+        <div>
+          <div className="flex flex-col mr-12 text-sm text-gray-600 font-normal">
+            <div className="flex flex-row">
+              <IoIosMail />
+              <text className="ml-2"> Profesional@gmail.com</text>{" "}
+            </div>
+            <div className="flex flex-row mt-2">
+            <FaPhoneAlt />
+
+            <p className="ml-2">1234567890</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="flex items-start justify-evenly">
+        <button style={styles.Button}>Accept</button>
+        <button style={styles.Button1}>Reject</button>
+      </div> */}
     </div>
   );
 };
