@@ -102,8 +102,8 @@ const JobPosting = () => {
           <Category />
         </div>
         <div className="flex items-center justify-between mt-8 mb-8">
-          <div className="flex-1 ml-3">
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full">
+          <div className="flex ml-3 justify-center">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">
               Save & Finish
             </button>
           </div>
