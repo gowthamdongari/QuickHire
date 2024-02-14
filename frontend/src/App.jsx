@@ -21,6 +21,7 @@ import IndividualPage from "./pages/Staff/IndividualPage";
 import PasswordChange from "./components/PasswordChange";
 import AccountSettings from "./components/AccountSettings";
 import JobLists from "./pages/JobLists";
+import IndividualJob from "./pages/IndividualJob";
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
          <Route path="/home/AccountSettings" element={<AccountSettings/>} />
 
          <Route path ="/home/JobLists" element={<JobLists/>}/>
+         <Route path="/homeJobLists/JobDescription" element={<IndividualJob/>} />
       </Route>
     </Routes>
   );
