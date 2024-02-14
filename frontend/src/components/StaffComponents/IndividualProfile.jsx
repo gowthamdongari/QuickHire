@@ -2,9 +2,11 @@ import React from "react";
 import { FaUserTie } from 'react-icons/fa'; // react-icons for professional icon
 import { BsBank } from "react-icons/bs";
 import { IconContext } from 'react-icons';
+import { useNavigate } from "react-router-dom";
 
 
 const IndividualProfile = ({ OperationType, customerType }) => {
+  const navigate = useNavigate();
   const category = [
     {
       type: "Experience :",
@@ -22,7 +24,9 @@ const IndividualProfile = ({ OperationType, customerType }) => {
     }
   ];
   
-
+  const navigator =()=>{
+       navigate("/home/individual?type="+customerType);
+  }
   
   return (
     <div>
@@ -64,7 +68,7 @@ const IndividualProfile = ({ OperationType, customerType }) => {
             </button>
           )}
 
-          <button className="bg-details w-32 text-black text- px-4 py-2 hover:bg-blue-600">
+          <button onClick={navigator} className="bg-details w-32 text-black text- px-4 py-2 hover:bg-blue-600">
             Details
           </button>
         </div>
