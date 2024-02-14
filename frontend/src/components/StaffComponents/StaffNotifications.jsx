@@ -8,6 +8,7 @@ const StaffNotifications = () => {
       userName: "professional",
       type: "jobRequest",
       companyName: "Google",
+      
     },
     {
       userName: "professional2",
