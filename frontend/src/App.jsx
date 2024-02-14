@@ -10,6 +10,9 @@ import Profiles from "./pages/Staff/Profiles";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
 import Education from "./auth/Forms/Education";
 import RegistrationPageProfessional from "./auth/Forms/RegistrationPageProfessional";
+import PaymentHistory from "./components/Payments/PaymentHistory";
+import ProfessionalJobListingPage from "./components/ProfessionalProfile/ProfessionalJobListingPage";
+import JobPosting from "./components/Employer/JobPosting";
 import Settings from "./pages/Settings";
 import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
@@ -35,6 +38,12 @@ const App = () => {
          <Route path="/home/settings/staffAccounts" element={ <StaffAccounts/> }/>
          <Route path="/home/individual" element ={<IndividualPage />}/>
          <Route path="/home/:type" element={<Profiles/>}/>
+         <Route path="/home/accountSettings" element={<AccountSettings/>}/>
+         <Route path="/home/ProfessionalDetails" element={<ProfessionalDetails/>} />
+         <Route path="/home/PaymentHistory" element={<PaymentHistory/>} />
+         <Route path="/home/ProfessionalJobListingPage" element={<ProfessionalJobListingPage/>} />
+         <Route path="/home/JobPosting" element={<JobPosting/>} />
+
       </Route>
     </Routes>
   );
