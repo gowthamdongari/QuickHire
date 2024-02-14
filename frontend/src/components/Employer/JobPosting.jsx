@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiMail, FiPlusCircle } from 'react-icons/fi';
+import Category from '../Category';
 
 const JobPosting = () => {
-   
+  const [category, setCategory] = useState({ type: "", keywords: "" });
+  const [categoryList, setCategoryList] = useState([]);
+  const handleChange = (key, val) => {
+    setCategory({ ...category, [key]: val });
+  };
+  const handleAdd = () => {
+    if (categoryList.length > 0) {
+      setCategoryList([...categoryList, category]);
+    } else {
+      setCategoryList([category]);
+    }
+    console.log(categoryList);
+    console.log(category);
+    setCategory({ type: "", keywords: "" });
+  };
   return (
-    <div className="bg-gray-50 min-h-screen flex justify-center items-center">
+    <div className="bg-gray-50 min-h-screen flex justify-center w-full">
       <div className="bg-white rounded-lg shadow-lg p-8 m-2 max-w-2xl w-full">
         <h1 className="text-xs font-semibold mb-2">Position</h1>
         <input
@@ -68,6 +83,7 @@ const JobPosting = () => {
             </div>
             </div>
             </div>
+            
             <div className="flex items-center justify-between mb-8">
             <div className="flex-1 ml-3">
             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full">
