@@ -36,3 +36,7 @@
   border-radius: 24px;
 }
 
+.passwordinput{
+  @apply mb-4 w-full px-3 py-2 text-xs border rounded shadow appearance-none ;
+}
+
