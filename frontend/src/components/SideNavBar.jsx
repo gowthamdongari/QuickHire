@@ -30,6 +30,12 @@ const SideNavBar = () => {
   }
  ]
   
+ const employerLinks =[
+     {
+       title:"Create Job",
+       link:"/home/JobPosting"
+     }
+ ]
 
   return (
     <aside>
@@ -37,7 +43,7 @@ const SideNavBar = () => {
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}
-          {staffLinks.map((item) => {
+          {employerLinks.map((item) => {
             return (
               <NavLink
                 to={item.link}
