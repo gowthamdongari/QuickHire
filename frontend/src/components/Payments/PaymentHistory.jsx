@@ -1,8 +1,6 @@
-import { Box } from 'lucide-react';
 import React from 'react'
 
-
-const ProfessionalDetails = () => {
+function PaymentHistory() {
     const styles = {
         Username: {
           color: '#030303',
@@ -54,7 +52,7 @@ const ProfessionalDetails = () => {
           Card: {
             top: '470px',
             left: '304px',
-            width: '400px',
+            width: '300px',
             height: '200px',
             backgroundColor: '#ffffff',
             borderRadius: '24px',
@@ -74,64 +72,40 @@ const ProfessionalDetails = () => {
             fontFamily: 'Source Sans Pro',
             lineHeight: '23px',
           },
-          Card1: {
-            top: '725px',
-            left: '420px',
-            width: '300px',
-            height: '150px',
-            backgroundColor: '#f7f5ff',
-            borderRadius: '12px',
-            border: '1px solid #aa93f3',
-            boxSizing: 'border-box',
-          },
-          VerticalDivider: {
-            top: '753px',
-            left: '598px',
-            width: '1px',
-            height: '150px',
-            backgroundColor: '#aa93f3',
-            borderRadius: '2px',
-          },
-          ExperienceHeader: {
-            color: '#aa93f3',
-            fontSize: '18px',
-            fontFamily: 'DM Sans',
-            fontWeight: 500,
-            lineHeight: '26px',
-          },
-          ExperiencePara: {
-            color: '#3d3d3d',
-            fontSize: '14px',
-            fontFamily: 'Poppins',
-            fontWeight: 300,
-            lineHeight: '18px',
-            padding: '3px',
-          },
           Card2: {
             top: '1074px',
             left: '304px',
-            width: '555px',
-            height: '130px',
+            width: '300px',
+            height: '150px',
             backgroundColor: '#ffffff',
-            borderRadius: '24px',
+            borderRadius: '4px',
             border: '1px solid #282828',
             boxSizing: 'border-box',
           },
-          Para: {
-            color: '#545d7e',
-            fontSize: '14px',
-            fontFamily: 'Roboto',
-            lineHeight: '31px',
+          Card3: {
+            top: '1151px',
+            left: '304px',
+            width: '300px',
+            height: '80px',
+            backgroundColor: '#ffffff',
+            borderRadius: '4px',
+            border: '1px solid #282828',
+            boxSizing: 'border-box',
+          },
+          PaymentPara: {
+                color: '#000000',
+                fontSize: '14px',
+                fontFamily: 'Roboto',
+                lineHeight: '31px',
           },
           Button: {
             cursor: 'pointer',
-            top: '1323px',
-            left: '304px',
-            width: '200px',
-            height: '50px',
+            top: '1322px',
+            left: '840px',
+            width: '221px',
+            height: '57px',
             padding: '0px 8px',
             border: '0',
-            borderRadius: '24px',
             boxSizing: 'border-box',
             backgroundColor: '#2f667f',
             color: '#ffffff',
@@ -140,26 +114,9 @@ const ProfessionalDetails = () => {
             lineHeight: '24px',
             outline: 'none',
           },
-          Button1: {
-            cursor: 'pointer',
-            top: '1322px',
-            left: '840px',
-            width: '200px',
-            height: '50px',
-            padding: '0px 8px',
-            border: '0',
-            borderRadius: '24px',
-            boxSizing: 'border-box',
-            backgroundColor: '#e22823',
-            color: '#ffffff',
-            fontSize: '14px',
-            fontFamily: 'Roboto',
-            lineHeight: '24px',
-            outline: 'none',
-          },
-      };
+    };
   return (
-    <div>
+      <div>
         <div>
             <h1 style={styles.ProfessionalDetails}>Professional Details</h1>
         </div>
@@ -170,7 +127,7 @@ const ProfessionalDetails = () => {
             <h5 style={styles.FirstName}>Last Name</h5>
         </div>
         <div>
-            <h5 style={styles.Address}>Address: 5657, mcfarlein Blvd, Dallas, Texas, United States</h5> 
+            <h5 style={styles.Address}>Address: 5657, mcfarlein Blvd, Dallas, Texas, United States</h5>  
             <text style={styles.Email}>profesional@gmail.com</text> 
             <p style={styles.PhoneNo}>1234567890</p>
         </div>
@@ -185,34 +142,33 @@ const ProfessionalDetails = () => {
                 <p style={styles.SmuText}>Aug 2023 - May 2025</p>
             </div>
         </div>
-        <h5 style={styles.Education}>Experience</h5>
-        <div style={styles.Card1} className='m-4 flex items-start justify-evenly'>
-            <div>
-            <h5 style={styles.ExperienceHeader}>Header A</h5>
-            <p style={styles.ExperiencePara}>Cell Text A1</p>
-            <p style={styles.ExperiencePara}>Cell Text A2</p>
-            <p style={styles.ExperiencePara}>Cell Text A3</p>
+        <div>
+            <h5 style={styles.Education}>Experience</h5>
+            <div style={styles.Card} className='bg-white m-4 p-4 rounded-lg shadow-md'>
+                <h5 style={styles.SmuHeading}>Google</h5>
+                <p style={styles.SmuText}>'machnne learning enginer</p>
+                <p style={styles.SmuText}>Aug 2020 - May 2021</p>
+                <h5 style={styles.SmuHeading}>IBM</h5>
+                <p style={styles.SmuText}>Quatum expert</p>
+                <p style={styles.SmuText}>Aug 2023 - May 2025</p>
             </div>
-            <div style={styles.VerticalDivider}></div>
-                <div>
-                <h5 style={styles.ExperienceHeader}>Header B</h5>
-                <p style={styles.ExperiencePara}>Cell Text A1</p>
-                <p style={styles.ExperiencePara}>Cell Text A2</p>
-                <p style={styles.ExperiencePara}>Cell Text A3</p>
-                </div>
-            <div style={styles.VerticalDivider}></div>
         </div>
+        
         <div style={styles.Card2} className='bg-white m-4 p-4 rounded-lg shadow-md'>
-            <p style={styles.Para}>Being late for the interview can have a negative impression on the interviewer and give them the idea that you are less serious about the position.</p>
+            <p style={styles.PaymentPara}>Payment Amount</p>
+            <p style={styles.PaymentPara}>200 $</p>
+            <p style={styles.PaymentPara}>Payment Status</p>
+            <p style={styles.PaymentPara}>Done</p>
         </div>
-        <div className='m-4 flex items-start justify-evenly'>
-        <button style={styles.Button}>Accept</button>
-        <button style={styles.Button1}>Reject</button>
+        <div style={styles.Card3} className='bg-white m-4 p-4 rounded-lg shadow-md'>
+            <p style={styles.PaymentPara}>Payment Date</p>
+            <p style={styles.PaymentPara}>2/10/2024</p>            
+        </div>
+        <div className='m-4 flex items-center justify-center'>
+        <button style={styles.Button}>Intiate Matching</button>
         </div>
         </div>
     </div>
-    
   )
 }
-
-export default ProfessionalDetails
+export default PaymentHistory
