@@ -1,7 +1,7 @@
 import React from "react";
 import { IoIosNotifications } from "react-icons/io";
 import { BsLightningCharge } from "react-icons/bs";
-
+ 
 const StaffNotifications = () => {
   const notifications = [
     {
@@ -35,7 +35,7 @@ const StaffNotifications = () => {
             {" "}
             <IoIosNotifications />
           </div>
-
+ 
           {notifications.map((item, index) => {
             return (
               <div key={index} className="rounded-lg m-3 py-2 border-l-0 border border-r-0 border-t-0 ">
@@ -50,7 +50,7 @@ const StaffNotifications = () => {
                     <div className="flex items-center justify-end">
                     {/* <BsLightningCharge className="mr-2"/> */}
                       <button className="bg-accept mr-5 hover:bg-blue-700 text-white text-xs h-5 w-24 rounded focus:outline-none">
-                        
+                       
                         Match
                       </button>
                       <button className="bg-red-500 hover:bg-red-700 text-white mr-6 text-xs h-5 w-24 rounded focus:outline-none">
@@ -80,5 +80,6 @@ const StaffNotifications = () => {
     </div>
   );
 };
-
+ 
 export default StaffNotifications;
+ 
