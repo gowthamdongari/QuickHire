@@ -1,5 +1,7 @@
 import React from "react";
-
+import { IoIosNotifications } from "react-icons/io";
+import { BsLightningCharge } from "react-icons/bs";
+ 
 const StaffNotifications = () => {
   const notifications = [
     {
@@ -28,35 +30,42 @@ const StaffNotifications = () => {
       <h1 className="text-3xl font-bold mb-4">Notifcations</h1>
       <div className="w-[750px] h-[639px] rounded-3xl box-border border">
         <div className="bg-gray-100 shadow-md rounded px-4 py-6">
-          {notifications.map((item) => {
+          <div className="flex flex-row justify-end mr-4 ">
+            {" "}
+            <IoIosNotifications />
+          </div>
+ 
+          {notifications.map((item, index) => {
             return (
-              <div className="rounded-lg m-3 py-2 ">
+              <div key={index} className="rounded-lg m-3 py-2 border-l-0 border border-r-0 border-t-0 ">
                 {item.type == "jobRequest" ? (
                   <>
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-xl font-semibold">
+                    <div className="flex items-center justify-between">
+                      <p className="text-base font-normal ml-6">
                         {item.userName} has Requested for job match in
                         {item.companyName}
                       </p>
                     </div>
                     <div className="flex items-center justify-end">
-                      <button className="bg-blue-500 mr-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+                    {/* <BsLightningCharge className="mr-2"/> */}
+                      <button className="bg-accept mr-5 hover:bg-blue-700 text-white text-xs h-5 w-24 rounded focus:outline-none">
+                       
                         Match
                       </button>
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+                      <button className="bg-red-500 hover:bg-red-700 text-white mr-6 text-xs h-5 w-24 rounded focus:outline-none">
                         Reject
                       </button>
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-xl font-semibold">
+                    <div className="flex items-center justify-between ">
+                      <p className="text-base font-normal ml-6">
                         {item.userName} has Requested for Deletion of an account
                       </p>
                     </div>
-                    <div className="flex items-center justify-end">
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+                    <div className="flex items-center justify-end mr-6">
+                      <button className="bg-red-500 hover:bg-red-700 text-white text-xs h-5 w-24  rounded focus:outline-none">
                         Delete
                       </button>
                     </div>
@@ -70,5 +79,6 @@ const StaffNotifications = () => {
     </div>
   );
 };
-
+ 
 export default StaffNotifications;
+ 
