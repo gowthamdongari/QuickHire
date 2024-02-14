@@ -18,6 +18,8 @@ import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
 import Notifications from "./pages/Notifications";
 import IndividualPage from "./pages/Staff/IndividualPage";
+import PasswordChange from "./components/PasswordChange";
+import AccountSettings from "./components/AccountSettings";
 import JobLists from "./pages/JobLists";
 import IndividualJob from "./pages/IndividualJob";
 
@@ -44,6 +46,9 @@ const App = () => {
          <Route path="/home/PaymentHistory" element={<PaymentHistory/>} />
          <Route path="/home/ProfessionalJobListingPage" element={<ProfessionalJobListingPage/>} />
          <Route path="/home/JobPosting" element={<JobPosting/>} />
+         <Route path="/home/PasswordChange" element={<PasswordChange/>} />
+         <Route path="/home/AccountSettings" element={<AccountSettings/>} />
+
          <Route path ="/home/JobLists" element={<JobLists/>}/>
          <Route path="/homeJobLists/JobDescription" element={<IndividualJob/>} />
       </Route>
