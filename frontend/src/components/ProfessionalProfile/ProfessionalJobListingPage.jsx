@@ -1,13 +1,14 @@
 import React from 'react'
 import { FiBell, FiSearch } from 'react-icons/fi';
+import { MdDelete } from "react-icons/md";
 
-const ProfessionalJobListingPage = () => {
+const ProfessionalJobListingPage = ({type}) => {
     const jobs = [
         { position: 'Software Developer', 
         id: '49345081', 
         startDate: 'Feb-01-2024', 
         endDate: 'Feb-01-2024', 
-        pay: '35 $/hr' },
+        pay: '35 $/hr' }, 
         { position: 'Software Developer', 
         id: '49345081', 
         startDate: 'Feb-01-2024', 
@@ -57,7 +58,7 @@ const ProfessionalJobListingPage = () => {
               <th className="text-left px-6">End Date</th>
               <th className="text-left px-6">Pay</th>
               <th className="text-right px-6">
-                <button>Notify All</button></th>
+                {type!="empolyerlisting" &&<button>Notify All</button>}</th>
             </tr>
           </thead>
           <tbody>
@@ -69,7 +70,9 @@ const ProfessionalJobListingPage = () => {
                 <td className="px-6">{job.endDate}</td>
                 <td className="px-6">{job.pay}</td>
                 <td className="px-6 text-center">
-                  <FiBell className="inline-block" />
+                  {
+                    type=="empolyerlisting" ? <MdDelete /> : <FiBell className="inline-block" />
+                  }
                 </td>
               </tr>
             ))}
