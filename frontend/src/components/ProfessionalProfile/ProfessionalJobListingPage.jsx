@@ -59,7 +59,7 @@ const ProfessionalJobListingPage = ({ type }) => {
 
   
   return (
-    <div  onClick={()=>navigation("JobDescription")}  className="bg-gray-100 min-h-screen p-8 cursor-pointer">
+    <div   className="bg-gray-100 min-h-screen p-8 ">
       <div className="flex items-center justify-center">
         <button className="flex items-center m-6 bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-md">
           Initiate Matching
@@ -82,7 +82,7 @@ const ProfessionalJobListingPage = ({ type }) => {
           </thead>
           <tbody>
             {jobs.map((job, index) => (
-              <tr key={index} className="h-12 border-gray-300 border-b">
+              <tr onClick={()=>navigation("/home/JobLists/JobDescription")}  key={index} className="h-12 border-gray-300 border-b cursor-pointer">
                 <td className="px-6">{job.position}</td>
                 <td className="px-6">{job.id}</td>
                 <td className="px-6">{job.startDate}</td>
