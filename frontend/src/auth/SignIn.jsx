@@ -7,7 +7,7 @@ const SignIn = () => {
   return (
     <>
       <div className="max-h-screen flex flex-col">
-        <TopNavBar />
+        {/* <TopNavBar /> */}
         {/*
       This example requires updating your template:
 

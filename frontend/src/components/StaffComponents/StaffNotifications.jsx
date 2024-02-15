@@ -51,7 +51,7 @@ const StaffNotifications = () => {
             <IoIosNotifications />
           </div>
  
-          {notifications.filter((item)=>item.type=="jobNotification").map((item, index) => {
+          {notifications.filter((item)=>item.type!=="jobNotification").map((item, index) => {
             return (
               <div key={index} className="rounded-lg m-3 py-2 border-l-0 border border-r-0 border-t-0  hover:bg-blue-300">
                 {item.type == "jobRequest" ? (
@@ -73,7 +73,7 @@ const StaffNotifications = () => {
                       </button>
                     </div>
                   </>
-                ) : item.type == "item.deleteRequest" ? (
+                ) :   (
                   <>
                     <div className="flex items-center justify-between ">
                       <p className="text-base font-normal ml-6">
@@ -86,15 +86,6 @@ const StaffNotifications = () => {
                       </button>
                     </div>
                   </>
-                ):(
-                  <>
-                    <div className="flex items-center justify-between ">
-                      <p className="text-base font-normal ml-6">
-                        Your Profile has been matched for {item.job} role with
-                        {item.companyName}
-                      </p>
-                    </div>
-                    </>
                 )}
               </div>
             );

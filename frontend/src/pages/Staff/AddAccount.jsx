@@ -2,70 +2,67 @@ import React from 'react'
 
 const AddAccount = () => {
   return (
-    <div className="bg-white shadow-md rounded px-4 py-4">
-    <h2 className="text-xl font-semibold mb-2">New Applicant</h2>
-    <form>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label htmlFor="firstName" className="block text-gray-700 font-bold mb-1">
-            First Name
-          </label>
+    <div className="bg-gray-50 min-h-screen flex justify-center w-full">
+      <div className="bg-white rounded-lg shadow-lg p-8 m-4 max-w-2xl w-full">
+        <div className='flex justify-center'>
+            <h1 className="text-md font-semibold mb-4">New Applicant</h1>
+          </div>
+          <div className="flex flex-wrap -mx-2 mb-2">
+          <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+          <h1 className="text-xs font-semibold mb-2">First Name</h1>
           <input
+            className="mb-2 w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
             type="text"
             id="firstName"
-            className="regInput"
+            placeholder="First Name"
           />
         </div>
-        <div>
-          <label htmlFor="lastName" className="block text-gray-700 font-bold mb-1">
-            Last Name
-          </label>
+        <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+            <h1 className="text-xs font-semibold mb-2">Last Name</h1>
           <input
+            className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
             type="text"
             id="lastName"
-            className="regInput"
+            placeholder="Last Name"
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label htmlFor="firstName" className="block text-gray-700 font-bold mb-1">
-            Preferred Username
-          </label>
+      <div className="flex flex-wrap -mx-2 mb-2">
+          <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+          <h1 className="text-xs font-semibold mb-2">Preferred Username</h1>
           <input
+            className="mb-2 w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
             type="text"
             id="firstName"
-            className="regInput"
+            placeholder="Preferred Username"
           />
         </div>
-        <div>
-          <label htmlFor="lastName" className="block text-gray-700 font-bold mb-1">
-            Email
-          </label>
+        <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+            <h1 className="text-xs font-semibold mb-2">Email</h1>
           <input
+            className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
             type="text"
             id="lastName"
-            className="regInput"
+            placeholder="Email"
           />
         </div>
       </div>
-      <div className="mb-4">
-        <label htmlFor="phone" className="block text-gray-700 font-bold mb-1">
-          Phone Number
-        </label>
+      <div className="flex flex-wrap">
+      <h1 className="text-xs font-semibold mb-2">Phone No</h1>
         <input
+          className="w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker"
           type="text"
           id="phone"
-          className="regInput"
+          placeholder='Phone No'
         />
       </div>
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none mt-2"
+        className=" mt-8 flex w-full justify-center rounded-md bg-fbblue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         Create Account
       </button>
-    </form>
+    </div>
   </div>
   )
 }
