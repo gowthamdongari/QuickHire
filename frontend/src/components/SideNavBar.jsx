@@ -44,6 +44,28 @@ const SideNavBar = () => {
       link: "/home/notifications",
     },
   ];
+  const ProfessionalLinks = [
+    {
+      title: "Browse Jobs",
+      link: "/home/BrowseJobs",
+    },
+    {
+      title: "Matched Jobs",
+      link: "/home/MatchedJobs",
+    },
+    {
+      title: "Notifications",
+      link: "/home/notifications",
+    },
+    {
+      title: "Payments",
+      link: "/home/Payments",
+    },
+    {
+      title: "Account Settings",
+      link: "/home/AccountSettings",
+    },
+  ];
 
   return (
     <aside>
