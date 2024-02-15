@@ -4,10 +4,24 @@ import { Link } from "react-router-dom";
 import TopNavBar from "../components/TopNavBar";
 
 const SignIn = () => {
+  const [username, setUsername] = useState('');
+  const [isValid, setIsValid] = useState(true);
+
+  const validateUsername = (username) => {
+    // Example validation: username must be at least 5 characters long
+    const regex = /^[A-Z0-9. _%+-]+@[A-Z0-9. -]+\. [A-Z]{2,}$/i;
+    return regex.test(username);
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setUsername(value);
+    setIsValid(validateUsername(value));
+  };
   return (
     <>
       <div className="max-h-screen flex flex-col">
-        <TopNavBar />
+        {/* <TopNavBar  /> */}
         {/*
       This example requires updating your template:
 
@@ -53,10 +67,18 @@ const SignIn = () => {
                       id="email"
                       name="email"
                       type="email"
+                      value={username}
+                      onChange={handleChange}
                       autoComplete="email"
-                      required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        isValid ? 'border-gray-300' : 'border-red-500'}`}
                     />
+                    {!isValid && (
+          <p className="mt-2 text-sm text-red-600" id="username-error">
+            Username must contain only letters, numbers 1-9, @, and be at least 3 characters long.
+          </p>
+        )}
                   </div>
                 </div>
 

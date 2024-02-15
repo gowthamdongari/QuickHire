@@ -34,7 +34,7 @@ const LandingPage = () => {
 
   return (
     <div className="max-h-screen flex flex-col">
-      <TopNavBar />
+      <TopNavBar  isLandingPage ={true}/>
       <main>
         <div className="ml-10 mr-10">
           <MainFeaturedPost post={mainFeaturedPost} />
