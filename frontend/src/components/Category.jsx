@@ -68,32 +68,34 @@ const Category = ({isCategory}) => {
       </div>}
       <div>
         <form >
-          <div className="flex flex-row gap-5 ml-8">
-            <div>
-              <label>Category Type:</label>
+          <div className="flex flex-row -mx-2 mb-2">
+            <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+              <label className="text-xs font-semibold mb-2">Category Type:</label>
               <br></br>
               <input
+                className="w-full text-xs border rounded shadow appearance-none text-grey-darke"
                 value={category.type}
                 onChange={(e) => handleChange("type", e.target.value)}
                 placeholder="Enter your Category Type"
                 type="text"
               />
             </div>
-            <div>
-              <label>Keywords</label>
+            <div className="w-full md:w-1/2 px-2">
+              <label className="text-xs font-semibold mb-2">Keywords</label>
               <br></br>
               <input
+                className="w-full text-xs border rounded shadow appearance-none text-grey-darke"
                 placeholder="Enter your keywwords"
                 value={category.keywords}
                 onChange={(e) => handleChange("keywords", e.target.value)}
                 type="text"
               />
             </div>
-            <div className="mt-6">
+            <div className="m-6">
               <button
                 type="button"
                 onClick={handleAdd}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
                 add
               </button>
@@ -110,7 +112,7 @@ const Category = ({isCategory}) => {
             {categoryList.length > 1 && (
               <button
                 onClick={() => navigation("/home")}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
                 Finish
               </button>

@@ -83,12 +83,12 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
             placeholder="Write the reasons for rejection"
           ></textarea>
           <div className="flex justify-between flex-row mt-2">
-            <button type="button" className="bg-accept w-32 text-white px-4 py-2  hover:bg-green-600">
+            <button type="button" className="bg-accept w-32 text-white px-4 py-2 text-sm rounded hover:bg-green-600">
               Accept
             </button>
             <button
               type="button"
-              class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className=" text-white bg-red-700 w-32 hover:bg-red-800  focus:ring-red-300 rounded text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
               Reject
             </button>

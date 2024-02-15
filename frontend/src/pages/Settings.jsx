@@ -25,32 +25,30 @@ const Settings = () => {
   }
 
   return (
-    <div className="flex justify-center container flex-col">
-      <h3 className="text-4xl font-bold">Account Settings</h3> <br></br>
-      <form className="flex flex-col">
-        <div className="m-5">
-          <label>Email:</label>
-          <br></br>
+    <div className="bg-gray-50 min-h-screen flex justify-center w-full">
+    <div className="bg-white rounded-lg shadow-lg p-8 m-4 max-w-xl w-1/2">
+    <h1 className="flex justify-center text-lg font-semibold mb-4">Account Settings</h1>
+        <div className="m-4">
+          <label className="text-xs font-semibold mb-4">Email:</label>
           <input
-            className="regInput"
+            className="passwordinput text-grey-darker"
             readOnly={!isEditable}
             value={userDetails.email}
             onChange={(e)=>handleChange("email",e.target.value)}
             type="text"
           />
-        </div>
-        <div className="m-5">
-          <label>Phone:</label>
-          <br></br>
+          </div>
+        <div className="m-4">
+          <label className="text-xs font-semibold mb-4">Phone:</label>
           <input
-            className="regInput"
+            className="passwordinput text-grey-darker"
             readOnly={!isEditable}
             value={userDetails.phone}
             onChange={(e)=>handleChange("phone",e.target.value)}
             type="text"
           />
         </div>
-        <div className="m-5">
+        <div className="m-4 flex justify-center">
           {isEditable && (
             <button
               type="button"
@@ -63,20 +61,28 @@ const Settings = () => {
           <button
             onClick={()=>handleEdit(true)}
             type="button"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="flex w-full justify-center rounded-md bg-fbblue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             {isEditable?"Save":"Edit"}
           </button>
         </div>
-      </form>
       <div>
-         <div>
-          <button type="button" onClick={()=>navigationButton("add")}>Crete an Staff Account</button>
+         <div className="flex justify-center">
+          <button 
+          className="mt-10 mb-4 text-center text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          type="button" 
+          onClick={()=>navigationButton("add")}>
+          Create an Staff Account
+          </button>
           </div>
-          <div>
-         <button onClick={()=>navigationButton("create")}>Staff Accounts</button>
+          <div className="flex justify-center">
+         <button 
+         type="button" 
+         className="text-center text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+         onClick={()=>navigationButton("create")}>Staff Accounts</button>
           </div>
       </div>
+    </div>
     </div>
   );
 };
