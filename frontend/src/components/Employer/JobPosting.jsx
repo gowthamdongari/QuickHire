@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FiMail, FiPlusCircle } from "react-icons/fi";
 import Category from "../Category";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";

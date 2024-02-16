@@ -9,18 +9,17 @@ import Category from "./components/Category";
 import Profiles from "./pages/Staff/Profiles";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
 import Education from "./auth/Forms/Education";
-import PaymentHistory from "./components/Payments/PaymentHistory";
-import ProfessionalJobListingPage from "./components/ProfessionalProfile/ProfessionalJobListingPage";
-import JobPosting from "./components/Employer/JobPosting";
 import AddAccount from "./pages/Staff/AddAccount";
 import StaffAccounts from "./pages/Staff/StaffAccounts";
-import Notifications from "./pages/Notifications";
+import Notifications from "./pages/common/Notifications";
 import IndividualPage from "./pages/Staff/IndividualPage";
-import AccountSettings from "./components/AccountSettings";
-import JobLists from "./pages/JobLists";
-import IndividualJob from "./pages/IndividualJob";
 import Settings from "./pages/common/Settings";
 import PasswordChange from "./pages/common/PasswordChange";
+import CreateJob from "./pages/Empolyer/CreateJob";
+import JobList from "./pages/Empolyer/JobList";
+import PaymentPage from "./pages/common/PaymentPage";
+import BrowseJobs from "./pages/Professionals/BrowseJobs";
+import MatchedJobs from "./pages/Professionals/MatchedJobs";
 
 const App = () => {
   return (
@@ -55,34 +54,29 @@ const App = () => {
           path="/home/empolyerLists"
           element={<Profiles customerType={"Empolyer"} viewType={"list"} />}
         />
+        <Route path="/home/individual" element={<IndividualPage />} />
 
         {/* Staff routes end here */}
 
-        <Route path="/home/notifications" element={<Notifications />} />
-        <Route path="/home/settings/createAccount" element={<AddAccount />} />
-        <Route
-          path="/home/settings/staffAccounts"
-          element={<StaffAccounts />}
-        />
-        <Route path="/home/individual" element={<IndividualPage />} />
-        <Route path="/home/PaymentHistory" element={<PaymentHistory />} />
-        <Route
-          path="/home/ProfessionalJobListingPage"
-          element={<ProfessionalJobListingPage />}
-        />
-        <Route path="/home/JobPosting" element={<JobPosting />} />
-        <Route path="/home/AccountSettings" element={<AccountSettings />} />
+        {/* Empolyer routes start here */}
+        <Route path="/home/CreateJobs" element={<CreateJob />} />
+        <Route path="/home/JobLists" element={<JobList />} />
+        {/* Empolyer routes end here */}
 
-        <Route path="/home/JobLists" element={<JobLists />} />
-        <Route
-          path="/homeJobLists/JobDescription"
-          element={<IndividualJob />}
-        />
+        {/* Professional routes start here */}
+        <Route path="/home/BrowseJobs" element={<BrowseJobs />} />
+        <Route path="/home/MatchedJobs" element={<MatchedJobs />} />
+        {/* Professional routes end here */}
+        {/* root account routes start here */}
+        <Route path="/home/createAccount" element={<AddAccount />} />
+        <Route path="/home/staffAccounts" element={<StaffAccounts />} />
+        {/* root account routes end here */}
 
-        
         {/* common routes start here */}
         <Route path="/home/settings" element={<Settings />} />
-        <Route path="/home/PasswordChange" element={<PasswordChange />} />  
+        <Route path="/home/PasswordChange" element={<PasswordChange />} />
+        <Route path="/home/notifications" element={<Notifications />} />
+        <Route path="/home/payments" element={<PaymentPage />} />
         {/* common routes end here */}
       </Route>
     </Routes>

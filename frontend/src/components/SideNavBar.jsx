@@ -33,7 +33,7 @@ const SideNavBar = () => {
   const employerLinks = [
     {
       title: "Create Job",
-      link: "/home/JobPosting",
+      link: "/home/CreateJobs",
     },
     {
       title: "Job Lists",
@@ -41,8 +41,16 @@ const SideNavBar = () => {
     },
     {
       title: "Notifications",
-      link: "/home/notifications",
+      link: "/home/notifications?user=empolyer",
     },
+    {
+      title:"Payments",
+      link:"/home/payments"
+    },
+    {
+      title:"Settings",
+      link:"/home/Settings?user=empolyer"
+    }
   ];
   const ProfessionalLinks = [
     {
@@ -54,16 +62,12 @@ const SideNavBar = () => {
       link: "/home/MatchedJobs",
     },
     {
-      title: "Notifications",
-      link: "/home/notifications",
-    },
-    {
       title: "Payments",
       link: "/home/Payments",
     },
     {
-      title: "Account Settings",
-      link: "/home/AccountSettings",
+      title: "Settings",
+      link: "/home/Settings?user=professional",
     },
   ];
 
@@ -73,7 +77,7 @@ const SideNavBar = () => {
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}
-          {staffLinks.map((item,index) => {
+          {ProfessionalLinks.map((item,index) => {
             return (
               <NavLink
                 to={item.link}
