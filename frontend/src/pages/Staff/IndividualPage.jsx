@@ -1,6 +1,6 @@
 import React from 'react'
-import ProfessionalDetails from '../../components/ProfessionalProfile/ProfessionalDetails';
 import { useLocation } from 'react-router-dom';
+import FullProfileDetails from '../../components/StaffComponents/FullProfileDetails';
 
 function useQuery(){
   const {search} = useLocation();
@@ -14,7 +14,7 @@ const IndividualPage = () => {
   console.log(customerType,operationType)
   return (
     <div>
-       <ProfessionalDetails customerType={customerType} operationType={operationType}/>
+       <FullProfileDetails customerType={customerType} operationType={operationType}/>
     </div>
   )
 }

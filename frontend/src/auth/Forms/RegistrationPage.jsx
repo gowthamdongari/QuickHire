@@ -1,13 +1,11 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "../../customHooks/useQuery";
 
-function useQuery(){
-  const {search} = useLocation();
-  return React.useMemo(()=>new URLSearchParams(search),[search]);
-}
+
 
 const RegistrationPage = () => {
-  const query = useQuery();
+  const query = useQuery()
   const customerType = query.get("type");
   const navigation = useNavigate();
  

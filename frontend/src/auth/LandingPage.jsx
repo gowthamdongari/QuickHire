@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import TopNavBar from "../components/TopNavBar";
 import MainFeaturedPost from "../components/MainFeaturedPost";
 import FeaturedPost from "../components/FeaturedPost";
-import Grid from "@mui/material/Grid";
 
 const LandingPage = () => {
   const mainFeaturedPost = {
@@ -34,15 +32,15 @@ const LandingPage = () => {
 
   return (
     <div className="max-h-screen flex flex-col">
-      <TopNavBar  isLandingPage ={true}/>
+      <TopNavBar isLandingPage={true} />
       <main>
         <div className="ml-10 mr-10">
           <MainFeaturedPost post={mainFeaturedPost} />
         </div>
 
         <div className="flex flex-row justify-center">
-          {featuredPosts.map((post) => (
-            <div className="m-4">
+          {featuredPosts.map((post, index) => (
+            <div key={index} className="m-4">
               <FeaturedPost key={post.title} post={post} />
             </div>
           ))}

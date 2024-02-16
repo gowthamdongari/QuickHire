@@ -1,26 +1,17 @@
-import React from 'react'
-import IndividualProfile from '../../components/StaffComponents/IndividualProfile'
-import { useLocation, useParams } from 'react-router-dom'
+import React from "react";
+import SingleProfileBox from "../../components/StaffComponents/SingleProfileBox";
 
-
-function useQuery(){
-  const {search} = useLocation();
-  return React.useMemo(()=>new URLSearchParams(search),[search]);
-}
-const Profiles = () => {
-  const {type} = useParams();
-  const query = useQuery();
-  const operation = query.get("op");
+const Profiles = ({ customerType, viewType }) => {
   return (
-    <div className='grid grid-cols-3 gap-3'>
-        <IndividualProfile OperationType={operation} customerType={type} />
-        <IndividualProfile OperationType={operation} customerType={type}/>
-        <IndividualProfile OperationType={operation} customerType={type}/>
-        <IndividualProfile OperationType={operation} customerType={type}/>
-        <IndividualProfile OperationType={operation} customerType={type}/>
-        <IndividualProfile OperationType={operation} customerType={type}/>
+    <div className="grid grid-cols-3 gap-3">
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
+      <SingleProfileBox customerType={customerType} viewType={viewType} />
     </div>
-  )
-}
+  );
+};
 
-export default Profiles
+export default Profiles;

@@ -1,14 +1,13 @@
-import { Box } from "lucide-react";
 import React from "react";
 import { FaUserTie, FaPhoneAlt } from "react-icons/fa"; // react-icons for professional icon
-import { BsBank } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
 import EducationList from "../EducationList";
 import CategoryList from "../CategoryList";
 import PaymentHistory from "../Payments/PaymentHistory";
-import ProfessionalJobListingPage from "./ProfessionalJobListingPage";
+import ProfessionalJobListingPage from "../ProfessionalProfile/ProfessionalJobListingPage";
+import { BsBank } from "react-icons/bs";
 
-const ProfessionalDetails = ({ customerType, operationType }) => {
+const FullProfileDetails = ({ customerType, operationType }) => {
   const educationDetails = [
     { schoolName: "Smu", major: "Computer science", endTime: "2020-01-27" },
     { schoolName: "Smu", major: "Computer science", endTime: "2020-01-27" },
@@ -24,6 +23,7 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
       keywords: "java,python",
     },
   ];
+
   return (
     <div>
       <div className="flex justify-center">
@@ -31,7 +31,11 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
       </div>
       <div className="flex flex-col">
         <div className="flex-shrink-0">
-          <FaUserTie className="h-20 w-24" />
+          {customerType == "Professional" ? (
+            <FaUserTie className="h-12 w-14" />
+          ) : (
+            <BsBank className="h-12 w-14" />
+          )}
         </div>
         <div>
           <h3 className="text-xl font-semibold m-3">User Name</h3>
@@ -71,7 +75,7 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
           {educationDetails && (
             <EducationList educationDetails={educationDetails} />
           )}
-          <h3>Categories</h3>
+          <h3>Categories:</h3>
           {<CategoryList categoryList={categoryies} />}
         </div>
       )}
@@ -83,7 +87,10 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
             placeholder="Write the reasons for rejection"
           ></textarea>
           <div className="flex justify-between flex-row mt-2">
-            <button type="button" className="bg-accept w-32 text-white px-4 py-2 text-sm rounded hover:bg-green-600">
+            <button
+              type="button"
+              className="bg-accept w-32 text-white px-4 py-2 text-sm rounded hover:bg-green-600"
+            >
               Accept
             </button>
             <button
@@ -95,19 +102,15 @@ const ProfessionalDetails = ({ customerType, operationType }) => {
           </div>
         </div>
       )}
-      {
-        operationType == "listing" && (
-           <div className="w-fit mt-4">
-              PaymentHistory:
-              <PaymentHistory />
-              <ProfessionalJobListingPage />
-           </div>
-           
-        )
-      }
-
+      {operationType == "list" && (
+        <div className="w-fit mt-4">
+          PaymentHistory:
+          <PaymentHistory />
+          {customerType == "Professional" && <ProfessionalJobListingPage />}
+        </div>
+      )}
     </div>
   );
 };
 
-export default ProfessionalDetails;
+export default FullProfileDetails;

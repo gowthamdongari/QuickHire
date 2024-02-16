@@ -6,19 +6,19 @@ const SideNavBar = () => {
   const staffLinks = [
     {
       title: "Professional Reviews",
-      link: "/home/Professional?op=review",
+      link: "/home/professionalReviews",
     },
     {
-      title: "Empolyee Reviews",
-      link: "/home/Empolyee?op=review",
+      title: "Empolyer Reviews",
+      link: "/home/empolyerReviews",
     },
     {
       title: "Professional lists",
-      link: "/home/Professional?op=listing",
+      link: "/home/ProfessionalLists",
     },
     {
-      title: "Empolyee Lists",
-      link: "/home/Empolyee?op=listing",
+      title: "Empolyer Lists",
+      link: "/home/empolyerLists",
     },
     {
       title: "Notifications",
@@ -73,11 +73,11 @@ const SideNavBar = () => {
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}
-          {staffLinks.map((item) => {
+          {staffLinks.map((item,index) => {
             return (
               <NavLink
                 to={item.link}
-                key={item.link}
+                key={index}
                 className="flex items-center p-2 mt-2 text-xs text-white hover:bg-blue-200 rounded link"
               >
                 {/* Use your icons library here */}
