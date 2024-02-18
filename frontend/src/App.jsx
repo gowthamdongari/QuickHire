@@ -20,6 +20,7 @@ import JobList from "./pages/Empolyer/JobList";
 import PaymentPage from "./pages/common/PaymentPage";
 import BrowseJobs from "./pages/Professionals/BrowseJobs";
 import MatchedJobs from "./pages/Professionals/MatchedJobs";
+import JobDetailsPage from "./pages/common/JobDetailsPage";
 
 const App = () => {
   return (
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="/home/BrowseJobs" element={<BrowseJobs />} />
         <Route path="/home/MatchedJobs" element={<MatchedJobs />} />
         {/* Professional routes end here */}
+
         {/* root account routes start here */}
         <Route path="/home/createAccount" element={<AddAccount />} />
         <Route path="/home/staffAccounts" element={<StaffAccounts />} />
@@ -77,6 +79,7 @@ const App = () => {
         <Route path="/home/PasswordChange" element={<PasswordChange />} />
         <Route path="/home/notifications" element={<Notifications />} />
         <Route path="/home/payments" element={<PaymentPage />} />
+        <Route path="/home/jobdetails" element={<JobDetailsPage/>}/>
         {/* common routes end here */}
       </Route>
     </Routes>
