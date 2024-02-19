@@ -2,21 +2,50 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import TopNavBar from "../components/TopNavBar";
+import {
+  validatePassword,
+  validateUsername,
+} from "../validations/standardValidations";
 
+const userDetails = {
+  userName: "",
+  password: "",
+};
+
+const errorMsg = {
+  userError: "",
+  passwordError: "",
+};
 const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [isValid, setIsValid] = useState(true);
-
-  const validateUsername = (username) => {
-    // Example validation: username must be at least 5 characters long
-    const regex = /^[A-Z0-9. _%+-]+@[A-Z0-9. -]+\. [A-Z]{2,}$/i;
-    return regex.test(username);
+  const [loginDetails, setLoginDetails] = useState(userDetails);
+  const [loginErrorMsgs, setLoginErrorMsgs] = useState(errorMsg);
+  const handleChange = (e) => {
+    try {
+      setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setUsername(value);
-    setIsValid(validateUsername(value));
+  const handleSubmit = (e) => {
+    try {
+      e.preventDefault();
+      const errorObj = {
+        userError: validateUsername(loginDetails.userName),
+        passwordError: validatePassword(loginDetails.password),
+      };
+      setLoginErrorMsgs(errorObj);
+      if (
+        errorObj.userError.length <= 0 &&
+        errorObj.passwordError.length <= 0
+      ) {
+        alert("login success");
+        setLoginErrorMsgs(errorMsg);
+        setLoginDetails(userDetails);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -60,25 +89,29 @@ const SignIn = () => {
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Email address
+                    Username
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={username}
+                      name="userName"
+                      type="text"
+                      value={loginDetails.userName}
                       onChange={handleChange}
-                      autoComplete="email"
-                      
+                      autoComplete="userName"
                       className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                        isValid ? 'border-gray-300' : 'border-red-500'}`}
+                        !(loginErrorMsgs?.userError.length > 0)
+                          ? "border-gray-300"
+                          : "border-red-500"
+                      }`}
                     />
-                    {!isValid && (
-          <p className="mt-2 text-sm text-red-600" id="username-error">
-            Username must contain only letters, numbers 1-9, @, and be at least 3 characters long.
-          </p>
-        )}
+                    {loginErrorMsgs?.userError.length > 0 && (
+                      <p
+                        className="mt-2 text-sm text-red-600"
+                        id="username-error"
+                      >
+                        {loginErrorMsgs.userError}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -96,16 +129,30 @@ const SignIn = () => {
                       id="password"
                       name="password"
                       type="password"
+                      value={loginDetails.password}
+                      onChange={handleChange}
                       autoComplete="current-password"
-                      required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                        loginErrorMsgs.userError.length > 0
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
                     />
+                    {loginErrorMsgs?.passwordError.length > 0 && (
+                      <p
+                        className="mt-2 text-sm text-red-600"
+                        id="username-error"
+                      >
+                        {loginErrorMsgs.passwordError}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSubmit}
                     className="flex w-full justify-center rounded-md bg-fbblue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Login
