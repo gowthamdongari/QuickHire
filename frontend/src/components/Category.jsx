@@ -1,95 +1,84 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import CategoryList from "./CategoryList";
+import {
+  checkKeysEmpty,
+  validateEmptiness,
+} from "../validations/standardValidations";
+import ErrorMsgComponent from "./shared/ErrorMsgComponent";
 
-const mystyle = {
-  Header: {
-    color: "#5856d6",
-    fontsize: "48px",
-    fontFamily: "Roboto Slab",
-    fontWeight: "500",
-    lineHeight: "62px",
-    textAlign: "center",
-  },
-  Registration: {
-    color: "#3a3a3a",
-    fontSize: "40px",
-    fontFamily: "Source Sans Pro",
-    fontWeight: 700,
-    lineHeight: "38px",
-    textAlign: "center",
-  },
-  Para: {
-    color: "#3a3a3a",
-    fontSize: "18px",
-    fontFamily: "Source Sans Pro",
-    lineHeight: "31px",
-    textAlign: "center",
-  },
+const details = {
+  type: "",
+  keywords: "",
 };
-const Category = ({isCategory}) => {
-  const [category, setCategory] = useState({ type: "", keywords: "" });
-  const [categoryList, setCategoryList] = useState([]);
-  const navigation = useNavigate();
+const intialErrorObj = {
+  typeError: "",
+  keywordError: "",
+};
+const Category = ({ handleCategoryAdd }) => {
+  const [category, setCategory] = useState(details);
+  const [categoryError, setCategoryError] = useState(intialErrorObj);
   const handleChange = (key, val) => {
     setCategory({ ...category, [key]: val });
   };
-  const isShowHeader = false;
-   
+
   const handleAdd = () => {
-    if (categoryList.length > 0) {
-      setCategoryList([...categoryList, category]);
-    } else {
-      setCategoryList([category]);
+    try {
+      const errorObj = {
+        typeError: validateEmptiness(category.type, "Type Field is empty!"),
+        keywordError: validateEmptiness(
+          category.keywords,
+          "Keywords are empty!"
+        ),
+      };
+      setCategoryError(errorObj)
+      if (!checkKeysEmpty(errorObj)) {
+        handleCategoryAdd(category);
+        setCategory(details);
+        setCategoryError(intialErrorObj);
+      }
+    } catch (error) {
+      console.log(error);
     }
-    console.log(categoryList);
-    console.log(category);
-    setCategory({ type: "", keywords: "" });
   };
-  useEffect(()=>{
-       if(isCategory){
-        setCategoryList([
-          {
-            type:"skills",
-            keywords:"java"
-          }
-        ])
-       }
-  },[])
+
   return (
-    <div>{isShowHeader &&
+    <div>
       <div>
-      <h1 style={mystyle.Header}>QuickHire</h1>
-      <h3 style={mystyle.Registration}>Professional Registration</h3>
-      <p style={mystyle.Para}>
-        Enter your Role Specific Category details to continue
-      </p>
-      </div>}
-      <div>
-        <form >
+        <form>
           <div className="flex flex-row -mx-2 mb-2">
             <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
-              <label className="text-xs font-semibold mb-2">Category Type:</label>
+              <label className="text-xs font-semibold mb-2">
+                Category Type:
+              </label>
               <br></br>
               <input
-                className="w-full text-xs border rounded shadow appearance-none text-grey-darke"
+                className={`w-full text-xs border rounded shadow appearance-none text-grey-darke ${
+                  categoryError.typeError.length > 0
+                    ? "border-red-500"
+                    : "border-gray-300"
+                }`}
                 value={category.type}
                 onChange={(e) => handleChange("type", e.target.value)}
                 placeholder="Enter your Category Type"
                 type="text"
               />
+              <ErrorMsgComponent msg={categoryError.typeError}/>
             </div>
             <div className="w-full md:w-1/2 px-2">
               <label className="text-xs font-semibold mb-2">Keywords</label>
               <br></br>
               <input
-                className="w-full text-xs border rounded shadow appearance-none text-grey-darke"
+                className={`w-full text-xs border rounded shadow appearance-none text-grey-darke ${
+                  categoryError.keywordError.length > 0
+                    ? "border-red-500"
+                    : "border-gray-300"
+                }`}
                 placeholder="Enter your keywwords"
                 value={category.keywords}
                 onChange={(e) => handleChange("keywords", e.target.value)}
                 type="text"
               />
+               <ErrorMsgComponent msg={categoryError.keywordError}/>
             </div>
             <div className="m-6">
               <button
@@ -100,23 +89,6 @@ const Category = ({isCategory}) => {
                 add
               </button>
             </div>
-          </div>
-          {
-             categoryList.length>0 && (
-              <div className="w-[600px] h-fit mt-6">
-                < CategoryList categoryList={categoryList}/>
-              </div>
-             )
-          }
-          <div className="mt-7">
-            {categoryList.length > 1 && (
-              <button
-                onClick={() => navigation("/home")}
-                className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Finish
-              </button>
-            )}
           </div>
         </form>
       </div>

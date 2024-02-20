@@ -122,10 +122,32 @@ export const validateDate =(date,customMsg)=>{
   }
 }
 
-
+/**
+ * 
+ * @param { give an obj with keys} obj 
+ * @returns  "returns true if anyone value in obj is present or returns false if all values in obj is empty"
+ */
 export const checkKeysEmpty = (obj) => {
   for (const key in obj) {
     if (obj[key].length > 0) return true;
   }
   return false;
 };
+
+/**
+ * 
+ * @param {*val which need to check if it is empty or not } val 
+ * @param {*custommsg to return } customMsg 
+ * @returns  returns customsg or field empty msg
+ */
+export const validateEmptiness =(val,customMsg)=>{
+  try {
+     if(val&&val.length>0){
+      return "";
+     }
+     return customMsg||"This Field is Empty!"
+  } catch (error) {
+    console.log(error)
+    return "Field Empty"
+  }
+}
