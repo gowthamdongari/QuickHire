@@ -25,6 +25,15 @@ export const validatePassword = (password, customMsg) => {
   }
 };
 
+export const validateTwoPassword =(password1,password2)=>{
+  try {
+      if(password2.length<=0) return "Password field is empty" 
+      return password1===password2?"":"Password Didn't Matches"
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const validateFirstName = (firstName, customMsg) => {
   try {
     if (firstName && firstName.length > 0) {
