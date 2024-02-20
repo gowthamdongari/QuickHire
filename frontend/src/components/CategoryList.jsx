@@ -1,6 +1,7 @@
 import React from "react";
+import { FiDelete } from "react-icons/fi";
 
-const CategoryList = ({categoryList}) => {
+const CategoryList = ({ Lists, handleDelete }) => {
   return (
     <div className="overflow-x-auto">
       <table className="table-auto w-full border-collapse border border-gray-800">
@@ -8,10 +9,13 @@ const CategoryList = ({categoryList}) => {
           <tr className="bg-gray-200">
             <th className="border border-gray-800 px-4 py-2">Category Type</th>
             <th className="border border-gray-800 px-4 py-2">Keywords</th>
+            {handleDelete && (
+              <th className="border border-gray-800 px-4 py-2">Delete</th>
+            )}
           </tr>
         </thead>
         <tbody>
-          {categoryList.map((item, index) => (
+          {Lists.map((item, index) => (
             <tr
               key={index}
               className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
@@ -20,6 +24,11 @@ const CategoryList = ({categoryList}) => {
               <td className="border border-gray-800 px-4 py-2">
                 {item.keywords}
               </td>
+              {handleDelete && (
+                <td className="border border-gray-800 px-4 py-2" onClick={()=>handleDelete(index)}>
+                  <FiDelete />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

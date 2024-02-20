@@ -5,7 +5,6 @@ import SignUp from "./auth/signUp";
 import LandingPage from "./auth/LandingPage";
 import Home from "./pages/Home";
 import "./globals.css";
-import Category from "./components/Category";
 import Profiles from "./pages/Staff/Profiles";
 import RegistrationPage from "./auth/Forms/RegistrationPage";
 import Education from "./auth/Forms/Education";
@@ -21,6 +20,7 @@ import PaymentPage from "./pages/common/PaymentPage";
 import BrowseJobs from "./pages/Professionals/BrowseJobs";
 import MatchedJobs from "./pages/Professionals/MatchedJobs";
 import JobDetailsPage from "./pages/common/JobDetailsPage";
+import CategoryPage from "./pages/common/CategoryPage";
 
 const App = () => {
   return (
@@ -29,10 +29,9 @@ const App = () => {
 
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/SignUp" element={<SignUp />} />
-      <Route path="/qualifications" element={<Category />} />
       <Route path="/RegistrationPage" element={<RegistrationPage />} />
       <Route path="/education" element={<Education />} />
-      <Route path="/category" element={<Category />} />
+      <Route path="/category" element={<CategoryPage />} />
 
       <Route path="/home" element={<Home />}>
         {/* childrens */}
@@ -79,7 +78,7 @@ const App = () => {
         <Route path="/home/PasswordChange" element={<PasswordChange />} />
         <Route path="/home/notifications" element={<Notifications />} />
         <Route path="/home/payments" element={<PaymentPage />} />
-        <Route path="/home/jobdetails" element={<JobDetailsPage/>}/>
+        <Route path="/home/jobdetails" element={<JobDetailsPage />} />
         {/* common routes end here */}
       </Route>
     </Routes>
