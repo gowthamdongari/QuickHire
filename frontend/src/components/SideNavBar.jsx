@@ -87,7 +87,7 @@ const SideNavBar = () => {
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}
-          {rootLinks.map((item,index) => {
+          {ProfessionalLinks.map((item,index) => {
             return (
               <NavLink
                 to={item.link}

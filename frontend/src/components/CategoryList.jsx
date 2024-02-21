@@ -1,5 +1,5 @@
 import React from "react";
-import { FiDelete } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 
 const CategoryList = ({ Lists, handleDelete }) => {
   return (
@@ -10,7 +10,7 @@ const CategoryList = ({ Lists, handleDelete }) => {
             <th className="border border-gray-800 px-4 py-2">Category Type</th>
             <th className="border border-gray-800 px-4 py-2">Keywords</th>
             {handleDelete && (
-              <th className="border border-gray-800 px-4 py-2">Delete</th>
+              <th className="border border-gray-800 px-4 py-2"></th>
             )}
           </tr>
         </thead>
@@ -26,7 +26,7 @@ const CategoryList = ({ Lists, handleDelete }) => {
               </td>
               {handleDelete && (
                 <td className="border border-gray-800 px-4 py-2" onClick={()=>handleDelete(item.ID)}>
-                  <FiDelete />
+                  <MdDelete />
                 </td>
               )}
             </tr>
