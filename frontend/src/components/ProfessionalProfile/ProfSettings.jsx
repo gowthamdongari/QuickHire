@@ -5,28 +5,43 @@ import ErrorMsgComponent from "../shared/ErrorMsgComponent";
 import EducationList from "../EducationList";
 import Category from "../Category";
 import CategoryList from "../CategoryList";
-import { checkKeysEmpty, validateDate, validateMajorName, validateSchoolName } from "../../validations/standardValidations";
+import {
+  checkKeysEmpty,
+  validateDate,
+  validateEmail,
+  validateEmptiness,
+  validateFirstName,
+  validateLastName,
+  validateMajorName,
+  validatePhone,
+  validateSchoolName,
+  validateZipcode,
+} from "../../validations/standardValidations";
 
 const education = [
   {
     schoolName: "SMU",
     major: "Msc Software engineering",
     endTime: "05/25/2025",
+    ID: "1234",
   },
   {
     schoolName: "UNT",
     major: "Bsc Comp science",
     endTime: "05/25/2020",
+    ID: "1233",
   },
 ];
 const category = [
   {
     type: "Skills",
     keywords: "Java,Python",
+    ID: "1234",
   },
   {
     type: "Experience",
     keywords: "2 years in java",
+    ID: "1233",
   },
 ];
 const intitalDetails = {
@@ -68,28 +83,35 @@ const ProfSettings = () => {
   const [accountErrors, setAccountErrors] = useState(errorDetails);
   const [isEditable, setIsEditable] = useState(false);
   const [educationDetails, setEducationDetails] = useState(details);
-  const [educationError,setEducationError] = useState(Error);
-  const handleEducationAdd =(e)=>{
+  const [educationError, setEducationError] = useState(Error);
+  const handleEducationAdd = (e) => {
     e.preventDefault();
-    const error ={
+    const error = {
       schoolNameError: validateSchoolName(educationDetails.schoolName),
       majorNameError: validateMajorName(educationDetails.major),
       endTimeError: validateDate(educationDetails.endTime),
-    }
+    };
     setEducationError(error);
-    if(!checkKeysEmpty(error)){
-      setEducationError(details);
-      let array = [...accountDetails.educationDetails,educationDetails]
-      
+    if (!checkKeysEmpty(error)) {
+      setEducationError(Error);
+      let array = [
+        ...accountDetails.educationDetails,
+        { ...educationDetails, ID: Date.now() + Math.random() },
+      ];
+      setAccountDetails({ ...accountDetails, educationDetails: array });
+      setEducationDetails(details);
     }
-  }
-  const handleEducationChange =(e)=>{
+  };
+  const handleEducationChange = (e) => {
     try {
-      setEducationDetails({...educationDetails,[e.target.name]:e.target.value})
+      setEducationDetails({
+        ...educationDetails,
+        [e.target.name]: e.target.value,
+      });
     } catch (error) {
-       console.log(error)
+      console.log(error);
     }
-  }
+  };
   const handleChange = (e) => {
     try {
       setAccountDetails({ ...accountDetails, [e.target.name]: e.target.value });
@@ -97,17 +119,67 @@ const ProfSettings = () => {
       console.log(error);
     }
   };
-  const handleCategory =(obj) =>{
+  const handleCategory = (obj) => {
     try {
-       let array = [...accountDetails.categoryList,obj];
-       setAccountDetails({...accountDetails,categoryList:array});
+      let array = [...accountDetails.categoryList, obj];
+      setAccountDetails({ ...accountDetails, categoryList: array });
     } catch (error) {
-       console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  const handleEducationDelete = (id) => {
+    try {
+      const array = accountDetails.educationDetails.filter(
+        (item) => id != item.ID
+      );
+      setAccountDetails({ ...accountDetails, educationDetails: array });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleCategoryDelete = (id) => {
+    try {
+      const array = accountDetails.categoryList.filter((item) => id != item.ID);
+      setAccountDetails({ ...accountDetails, categoryList: array });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSave = (e) => {
     try {
-    } catch (error) {}
+      e.preventDefault();
+      const errorObj = {
+        firstNameError: validateFirstName(accountDetails.firstName),
+        lastNameError: validateLastName(accountDetails.lastName),
+        emailError: validateEmail(accountDetails.emailName),
+        phoneError: validatePhone(accountDetails.phoneNo),
+        mailAddressError: validateEmptiness(
+          accountDetails.mailAddress,
+          "Address field is empty!"
+        ),
+        cityError: validateEmptiness(
+          accountDetails.city,
+          "City Field is empty"
+        ),
+        stateError: validateEmptiness(
+          accountDetails.state,
+          "State Field is Empty"
+        ),
+        zipCodeError: validateZipcode(accountDetails.zipcode),
+        categoryError:
+          accountDetails.categoryList.length >= 2
+            ? ""
+            : "Need atleast two Categories",
+      };
+      setAccountErrors(errorObj);
+      if(!checkKeysEmpty(errorObj)){
+        setIsEditable(false);
+        setAccountErrors(errorDetails);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="bg-gray-50 min-h-screen flex justify-center w-full">
@@ -267,6 +339,83 @@ const ProfSettings = () => {
             <ErrorMsgComponent msg={accountErrors.zipCodeError} />
           </div>
         </div>
+
+        <div className="flex flex-row gap-1 flex-shrink w-full">
+          <div>
+            <label>School Name:</label>
+            <br></br>
+            <input
+              placeholder="Enter your school name"
+              type="text"
+              value={educationDetails.schoolName}
+              name="schoolName"
+              onChange={handleEducationChange}
+              className={`${
+                educationError.schoolNameError.length > 0
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+            />
+            <ErrorMsgComponent msg={educationError.schoolNameError} />
+          </div>
+          <div>
+            <label>Major:</label>
+            <br></br>
+            <input
+              placeholder="Enter your major"
+              type="text"
+              value={educationDetails.major}
+              name="major"
+              onChange={handleEducationChange}
+              className={`${
+                educationError.schoolNameError.length > 0
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+            />
+            <ErrorMsgComponent msg={educationError.majorNameError} />
+          </div>
+          <div>
+            <label>Completion Time:</label>
+            <br></br>
+            <input
+              type="date"
+              value={educationDetails.endTime}
+              name="endTime"
+              onChange={handleEducationChange}
+              className={`${
+                educationError.schoolNameError.length > 0
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+            />
+            <ErrorMsgComponent msg={educationError.endTimeError} />
+          </div>
+          <div className="mt-6">
+            <button
+              type="button"
+              onClick={handleEducationAdd}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              add
+            </button>
+          </div>
+        </div>
+        <div className="mt-10">
+          <EducationList educationDetails={accountDetails.educationDetails} handleDelete={isEditable&&handleEducationDelete} />
+        </div>
+        <div className="mt-5">
+          <Category handleCategoryAdd={handleCategory} />
+        </div>
+        <div className="mt-5">
+          {accountDetails.categoryList.length > 0 && (
+            <CategoryList
+              Lists={accountDetails.categoryList}
+              handleDelete={isEditable&&handleCategoryDelete}
+            />
+          )}
+          <ErrorMsgComponent msg={accountErrors.categoryError}/>
+        </div>
         <div className="flex items-center justify-between mt-8 mb-8">
           {isEditable && (
             <div className="flex items-center justify-between mt-8 mb-8">
@@ -282,7 +431,7 @@ const ProfSettings = () => {
                   type="button"
                   onClick={() => {
                     setIsEditable(false);
-                    setAccountDetails(intialDetails);
+                    setAccountDetails(intitalDetails);
                     setAccountErrors(errorDetails);
                   }}
                   className=" text-white ml-10 bg-red-700 w-32 hover:bg-red-800  focus:ring-red-300 rounded text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
@@ -292,40 +441,6 @@ const ProfSettings = () => {
               </div>
             </div>
           )}
-        </div>
-        <div className="flex flex-row gap-1 flex-shrink w-full">
-          <div>
-            <label>School Name:</label>
-            <br></br>
-            <input placeholder="Enter your school name" type="text" />
-          </div>
-          <div>
-            <label>Major:</label>
-            <br></br>
-            <input placeholder="Enter your major" type="text" />
-          </div>
-          <div>
-            <label>Completion Time:</label>
-            <br></br>
-            <input type="date" />
-          </div>
-          <div className="mt-6">
-            <button
-              type="button"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              add
-            </button>
-          </div>
-        </div>
-        <div  className="mt-10">
-          <EducationList educationDetails={accountDetails.educationDetails} />
-        </div>
-        <div className="mt-5">
-             <Category  handleCategoryAdd={handleCategory}/>
-        </div>
-        <div className="mt-5">
-          <CategoryList Lists={accountDetails.categoryList}  />
         </div>
       </div>
     </div>
