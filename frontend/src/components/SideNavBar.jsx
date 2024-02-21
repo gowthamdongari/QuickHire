@@ -71,13 +71,23 @@ const SideNavBar = () => {
     },
   ];
 
+ const rootLinks =[
+  {
+     title:"Create Staff Accounts",
+     link:"/home/createAccount"
+  },
+  {
+    title:"Staff Accounts",
+    link:"/home/staffAccounts"
+  }
+ ]
   return (
     <aside>
       <div className="w-48 h-screen mt-2 ml-3 bg-gray-900 p-4 space-y-2">
         {/* Navigation links */}
         <nav>
           {/* Repeat this structure for each menu item */}
-          {staffLinks.map((item,index) => {
+          {rootLinks.map((item,index) => {
             return (
               <NavLink
                 to={item.link}
