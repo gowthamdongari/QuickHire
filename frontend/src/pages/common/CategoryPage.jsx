@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Category from "../../components/Category";
 import CategoryList from "../../components/CategoryList";
+import { useNavigate } from "react-router-dom";
 const mystyle = {
   Header: {
     color: "#5856d6",
@@ -28,6 +29,7 @@ const mystyle = {
 };
 const CategoryPage = () => {
   const [categoryLists, setCategoryList] = useState([]);
+  const navigation = useNavigate();
   const handleAdd = (category) => {
     try {
       if (categoryLists.length > 0) {
@@ -66,7 +68,7 @@ const CategoryPage = () => {
       </div>
       {categoryLists.length >= 2 && (
         <div className="ml-[300px] mt-10">
-          <button className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button type="button" onClick={()=>navigation("/home/BrowseJobs")} className="bg-blue-500 text-xs hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Finish
           </button>
         </div>

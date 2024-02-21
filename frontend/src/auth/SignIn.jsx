@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TopNavBar from "../components/TopNavBar";
 import {
   validatePassword,
@@ -26,6 +26,7 @@ const SignIn = () => {
       console.log(error);
     }
   };
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     try {
@@ -41,10 +42,58 @@ const SignIn = () => {
       ) {
         alert("login success");
         setLoginErrorMsgs(errorMsg);
+        tempSignIn(loginDetails.userName);
         setLoginDetails(userDetails);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const tempSignIn = (name) => {
+    switch (name) {
+      case "gowtham123":
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: "gowtham123",
+            role: "Professional",
+          })
+        );
+         navigate("/home/BrowseJobs")
+        break;
+      case "jayasri123":
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: "gowtham123",
+            role: "Empolyer",
+          })
+        );
+        navigate("/home/CreateJobs")
+        break;
+      case "quickstaff123":
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: "gowtham123",
+            role: "staff",
+          })
+        );
+        navigate("/home/professionalReviews")
+        break;
+      case "quickroot123":
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: "quickroot123",
+            role: "root",
+          })
+        );
+        navigate("/home/createAccount")
+        break;
+      default:
+        break;
     }
   };
   return (

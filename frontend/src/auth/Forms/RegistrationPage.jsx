@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "../../customHooks/useQuery";
 import {
@@ -42,8 +42,17 @@ const RegistrationPage = () => {
   const [userErrors, setUserErrors] = useState(erroMsg);
 
   const handleNavigation = () => {
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        userName: userDetails.userName,
+        role: customerType == "Professional" ? "Professional" : "Empolyer",
+      })
+    );
     if (customerType == "Professional") {
       navigation("/education");
+    } else {
+      navigation("/home/CreateJobs");
     }
   };
   const handleChange = (e) => {
@@ -53,6 +62,10 @@ const RegistrationPage = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (customerType == "Professional") details.companyName = "dummy";
+    setUserDetails(details);
+  }, []);
   const handleSubmit = (e) => {
     try {
       e.preventDefault();

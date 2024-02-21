@@ -15,6 +15,7 @@ import ErrorMsgComponent from "../shared/ErrorMsgComponent";
 
 const details = {
   positionName: "",
+  uniqueID: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -28,6 +29,7 @@ const details = {
 
 const error = {
   positionError: "",
+  uniqueIDError: "",
   firsNameError: "",
   lastNameError: "",
   emailError: "",
@@ -54,6 +56,7 @@ const JobPosting = ({ isView = false }) => {
           jobDetails.positionName,
           "Position is Empty!"
         ),
+        uniqueIDError: validateEmptiness(jobDetails.uniqueID, "Job ID is empty!"),
         firsNameError: validateFirstName(jobDetails.firstName),
         lastNameError: validateLastName(jobDetails.lastName),
         emailError: validateEmail(jobDetails.email),
@@ -138,6 +141,24 @@ const JobPosting = ({ isView = false }) => {
         />
         <ErrorMsgComponent msg={jobError.positionError} />
         <div className="flex flex-wrap -mx-2 mb-2">
+          <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+            <h1 className="text-xs font-semibold mb-2">Unique ID</h1>
+            <input
+              className={`w-full px-3 py-2 text-xs border rounded shadow appearance-none text-grey-darker ${
+                jobError.uniqueIDError.length > 0
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+              type="text"
+              placeholder="First Name"
+              readOnly={!isEditable}
+              value={jobDetails.uniqueID}
+              name="uniqueID"
+              onChange={handleChange}
+            />
+            <br></br>
+            <ErrorMsgComponent msg={jobError.uniqueIDError} />
+          </div>
           <div className="w-full md:w-1/2 px-2 mb-2 md:mb-0">
             <h1 className="text-xs font-semibold mb-2">First Name</h1>
             <input
@@ -315,7 +336,7 @@ const JobPosting = ({ isView = false }) => {
         <div className="flex items-start mt-6 text-base font-medium">
           <Category handleCategoryAdd={handleCategoryAdd} />
         </div>
-          <ErrorMsgComponent msg={jobError.categoryrError} />
+        <ErrorMsgComponent msg={jobError.categoryrError} />
         {jobDetails.categoryLists.length > 0 && (
           <CategoryList
             Lists={jobDetails.categoryLists}
