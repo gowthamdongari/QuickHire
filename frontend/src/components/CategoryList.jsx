@@ -25,7 +25,7 @@ const CategoryList = ({ Lists, handleDelete }) => {
                 {item.keywords}
               </td>
               {handleDelete && (
-                <td className="border border-gray-800 px-4 py-2" onClick={()=>handleDelete(index)}>
+                <td className="border border-gray-800 px-4 py-2" onClick={()=>handleDelete(item.ID)}>
                   <FiDelete />
                 </td>
               )}

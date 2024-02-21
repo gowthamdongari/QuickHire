@@ -160,3 +160,12 @@ export const validateEmptiness =(val,customMsg)=>{
     return "Field Empty"
   }
 }
+
+export const validatePay =(pay)=>{
+  try {
+     const num = Number(pay);
+     return pay>0?"":"Pay ammount should be Positive"
+  } catch (error) {
+     console.log(error)
+  }
+}

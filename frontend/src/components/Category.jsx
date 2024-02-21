@@ -32,7 +32,7 @@ const Category = ({ handleCategoryAdd }) => {
       };
       setCategoryError(errorObj)
       if (!checkKeysEmpty(errorObj)) {
-        handleCategoryAdd(category);
+        handleCategoryAdd({...category,ID:Date.now()+Math.random()});
         setCategory(details);
         setCategoryError(intialErrorObj);
       }
