@@ -1,21 +1,26 @@
 package com.example.quickhirebackend.model;
 
-public class Qualification {
+import jakarta.persistence.*;
 
-    private int qualificationId;
+@Entity
+@Table(name = "qualifications")
+public class Qualification {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer qualificationid;
     private String type;
     private String keywords;
-    private int profId;
-    private int jobId;
+    private Integer profid;
+    private Integer jobid;
 
     // Getters and setters
 
-    public int getQualificationId() {
-        return qualificationId;
+    public Integer getQualificationId() {
+        return qualificationid;
     }
 
-    public void setQualificationId(int qualificationId) {
-        this.qualificationId = qualificationId;
+    public void setQualificationId(Integer qualificationId) {
+        this.qualificationid = qualificationId;
     }
 
     public String getType() {
@@ -34,31 +39,31 @@ public class Qualification {
         this.keywords = keywords;
     }
 
-    public int getProfId() {
-        return profId;
+    public Integer getProfId() {
+        return profid;
     }
 
-    public void setProfId(int profId) {
-        this.profId = profId;
+    public void setProfId(Integer profId) {
+        this.profid = profId;
     }
 
-    public int getJobId() {
-        return jobId;
+    public Integer getJobId() {
+        return jobid;
     }
 
     public void setJobId(int jobId) {
-        this.jobId = jobId;
+        this.jobid = jobId;
     }
 
     // toString method for debugging purposes
     @Override
     public String toString() {
         return "Qualification{" +
-                "qualificationId=" + qualificationId +
+                "qualificationId=" + qualificationid +
                 ", type='" + type + '\'' +
                 ", keywords='" + keywords + '\'' +
-                ", profId=" + profId +
-                ", jobId=" + jobId +
+                ", profId=" + profid +
+                ", jobId=" + jobid +
                 '}';
     }
 }

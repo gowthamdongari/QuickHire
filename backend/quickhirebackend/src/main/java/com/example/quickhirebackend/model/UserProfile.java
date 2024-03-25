@@ -1,5 +1,9 @@
 package com.example.quickhirebackend.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="userprofile")
 public class UserProfile {
     private String address;
     private String city;
@@ -13,6 +17,8 @@ public class UserProfile {
     private String username;
     // Assuming 'userprofileid' is a foreign key to another table, we'll represent it as an integer.
     // If it's an object relation to another class, you'll need to use the class type instead.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userprofileid;
 
     // Getters and setters for each field

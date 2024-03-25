@@ -1,53 +1,59 @@
 package com.example.quickhirebackend.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employerrequest")
 public class EmployerRequest {
 
-    private int requestId; // Corresponds to the "erequestid" column which is auto-incremented
-    private String companyName; // Corresponds to the "companyname" column
-    private Integer profId; // Corresponds to the "profid" column, Nullable
-    private String requestType; // Corresponds to the "requesttype" column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer erequestid; // Corresponds to the "erequestid" column which is auto-incremented
+    private String companyname; // Corresponds to the "companyname" column
+    private Integer profid; // Corresponds to the "profid" column, Nullable
+    private String requesttype; // Corresponds to the "requesttype" column
 
     // Getters and setters
-    public int getRequestId() {
-        return requestId;
+    public Integer getRequestId() {
+        return erequestid;
     }
 
     public void setRequestId(int requestId) {
-        this.requestId = requestId;
+        this.erequestid = requestId;
     }
 
     public String getCompanyName() {
-        return companyName;
+        return companyname;
     }
 
     public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+        this.companyname = companyName;
     }
 
     public Integer getProfId() {
-        return profId;
+        return profid;
     }
 
     public void setProfId(Integer profId) {
-        this.profId = profId;
+        this.profid = profId;
     }
 
     public String getRequestType() {
-        return requestType;
+        return requesttype;
     }
 
     public void setRequestType(String requestType) {
-        this.requestType = requestType;
+        this.requesttype = requestType;
     }
 
     // toString for debugging
     @Override
     public String toString() {
         return "EmployerRequest{" +
-                "requestId=" + requestId +
-                ", companyName='" + companyName + '\'' +
-                ", profId=" + profId +
-                ", requestType='" + requestType + '\'' +
+                "requestId=" + erequestid +
+                ", companyName='" + companyname + '\'' +
+                ", profId=" + profid +
+                ", requestType='" + requesttype + '\'' +
                 '}';
     }
 }
