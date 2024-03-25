@@ -25,6 +25,7 @@ public class DemoController {
     private  final EmployerDetailsService employerDetailsService;
 
 
+
     private  final UserService userService;
     @Autowired
     public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, UserService userService) {
@@ -40,23 +41,23 @@ public class DemoController {
     @GetMapping("/1")
     public String demo1(){
 
-         UserProfile profUserprofile = new UserProfile();
-         profUserprofile.setAddress("Mcfarlin 349");
-         profUserprofile.setFirstname("Ram");
-         profUserprofile.setLastname("Aruva");
-         profUserprofile.setEmail("ram@gmail.com");
-         profUserprofile.setPhone("9900900090");
-         profUserprofile.setCity("Dallas");
-         profUserprofile.setState("Texas");
-         profUserprofile.setPincode("3244555");
-         profUserprofile.setUsername("ram"+new Date().getTime());
-         UserProfile savedProfuserprofile= userProfileDao.CreateUser(profUserprofile);
+        UserProfile profUserprofile = new UserProfile();
+        profUserprofile.setAddress("Mcfarlin 349");
+        profUserprofile.setFirstname("Ram");
+        profUserprofile.setLastname("Aruva");
+        profUserprofile.setEmail("ram@gmail.com");
+        profUserprofile.setPhone("9900900090");
+        profUserprofile.setCity("Dallas");
+        profUserprofile.setState("Texas");
+        profUserprofile.setPincode("3244555");
+        profUserprofile.setUsername("ram"+new Date().getTime());
+        UserProfile savedProfuserprofile= userProfileDao.CreateUser(profUserprofile);
 
         Qualification profqualification = new Qualification();
         profqualification.setProfId(profUserprofile.getUserprofileid());
         profqualification.setType("skills");
         profqualification.setKeywords("java");
-       // profqualification.setJobId(0);
+        // profqualification.setJobId(0);
         qualificationService.createQualification(profqualification);
 
         ProfessionalRequest professionalRequest = new ProfessionalRequest();
@@ -66,9 +67,9 @@ public class DemoController {
         professionalRequest.setMajor("Grad");
         professionalRequest.setSchoolName("Smu");
         professionalRequest.setProfId(savedProfuserprofile.getUserprofileid());
-      //professionalRequestDao.createProfessionalRequest(professionalRequest);
+        //professionalRequestDao.createProfessionalRequest(professionalRequest);
 
-       return savedProfuserprofile.toString()+ professionalRequestDao.createProfessionalRequest(professionalRequest).toString();
+        return savedProfuserprofile.toString()+ professionalRequestDao.createProfessionalRequest(professionalRequest).toString();
         //Userprof dem;
 
     }
@@ -89,26 +90,26 @@ public class DemoController {
         UserProfile savedProfuserprofile= userProfileDao.CreateUser(empProfile);
 
         EmployerRequest inEmployerRequest = new EmployerRequest();
-         inEmployerRequest.setRequestType("new Account");
-         inEmployerRequest.setCompanyName("google");
-         inEmployerRequest.setProfId(savedProfuserprofile.getUserprofileid());
+        inEmployerRequest.setRequestType("new Account");
+        inEmployerRequest.setCompanyName("google");
+        inEmployerRequest.setProfId(savedProfuserprofile.getUserprofileid());
 
         employerRequestService.createEmployerRequest(inEmployerRequest);
 
-       return  savedProfuserprofile.toString();
+        return  savedProfuserprofile.toString();
         //Userprof dem;
 
     }
 
     @GetMapping("/16")
     public String demo16(){
-      //retrieve the profesiional request
-       ProfessionalRequest profreqdetails = professionalRequestDao.getProfessionalRequestById(4).stream().findFirst().orElse(null);
-       profreqdetails.setRequestType("account accepted");
-       professionalRequestDao.updateProfessionalRequest(profreqdetails);
-       UserProfile userProfile = userProfileDao.getUserById(profreqdetails.getProfId()).stream().findFirst().orElse(null);
-       userProfile.setStatus("active");
-       userProfileDao.updateUser(userProfile);
+        //retrieve the profesiional request
+        ProfessionalRequest profreqdetails = professionalRequestDao.getProfessionalRequestById(4).stream().findFirst().orElse(null);
+        profreqdetails.setRequestType("account accepted");
+        professionalRequestDao.updateProfessionalRequest(profreqdetails);
+        UserProfile userProfile = userProfileDao.getUserById(profreqdetails.getProfId()).stream().findFirst().orElse(null);
+        userProfile.setStatus("active");
+        userProfileDao.updateUser(userProfile);
 
         ProfessionalDetails profdetails = new ProfessionalDetails();
         profdetails.setProfId(userProfile.getUserprofileid());
@@ -126,22 +127,22 @@ public class DemoController {
         accpeted.setIsPasswordChanged("no");
         userService.saveUser(accpeted);
 
-       return  "saved succeffully";
+        return  "saved succeffully";
     }
     @GetMapping("/15")
-  public  String demo15(){
+    public  String demo15(){
         //retrieve the emp request
         EmployerRequest empreq = employerRequestService.getEmployerRequestById(2).stream().findFirst().orElse(null);
         empreq.setRequestType("account accepted");
-       EmployerRequest updatempreq = employerRequestService.updateEmployerRequest(empreq);
-       UserProfile emuserprof = userProfileDao.getUserById(updatempreq.getProfId()).stream().findFirst().orElse(null);
-       emuserprof.setStatus("active");
-       userProfileDao.updateUser(emuserprof);
+        EmployerRequest updatempreq = employerRequestService.updateEmployerRequest(empreq);
+        UserProfile emuserprof = userProfileDao.getUserById(updatempreq.getProfId()).stream().findFirst().orElse(null);
+        emuserprof.setStatus("active");
+        userProfileDao.updateUser(emuserprof);
 
-       EmployerDetails newempdetails = new EmployerDetails();
-       newempdetails.setCompanyName(updatempreq.getCompanyName());
-       newempdetails.setProfId(emuserprof.getUserprofileid());
-       employerDetailsService.createEmployerDetails(newempdetails);
+        EmployerDetails newempdetails = new EmployerDetails();
+        newempdetails.setCompanyName(updatempreq.getCompanyName());
+        newempdetails.setProfId(emuserprof.getUserprofileid());
+        employerDetailsService.createEmployerDetails(newempdetails);
         User accpeted = new User();
         accpeted.setUsername(emuserprof.getUsername());
         accpeted.setPassword("ahja7&aaa");
@@ -153,6 +154,33 @@ public class DemoController {
 
 
         return "saved succeffully";
-  }
+    }
+
+    @GetMapping("/19")
+    public String demo19(){
+
+        UserProfile staffProfile = new UserProfile();
+        staffProfile.setAddress("university Blvd");
+        staffProfile.setFirstname("Staff");
+        staffProfile.setLastname("Account");
+        staffProfile.setEmail("staff@gmail.com");
+        staffProfile.setPhone("9867543210");
+        staffProfile.setCity("Dallas");
+        staffProfile.setState("Texas");
+        staffProfile.setPincode("75206");
+        staffProfile.setUsername("staff"+new Date().getTime());
+        UserProfile savedProfuserprofile= userProfileDao.CreateUser(staffProfile);
+
+        User staffUser = new User();
+        staffUser.setUsername(savedProfuserprofile.getUsername());
+        staffUser.setPassword("Staff@77");
+        staffUser.setUserType("staff");
+        staffUser.setProfId(savedProfuserprofile.getUserprofileid());
+        staffUser.setIsPasswordChanged("No");
+
+        User savedStaffUser = userService.saveUser(staffUser);
+
+        return  savedStaffUser.toString();
+    }
 
 }
