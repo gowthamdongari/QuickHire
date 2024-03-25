@@ -6,6 +6,7 @@ import com.example.quickhirebackend.dao.UserProfileDao;
 import com.example.quickhirebackend.model.*;
 import com.example.quickhirebackend.services.EmployerRequestService;
 import com.example.quickhirebackend.services.QualificationService;
+import com.example.quickhirebackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +21,16 @@ public class DemoController {
     private  final ProfessionalRequestDao professionalRequestDao;
 
     private  final  EmployerRequestService employerRequestService;
+
+    private  final UserService userService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, UserService userService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
         this.professionalRequestDao = professionalRequestDao;
         this.employerRequestService = employerRequestService;
+        this.userService = userService;
     }
     @GetMapping("/1")
     public String demo1(){
@@ -107,5 +111,30 @@ public class DemoController {
        return  "";
     }
 
+    @GetMapping("/19")
+    public String demo19(){
 
+        UserProfile staffProfile = new UserProfile();
+        staffProfile.setAddress("university Blvd");
+        staffProfile.setFirstname("Staff");
+        staffProfile.setLastname("Account");
+        staffProfile.setEmail("staff@gmail.com");
+        staffProfile.setPhone("9867543210");
+        staffProfile.setCity("Dallas");
+        staffProfile.setState("Texas");
+        staffProfile.setPincode("75206");
+        staffProfile.setUsername("staff"+new Date().getTime());
+        UserProfile savedProfuserprofile= userProfileDao.CreateUser(staffProfile);
+
+        User staffUser = new User();
+        staffUser.setUsername(savedProfuserprofile.getUsername());
+        staffUser.setPassword("Staff@77");
+        staffUser.setUserType("staff");
+        staffUser.setProfId(savedProfuserprofile.getUserprofileid());
+        staffUser.setIsPasswordChanged("No");
+
+        User savedStaffUser = userService.saveUser(staffUser);
+
+        return  savedStaffUser.toString();
+    }
 }

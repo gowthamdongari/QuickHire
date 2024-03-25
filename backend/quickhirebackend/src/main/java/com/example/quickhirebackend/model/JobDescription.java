@@ -1,26 +1,30 @@
 package com.example.quickhirebackend.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.sql.Date;
 import java.sql.Time;
-
+@Entity
+@Table(name = "jobdescription")
 public class JobDescription {
 
-    private int empId; // Corresponds to "empid" column, auto-incremented
+    private Integer empid; // Corresponds to "empid" column, auto-incremented
     private String email; // Corresponds to "email" column
-    private Date endDate; // Corresponds to "enddate" column
-    private Time endTime; // Corresponds to "endtime" column
+    private Date enddate; // Corresponds to "enddate" column
+    private Time endtime; // Corresponds to "endtime" column
     private String firstname; // Corresponds to "firstname" column
-    private int jobdescriptionId; // Corresponds to "jobdescriptionid" column, auto-incremented
-    private int jobId; // Corresponds to "jobid" column
+    private int jobdescriptionid; // Corresponds to "jobdescriptionid" column, auto-incremented
+    private int jobid; // Corresponds to "jobid" column
     private String lastname; // Corresponds to "lastname" column
-    private String payPerHour; // Corresponds to "payperhour" column
+    private String payperhour; // Corresponds to "payperhour" column
     private String phone; // Corresponds to "phone" column
-    private String positionName; // Corresponds to "positionname" column
-    private Date startDate; // Corresponds to "startdate" column
-    private Time startTime; // Corresponds to "starttime" column
+    private String positionname; // Corresponds to "positionname" column
+    private Date startdate; // Corresponds to "startdate" column
+    private Time starttime; // Corresponds to "starttime" column
 
     // Getters and setters
-    public int getEmpId() {
-        return empId;
+    public Integer getEmpId() {
+        return empid;
     }
 
     // Typically, no setter for auto-incremented ID
@@ -37,19 +41,19 @@ public class JobDescription {
     }
 
     public Date getEndDate() {
-        return endDate;
+        return enddate;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.enddate = endDate;
     }
 
     public Time getEndTime() {
-        return endTime;
+        return endtime;
     }
 
     public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+        this.endtime = endTime;
     }
 
     public String getFirstname() {
@@ -61,7 +65,7 @@ public class JobDescription {
     }
 
     public int getJobdescriptionId() {
-        return jobdescriptionId;
+        return jobdescriptionid;
     }
 
     // Typically, no setter for auto-incremented ID
@@ -70,11 +74,11 @@ public class JobDescription {
     // }
 
     public int getJobId() {
-        return jobId;
+        return jobid;
     }
 
     public void setJobId(int jobId) {
-        this.jobId = jobId;
+        this.jobid = jobId;
     }
 
     public String getLastname() {
@@ -86,11 +90,11 @@ public class JobDescription {
     }
 
     public String getPayPerHour() {
-        return payPerHour;
+        return payperhour;
     }
 
     public void setPayPerHour(String payPerHour) {
-        this.payPerHour = payPerHour;
+        this.payperhour = payPerHour;
     }
 
     public String getPhone() {
@@ -102,46 +106,46 @@ public class JobDescription {
     }
 
     public String getPositionName() {
-        return positionName;
+        return positionname;
     }
 
     public void setPositionName(String positionName) {
-        this.positionName = positionName;
+        this.positionname = positionName;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return startdate;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startdate = startDate;
     }
 
     public Time getStartTime() {
-        return startTime;
+        return starttime;
     }
 
     public void setStartTime(Time startTime) {
-        this.startTime = startTime;
+        this.starttime = startTime;
     }
 
     // toString method for debugging purposes
     @Override
     public String toString() {
         return "JobDescription{" +
-                "empId=" + empId +
+                "empId=" + empid +
                 ", email='" + email + '\'' +
-                ", endDate=" + endDate +
-                ", endTime=" + endTime +
+                ", endDate=" + enddate +
+                ", endTime=" + endtime +
                 ", firstname='" + firstname + '\'' +
-                ", jobdescriptionId=" + jobdescriptionId +
-                ", jobId=" + jobId +
+                ", jobdescriptionId=" + jobdescriptionid +
+                ", jobId=" + jobid +
                 ", lastname='" + lastname + '\'' +
-                ", payPerHour='" + payPerHour + '\'' +
+                ", payPerHour='" + payperhour + '\'' +
                 ", phone='" + phone + '\'' +
-                ", positionName='" + positionName + '\'' +
-                ", startDate=" + startDate +
-                ", startTime=" + startTime +
+                ", positionName='" + positionname + '\'' +
+                ", startDate=" + startdate +
+                ", startTime=" + starttime +
                 '}';
     }
 }
