@@ -101,6 +101,27 @@ public class DemoController {
 
     }
 
+    @GetMapping("/3")
+
+    public  String demo3(){
+        //retieve the prof details
+        ProfessionalDetails profdetails = professionalDetailsService.getProfessionalDetailsById(1).stream().findFirst().orElse(null);
+        profdetails.setSchoolName("Harvard");
+        professionalDetailsService.updateEmployerRequest(profdetails);
+        return "udpated successfully";
+    }
+
+    @GetMapping("/4")
+    public  String  demo4(){
+        //retrieve the emp details
+        EmployerDetails employerDetails = employerDetailsService.getEmployerDetailsById(1).stream().findFirst().orElse(null);
+
+        employerDetails.setCompanyName("myseflf");
+        employerDetailsService.updateEmployerDetails(employerDetails.getEmployerId(),employerDetails);
+        return "Emp details updated successfully";
+    }
+
+
     @GetMapping("/16")
     public String demo16(){
         //retrieve the profesiional request
@@ -182,5 +203,6 @@ public class DemoController {
 
         return  savedStaffUser.toString();
     }
+
 
 }
