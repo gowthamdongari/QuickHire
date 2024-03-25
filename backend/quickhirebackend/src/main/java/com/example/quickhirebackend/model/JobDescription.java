@@ -1,26 +1,30 @@
 package com.example.quickhirebackend.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.Timer;
+
+
 @Entity
 @Table(name = "jobdescription")
 public class JobDescription {
 
     private Integer empid; // Corresponds to "empid" column, auto-incremented
     private String email; // Corresponds to "email" column
-    private Date enddate; // Corresponds to "enddate" column
-    private Time endtime; // Corresponds to "endtime" column
+    private java.util.Date enddate; // Corresponds to "enddate" column
+    private LocalTime endtime; // Corresponds to "endtime" column
     private String firstname; // Corresponds to "firstname" column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int jobdescriptionid; // Corresponds to "jobdescriptionid" column, auto-incremented
     private int jobid; // Corresponds to "jobid" column
     private String lastname; // Corresponds to "lastname" column
     private String payperhour; // Corresponds to "payperhour" column
     private String phone; // Corresponds to "phone" column
     private String positionname; // Corresponds to "positionname" column
-    private Date startdate; // Corresponds to "startdate" column
-    private Time starttime; // Corresponds to "starttime" column
+    private java.util.Date startdate; // Corresponds to "startdate" column
+    private LocalTime starttime; // Corresponds to "starttime" column
 
     // Getters and setters
     public Integer getEmpId() {
@@ -31,6 +35,10 @@ public class JobDescription {
     // public void setEmpId(int empId) {
     //     this.empId = empId;
     // }
+
+    public void setEmpid(Integer id){
+        this.empid=id;
+    }
 
     public String getEmail() {
         return email;
@@ -48,11 +56,11 @@ public class JobDescription {
         this.enddate = endDate;
     }
 
-    public Time getEndTime() {
+    public LocalTime getEndTime() {
         return endtime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endtime = endTime;
     }
 
@@ -121,11 +129,11 @@ public class JobDescription {
         this.startdate = startDate;
     }
 
-    public Time getStartTime() {
+    public LocalTime getStartTime() {
         return starttime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.starttime = startTime;
     }
 
