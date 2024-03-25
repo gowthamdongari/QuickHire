@@ -4,9 +4,11 @@ import com.example.quickhirebackend.dao.ProfessionalDetailsRepository;
 import com.example.quickhirebackend.model.EmployerRequest;
 import com.example.quickhirebackend.model.ProfessionalDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class ProfessionalDetailsService {
 
     private  final ProfessionalDetailsRepository professionalDetailsRepository;
