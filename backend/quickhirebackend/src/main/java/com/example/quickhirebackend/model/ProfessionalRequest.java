@@ -1,14 +1,20 @@
 package com.example.quickhirebackend.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
+@Table(name = "professionalrequest")
 public class ProfessionalRequest {
-    private int requestId;
-    private String requestType;
-    private String schoolName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer requestid;
+    private String requesttype;
+    private String schoolname;
     private String major;
-    private Date completionTime;
-    private int profId;
+    private Date completiontime;
+    private Integer profid;
 
     // Constructors, getters, and setters
 
@@ -20,28 +26,28 @@ public class ProfessionalRequest {
 
     // Getters and setters for each field
 
-    public int getRequestId() {
-        return requestId;
+    public Integer getRequestId() {
+        return requestid;
     }
 
     public void setRequestId(int requestId) {
-        this.requestId = requestId;
+        this.requestid = requestId;
     }
 
     public String getRequestType() {
-        return requestType;
+        return requesttype;
     }
 
     public void setRequestType(String requestType) {
-        this.requestType = requestType;
+        this.requesttype = requestType;
     }
 
     public String getSchoolName() {
-        return schoolName;
+        return schoolname;
     }
 
     public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+        this.schoolname = schoolName;
     }
 
     public String getMajor() {
@@ -53,31 +59,31 @@ public class ProfessionalRequest {
     }
 
     public Date getCompletionTime() {
-        return completionTime;
+        return completiontime;
     }
 
     public void setCompletionTime(Date completionTime) {
-        this.completionTime = completionTime;
+        this.completiontime = completionTime;
     }
 
-    public int getProfId() {
-        return profId;
+    public Integer getProfId() {
+        return profid;
     }
 
     public void setProfId(int profId) {
-        this.profId = profId;
+        this.profid = profId;
     }
 
     // Override toString() if necessary for logging or debugging purposes
     @Override
     public String toString() {
         return "ProfessionalRequest{" +
-                "requestId=" + requestId +
-                ", requestType='" + requestType + '\'' +
-                ", schoolName='" + schoolName + '\'' +
+                "requestId=" + requestid +
+                ", requestType='" + requesttype + '\'' +
+                ", schoolName='" + schoolname + '\'' +
                 ", major='" + major + '\'' +
-                ", completionTime=" + completionTime +
-                ", profId=" + profId +
+                ", completionTime=" + completiontime +
+                ", profId=" + profid +
                 '}';
     }
 }

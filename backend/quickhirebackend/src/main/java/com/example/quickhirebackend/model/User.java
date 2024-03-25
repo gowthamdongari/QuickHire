@@ -1,13 +1,25 @@
 package com.example.quickhirebackend.model;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Arrays;
 
+@Entity
+@Table(name = "user")
 public class User {
 
-    private int profId; // Corresponds to the "profid" column
-    private byte[] password; // Corresponds to the "password" column stored as varbinary
+
+    private Integer profid; // Corresponds to the "profid" column
+    private String password; // Corresponds to the "password" column stored as varbinary
+    @Id
+    @Column(name = "username", length = 30)
     private String username; // Corresponds to the "username" column
-    private String userType; // Corresponds to the "usertype" column
+    private String usertype; // Corresponds to the "usertype" column
     private String status; // Corresponds to the "status" column, nullable
+
+    private  String ispasswordchanged;
 
     // Constructors, getters, and setters
 
@@ -16,18 +28,18 @@ public class User {
     }
 
     public int getProfId() {
-        return profId;
+        return profid;
     }
 
     public void setProfId(int profId) {
-        this.profId = profId;
+        this.profid = profId;
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(byte[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -40,11 +52,11 @@ public class User {
     }
 
     public String getUserType() {
-        return userType;
+        return usertype;
     }
 
     public void setUserType(String userType) {
-        this.userType = userType;
+        this.usertype = userType;
     }
 
     public String getStatus() {
@@ -55,15 +67,20 @@ public class User {
         this.status = status;
     }
 
+    public  void  setIsPasswordChanged(String isPasswordChanged){this.ispasswordchanged=isPasswordChanged;}
+
+    public  String getIsPasswordChanged(){return  ispasswordchanged;}
+
+
     // Override equals and hashCode if needed
 
     // toString() method for debugging purposes, don't include the password field to avoid security risks
     @Override
     public String toString() {
         return "User{" +
-                "profId=" + profId +
+                "profId=" + profid +
                 ", username='" + username + '\'' +
-                ", userType='" + userType + '\'' +
+                ", userType='" + usertype + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

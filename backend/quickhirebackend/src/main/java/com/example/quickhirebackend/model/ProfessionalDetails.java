@@ -1,13 +1,20 @@
 package com.example.quickhirebackend.model;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Entity
+@Table(name = "professionaldetails")
 public class ProfessionalDetails {
 
-    private int professionalId; // auto-incremented primary key
-    private Integer profId; // assumed to be a foreign key, nullable
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer professionalid; // auto-incremented primary key
+    private Integer profid; // assumed to be a foreign key, nullable
     private String major;
-    private String schoolName;
-    private LocalDateTime completionTime; // using the modern java.time API
+    private String schoolname;
+    private Date completiontime; // using the modern java.time API
 
     // Constructors, getters, and setters
 
@@ -16,7 +23,7 @@ public class ProfessionalDetails {
     }
 
     public int getProfessionalId() {
-        return professionalId;
+        return professionalid;
     }
 
     // No setter for auto-incremented primary key
@@ -25,11 +32,11 @@ public class ProfessionalDetails {
     // }
 
     public Integer getProfId() {
-        return profId;
+        return profid;
     }
 
     public void setProfId(Integer profId) {
-        this.profId = profId;
+        this.profid = profId;
     }
 
     public String getMajor() {
@@ -41,30 +48,30 @@ public class ProfessionalDetails {
     }
 
     public String getSchoolName() {
-        return schoolName;
+        return schoolname;
     }
 
     public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+        this.schoolname = schoolName;
     }
 
-    public LocalDateTime getCompletionTime() {
-        return completionTime;
+    public Date getCompletionTime() {
+        return completiontime;
     }
 
-    public void setCompletionTime(LocalDateTime completionTime) {
-        this.completionTime = completionTime;
+    public void setCompletionTime(Date completionTime) {
+        this.completiontime = completionTime;
     }
 
     // toString() method for debugging purposes
     @Override
     public String toString() {
         return "ProfessionalDetails{" +
-                "professionalId=" + professionalId +
-                ", profId=" + profId +
+                "professionalId=" + professionalid+
+                ", profId=" + profid +
                 ", major='" + major + '\'' +
-                ", schoolName='" + schoolName + '\'' +
-                ", completionTime=" + completionTime +
+                ", schoolName='" + schoolname + '\'' +
+                ", completionTime=" + completiontime +
                 '}';
     }
 }
