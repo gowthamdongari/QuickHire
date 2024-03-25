@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 @RestController
@@ -24,11 +25,11 @@ public class DemoController {
 
     private  final EmployerDetailsService employerDetailsService;
 
-
+    private final JobDescriptionService jobDescriptionService;
 
     private  final UserService userService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, UserService userService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
@@ -36,6 +37,7 @@ public class DemoController {
         this.employerRequestService = employerRequestService;
         this.professionalDetailsService = professionalDetailsService;
         this.employerDetailsService = employerDetailsService;
+        this.jobDescriptionService = jobDescriptionService;
         this.userService = userService;
     }
     @GetMapping("/1")
@@ -122,6 +124,60 @@ public class DemoController {
     }
 
 
+    @GetMapping("/6")
+    public String demo6(){
+        JobDescription empPostJob = new JobDescription();
+        empPostJob.setJobId(2134);
+        empPostJob.setPositionName("SDE I");
+        empPostJob.setFirstname("Jeff");
+        empPostJob.setLastname("Bezos");
+        empPostJob.setEmail("Jeff@amazon.com");
+        empPostJob.setPhone("9898989898");
+        empPostJob.setStartDate(new Date());
+        empPostJob.setEndDate(new Date());
+        empPostJob.setPayPerHour("60$");
+        empPostJob.setStartTime( LocalTime.of(10, 30));
+        empPostJob.setEndTime(LocalTime.of(6, 30));
+        empPostJob.setEmpid(1);
+
+      JobDescription savedjobud =  jobDescriptionService.createJobDescription(empPostJob);
+        Qualification profqualification = new Qualification();
+       // profqualification.setProfId(profUserprofile.getUserprofileid());
+        profqualification.setType("skills");
+        profqualification.setKeywords("Reactjs");
+        profqualification.setJobId(savedjobud.getJobdescriptionId());
+        qualificationService.createQualification(profqualification);
+        return savedjobud.toString();
+
+    }
+
+    @GetMapping("/15")
+    public  String demo15(){
+        //retrieve the emp request
+        EmployerRequest empreq = employerRequestService.getEmployerRequestById(2).stream().findFirst().orElse(null);
+        empreq.setRequestType("account accepted");
+        EmployerRequest updatempreq = employerRequestService.updateEmployerRequest(empreq);
+        UserProfile emuserprof = userProfileDao.getUserById(updatempreq.getProfId()).stream().findFirst().orElse(null);
+        emuserprof.setStatus("active");
+        userProfileDao.updateUser(emuserprof);
+
+        EmployerDetails newempdetails = new EmployerDetails();
+        newempdetails.setCompanyName(updatempreq.getCompanyName());
+        newempdetails.setProfId(emuserprof.getUserprofileid());
+        employerDetailsService.createEmployerDetails(newempdetails);
+        User accpeted = new User();
+        accpeted.setUsername(emuserprof.getUsername());
+        accpeted.setPassword("ahja7&aaa");
+        accpeted.setProfId(emuserprof.getUserprofileid());
+        accpeted.setUserType("employer");
+        accpeted.setStatus("active");
+        accpeted.setIsPasswordChanged("no");
+        userService.saveUser(accpeted);
+
+
+        return "saved succeffully";
+    }
+
     @GetMapping("/16")
     public String demo16(){
         //retrieve the profesiional request
@@ -149,32 +205,6 @@ public class DemoController {
         userService.saveUser(accpeted);
 
         return  "saved succeffully";
-    }
-    @GetMapping("/15")
-    public  String demo15(){
-        //retrieve the emp request
-        EmployerRequest empreq = employerRequestService.getEmployerRequestById(2).stream().findFirst().orElse(null);
-        empreq.setRequestType("account accepted");
-        EmployerRequest updatempreq = employerRequestService.updateEmployerRequest(empreq);
-        UserProfile emuserprof = userProfileDao.getUserById(updatempreq.getProfId()).stream().findFirst().orElse(null);
-        emuserprof.setStatus("active");
-        userProfileDao.updateUser(emuserprof);
-
-        EmployerDetails newempdetails = new EmployerDetails();
-        newempdetails.setCompanyName(updatempreq.getCompanyName());
-        newempdetails.setProfId(emuserprof.getUserprofileid());
-        employerDetailsService.createEmployerDetails(newempdetails);
-        User accpeted = new User();
-        accpeted.setUsername(emuserprof.getUsername());
-        accpeted.setPassword("ahja7&aaa");
-        accpeted.setProfId(emuserprof.getUserprofileid());
-        accpeted.setUserType("employer");
-        accpeted.setStatus("active");
-        accpeted.setIsPasswordChanged("no");
-        userService.saveUser(accpeted);
-
-
-        return "saved succeffully";
     }
 
     @GetMapping("/19")
