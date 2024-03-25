@@ -1,0 +1,77 @@
+package com.example.quickhirebackend.model;
+
+import java.sql.Date;
+
+public class Payments {
+
+    private int paymentId; // Corresponds to the "paymentid" column, auto-incremented
+    private Integer profId; // Corresponds to the "profid" column, seems nullable
+    private String amount; // Corresponds to the "amount" column
+    private Date startDate; // Corresponds to the "startdate" column
+    private Date endDate; // Corresponds to the "enddate" column
+    private String status; // Corresponds to the "status" column
+
+    // Getters and Setters
+
+    public int getPaymentId() {
+        return paymentId;
+    }
+
+    // Typically, no setter for an auto-incremented field is provided
+    // public void setPaymentId(int paymentId) {
+    //     this.paymentId = paymentId;
+    // }
+
+    public Integer getProfId() {
+        return profId;
+    }
+
+    public void setProfId(Integer profId) {
+        this.profId = profId;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    // toString() method for debugging purposes
+    @Override
+    public String toString() {
+        return "Payments{" +
+                "paymentId=" + paymentId +
+                ", profId=" + profId +
+                ", amount='" + amount + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status='" + status + '\'' +
+                '}';
+    }
+}
