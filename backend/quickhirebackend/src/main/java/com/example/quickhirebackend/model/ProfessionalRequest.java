@@ -9,7 +9,7 @@ import java.util.Date;
 public class ProfessionalRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer requestid;
+    private Integer prequestid;
     private String requesttype;
     private String schoolname;
     private String major;
@@ -27,11 +27,11 @@ public class ProfessionalRequest {
     // Getters and setters for each field
 
     public Integer getRequestId() {
-        return requestid;
+        return prequestid;
     }
 
     public void setRequestId(int requestId) {
-        this.requestid = requestId;
+        this.prequestid = requestId;
     }
 
     public String getRequestType() {
@@ -78,7 +78,7 @@ public class ProfessionalRequest {
     @Override
     public String toString() {
         return "ProfessionalRequest{" +
-                "requestId=" + requestid +
+                "requestId=" + prequestid +
                 ", requestType='" + requesttype + '\'' +
                 ", schoolName='" + schoolname + '\'' +
                 ", major='" + major + '\'' +

@@ -1,43 +1,48 @@
 package com.example.quickhirebackend.model;
 
-public class EmployerDetails {
+import jakarta.persistence.*;
 
-        private int employerId; // Corresponds to the "employerid" column which is auto-incremented
-        private String companyName; // Corresponds to the "companyname" column
-        private int profId; // Corresponds to the "profid" column which seems like a foreign key
+@Entity
+@Table(name = "employerdetails")
+public class EmployerDetails {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer employerid; // Corresponds to the "employerid" column which is auto-incremented
+        private String companyname; // Corresponds to the "companyname" column
+        private int profid; // Corresponds to the "profid" column which seems like a foreign key
 
         // Getters and setters
-        public int getEmployerId() {
-            return employerId;
+        public Integer getEmployerId() {
+            return employerid;
         }
 
         public void setEmployerId(int employerId) {
-            this.employerId = employerId;
+            this.employerid = employerId;
         }
 
         public String getCompanyName() {
-            return companyName;
+            return companyname;
         }
 
         public void setCompanyName(String companyName) {
-            this.companyName = companyName;
+            this.companyname = companyName;
         }
 
-        public int getProfId() {
-            return profId;
+        public Integer getProfId() {
+            return profid;
         }
 
-        public void setProfId(int profId) {
-            this.profId = profId;
+        public void setProfId(Integer profId) {
+            this.profid = profId;
         }
 
         // toString for debugging
         @Override
         public String toString() {
             return "Employment{" +
-                    "employerId=" + employerId +
-                    ", companyName='" + companyName + '\'' +
-                    ", profId=" + profId +
+                    "employerId=" + employerid +
+                    ", companyName='" + companyname + '\'' +
+                    ", profId=" + profid +
                     '}';
         }
     }
