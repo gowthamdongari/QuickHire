@@ -33,8 +33,10 @@ public class DemoController {
     private  final UserService userService;
 
     private final MatchService matchService;
+
+    private  final  PaymentService paymentService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService, PaymentService paymentService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
@@ -45,6 +47,7 @@ public class DemoController {
         this.jobDescriptionService = jobDescriptionService;
         this.userService = userService;
         this.matchService = matchService;
+        this.paymentService = paymentService;
     }
     @PostMapping("/registerProfessional")
     public ResponseEntity<String> registerProfessional(@RequestBody ProfessionalRegistrationRequest request) {
@@ -160,16 +163,29 @@ public class DemoController {
         return "Emp details updated successfully";
     }
 
-    @GetMapping("/5")
-    public String demo5(){
+    @GetMapping("/jobMatchRequest")
+    public ResponseEntity<String> demo5(@RequestParam("jobId") int jobId ,@RequestParam("professionalId") int professionalId){
         Matches MatchData = new Matches();
         MatchData.setMatchPercentage("70%");
-        MatchData.setProfessionalId(1);
-        MatchData.setJobId(1);
+        MatchData.setProfessionalId(professionalId);
+        MatchData.setJobId(jobId);
 
-       Matches savedmatch = matchService.saveMatch(MatchData);
+       Matches savedMatch = matchService.saveMatch(MatchData);
 
-        return savedmatch.toString();
+        return ResponseEntity.ok("Saved job match"+savedMatch.toString());
+    }
+
+    @PostMapping("/payments")
+    public  ResponseEntity<String> demo7(@RequestBody Payments payment ){
+         System.out.println(payment.toString());
+          Payments sav = new Payments();
+          sav.setProfId(payment.getProfId());
+          sav.setAmount(payment.getAmount());
+          sav.setStatus(payment.getStatus());
+          sav.setStartDate(payment.getStartDate());
+          sav.setEndDate(payment.getEndDate());
+         Payments savedPayment = paymentService.createPayment(sav);
+          return  ResponseEntity.ok("Payment saved successfully"+savedPayment.toString());
     }
 
     @PostMapping("/postJob")
