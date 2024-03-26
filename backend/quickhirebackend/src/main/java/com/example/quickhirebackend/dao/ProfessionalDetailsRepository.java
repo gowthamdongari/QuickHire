@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProfessionalDetailsRepository  extends JpaRepository<ProfessionalDetails,Integer> {
-//  @Query("SELECT * FROM professionaldetails WHERE username=?")
-//    ProfessionalDetails findbyUsername(String user);
+    Optional<ProfessionalDetails> findByProfid(Integer profid);
+
 }

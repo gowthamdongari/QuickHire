@@ -27,9 +27,10 @@ public class ProfessionalDetails {
     }
 
     // No setter for auto-incremented primary key
-    // public void setProfessionalId(int professionalId) {
-    //     this.professionalId = professionalId;
-    // }
+     public void setProfessionalId(int professionalId) {
+         this.professionalid = professionalId;
+     }
+
 
     public Integer getProfId() {
         return profid;

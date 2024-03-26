@@ -32,5 +32,10 @@ public class QualificationService {
     public void deleteQualification(Integer id) {
         qualificationRepository.deleteById(id);
     }
+
+    public Optional<Qualification> getQualificationByUserProfile(Integer id){
+        return  qualificationRepository.findFirstByProfid(id);
+    }
+
 }
 

@@ -110,50 +110,53 @@ public class DemoController {
         // Assuming successful creation
         return ResponseEntity.ok("Employer registered successfully." + savedUserProfile.toString());
     }
-//    @PostMapping("/updateProfessionalProfile")
-//    public ResponseEntity<String> updateProfessionalProfile(@RequestBody ProfessionalRegistrationRequest request) {
-//        // Assume you have methods in your services to find and update the profile and related entities
-//        UserProfile userProfile = userProfileDao.getUserById(request.getUserProfileId()).orElse(null);
-//        professionalDetailsService.dlldld(request.getUsername());
-//        if (userProfile == null) {
-//            return ResponseEntity.badRequest().body("User profile not found.");
-//        }
-//
-//        // Update fields except username
-//        userProfile.setAddress(request.getAddress());
-//        userProfile.setFirstname(request.getFirstname());
-//        userProfile.setLastname(request.getLastname());
-//        userProfile.setEmail(request.getEmail());
-//        userProfile.setPhone(request.getPhone());
-//        userProfile.setCity(request.getCity());
-//        userProfile.setState(request.getState());
-//        userProfile.setPincode(request.getPincode());
-//        UserProfile savedUserProfile =userProfileDao.updateUser(userProfile); // Assuming an update method exists
-//
-//        // Update Qualification
-//        Qualification qualification = qualificationService.findByProfId(userProfile.getUserprofileid());
-//        if (qualification != null) {
-//            qualification.setType(request.getQualificationType());
-//            qualification.setKeywords(request.getQualificationKeywords());
-//            qualificationService.update(qualification); // Assuming an update method exists
-//        } else {
-//            return ResponseEntity.badRequest().body("Qualification not found.");
-//        }
-//
-//        // Update ProfessionalRequest
-//        ProfessionalRequest professionalRequest = professionalRequestDao.findByProfId(userProfile.getUserprofileid());
-//        if (professionalRequest != null) {
-//            professionalRequest.setRequestType(request.getRequestType());
-//            professionalRequest.setMajor(request.getMajor());
-//            professionalRequest.setSchoolName(request.getSchoolName());
-//            professionalRequest.setCompletionTime(request.getCompletionTime()); // Update this as per the new field
-//            professionalRequestDao.update(professionalRequest); // Assuming an update method exists
-//        } else {
-//            return ResponseEntity.badRequest().body("Professional request not found.");
-//        }
-//
-//        return ResponseEntity.ok("Profile updated successfully." + savedUserProfile.toString());
-//    }
+    @PostMapping("/updateProfessionalProfile")
+    public ResponseEntity<String> updateProfessionalProfile(@RequestBody ProfessionalRegistrationRequest request) {
+        // Assume you have methods in your services to find and update the profile and related entities
+        UserProfile userProfile = userProfileDao.getUserById(request.getUserprofileid()).stream().findFirst().orElse(null);
+
+
+        // Update fields except username
+        assert userProfile != null;
+        userProfile.setAddress(request.getAddress());
+        userProfile.setFirstname(request.getFirstname());
+        userProfile.setLastname(request.getLastname());
+        userProfile.setEmail(request.getEmail());
+        userProfile.setPhone(request.getPhone());
+        userProfile.setCity(request.getCity());
+        userProfile.setState(request.getState());
+        userProfile.setPincode(request.getPincode());
+        userProfile.setUserprofileid(request.getUserprofileid());
+        UserProfile savedUserProfile =userProfileDao.updateUser(userProfile); // Assuming an update method exists
+
+        // Update Qualification
+        Qualification qualification = qualificationService.getQualificationByUserProfile(userProfile.getUserprofileid()).stream().findFirst().orElse(null);
+
+        if (qualification != null) {
+            qualification.setType(request.getQualificationType());
+            qualification.setKeywords(request.getQualificationKeywords());
+            qualification.setQualificationId(qualification.getQualificationId());
+            qualificationService.updateQualification(qualification); // Assuming an update method exists
+        } else {
+            return ResponseEntity.badRequest().body("Qualification not found.");
+        }
+
+        // Update ProfessionalRequest
+       ProfessionalDetails professionalDetails = professionalDetailsService.getProfessionalDetailsByUserProfileId(savedUserProfile.getUserprofileid()).stream().findFirst().orElse(null);
+
+        if(professionalDetails==null){
+            return ResponseEntity.badRequest().body("professionaldetails not found"+savedUserProfile.getUserprofileid());
+        }
+        professionalDetails.setSchoolName(request.getSchoolName());
+        professionalDetails.setMajor(request.getMajor());
+        professionalDetails.setProfessionalId(professionalDetails.getProfessionalId());
+        professionalDetails.setCompletionTime(professionalDetails.getCompletionTime());
+        professionalDetails.setProfId(savedUserProfile.getUserprofileid());
+
+        professionalDetailsService.updateProfessionalDetails(professionalDetails);
+
+        return ResponseEntity.ok("Profile updated successfully." + savedUserProfile.toString());
+    }
 
     @GetMapping("/4")
     public  String  demo4(){
