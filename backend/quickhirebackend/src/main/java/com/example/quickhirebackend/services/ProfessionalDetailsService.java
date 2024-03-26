@@ -39,5 +39,4 @@ public class ProfessionalDetailsService {
         professionalDetailsRepository.deleteById(id);
     }
 
-
 }

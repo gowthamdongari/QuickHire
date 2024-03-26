@@ -1,11 +1,18 @@
 package com.example.quickhirebackend.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "matches")
 public class Matches {
 
-    private int jobId; // Presumably a foreign key, nullable
-    private int matchId; // Primary key, auto-incremented
-    private String matchPercentage;
-    private Integer professionalId; // Nullable foreign key
-    private Integer staffId; // Nullable foreign key
+    private int jobid; // Presumably a foreign key, nullable
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int matchid; // Primary key, auto-incremented
+    private String matchpercentage;
+    private Integer professionalid; // Nullable foreign key
+    private Integer staffid; // Nullable foreign key
 
     // Constructors, getters, and setters
 
@@ -14,15 +21,15 @@ public class Matches {
 
     // Getters and setters
     public int getJobId() {
-        return jobId;
+        return jobid;
     }
 
     public void setJobId(int jobId) {
-        this.jobId = jobId;
+        this.jobid = jobId;
     }
 
     public int getMatchId() {
-        return matchId;
+        return matchid;
     }
 
     // No setter for auto-incremented primary key
@@ -31,38 +38,38 @@ public class Matches {
     // }
 
     public String getMatchPercentage() {
-        return matchPercentage;
+        return matchpercentage;
     }
 
     public void setMatchPercentage(String matchPercentage) {
-        this.matchPercentage = matchPercentage;
+        this.matchpercentage = matchPercentage;
     }
 
     public Integer getProfessionalId() {
-        return professionalId;
+        return professionalid;
     }
 
     public void setProfessionalId(Integer professionalId) {
-        this.professionalId = professionalId;
+        this.professionalid = professionalId;
     }
 
     public Integer getStaffId() {
-        return staffId;
+        return staffid;
     }
 
     public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+        this.staffid = staffId;
     }
 
     // toString() method for debugging purposes
     @Override
     public String toString() {
         return "Matches{" +
-                "jobId=" + jobId +
-                ", matchId=" + matchId +
-                ", matchPercentage='" + matchPercentage + '\'' +
-                ", professionalId=" + professionalId +
-                ", staffId=" + staffId +
+                "jobId=" + jobid +
+                ", matchId=" + matchid +
+                ", matchPercentage='" + matchpercentage + '\'' +
+                ", professionalId=" + professionalid +
+                ", staffId=" + staffid +
                 '}';
     }
 }
