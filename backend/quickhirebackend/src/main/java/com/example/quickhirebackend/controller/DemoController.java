@@ -3,12 +3,11 @@ package com.example.quickhirebackend.controller;
 import com.example.quickhirebackend.dao.ProfessionalDao;
 import com.example.quickhirebackend.dao.ProfessionalRequestDao;
 import com.example.quickhirebackend.dao.UserProfileDao;
-import com.example.quickhirebackend.dto.EmployerRegistrationRequest;
-import com.example.quickhirebackend.dto.JobPostRequest;
-import com.example.quickhirebackend.dto.ProfessionalRegistrationRequest;
+import com.example.quickhirebackend.dto.*;
 import com.example.quickhirebackend.model.*;
 import com.example.quickhirebackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +34,10 @@ public class DemoController {
     private final MatchService matchService;
 
     private  final  PaymentService paymentService;
+
+    private  final  StaffDetailsService staffDetailsService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService, PaymentService paymentService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService, PaymentService paymentService, StaffDetailsService staffDetailsService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
@@ -48,6 +49,7 @@ public class DemoController {
         this.userService = userService;
         this.matchService = matchService;
         this.paymentService = paymentService;
+        this.staffDetailsService = staffDetailsService;
     }
     @PostMapping("/registerProfessional")
     public ResponseEntity<String> registerProfessional(@RequestBody ProfessionalRegistrationRequest request) {
@@ -176,16 +178,24 @@ public class DemoController {
     }
 
     @PostMapping("/payments")
-    public  ResponseEntity<String> demo7(@RequestBody Payments payment ){
-         System.out.println(payment.toString());
-          Payments sav = new Payments();
-          sav.setProfId(payment.getProfId());
-          sav.setAmount(payment.getAmount());
-          sav.setStatus(payment.getStatus());
-          sav.setStartDate(payment.getStartDate());
-          sav.setEndDate(payment.getEndDate());
-         Payments savedPayment = paymentService.createPayment(sav);
-          return  ResponseEntity.ok("Payment saved successfully"+savedPayment.toString());
+    public ResponseEntity<String> processPayment(@RequestBody PaymentDTO paymentDTO) {
+        Payments payment = new Payments();
+        payment.setProfId(paymentDTO.getProfId());
+        payment.setAmount(paymentDTO.getAmount());
+        payment.setStatus(paymentDTO.getStatus());
+        payment.setStartDate(paymentDTO.getStartDate());
+        payment.setEndDate(paymentDTO.getEndDate());
+
+        Payments savedPayment;
+        try {
+            savedPayment = paymentService.createPayment(payment);
+        } catch (Exception e) {
+            // Log the exception and return an appropriate error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while saving the payment: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok("Payment saved successfully: " + savedPayment.toString());
     }
 
     @PostMapping("/postJob")
@@ -277,31 +287,36 @@ public class DemoController {
         return  ResponseEntity.ok("Professional Details saved"+savedProfessionalDetails.toString());
     }
 
-    @GetMapping("/19")
-    public String demo19(){
-
+    @PostMapping("/createStaff")
+    public ResponseEntity<String> createStaffAccount(@RequestBody StaffAccountCreationDTO creationDTO) {
         UserProfile staffProfile = new UserProfile();
-        staffProfile.setAddress("university Blvd");
-        staffProfile.setFirstname("Staff");
-        staffProfile.setLastname("Account");
-        staffProfile.setEmail("staff@gmail.com");
-        staffProfile.setPhone("9867543210");
-        staffProfile.setCity("Dallas");
-        staffProfile.setState("Texas");
-        staffProfile.setPincode("75206");
-        staffProfile.setUsername("staff"+new Date().getTime());
-        UserProfile savedProfuserprofile= userProfileDao.CreateUser(staffProfile);
+        staffProfile.setFirstname(creationDTO.getFirstname());
+        staffProfile.setLastname(creationDTO.getLastname());
+        staffProfile.setEmail(creationDTO.getEmail());
+        staffProfile.setPhone(creationDTO.getPhone());
+        staffProfile.setAddress(creationDTO.getAddress());
+        staffProfile.setCity(creationDTO.getCity());
+        staffProfile.setState(creationDTO.getState());
+        staffProfile.setPincode(creationDTO.getPincode());
+        staffProfile.setUsername(creationDTO.getUsername());
+        UserProfile savedUserProfile = userProfileDao.CreateUser(staffProfile);
+
+        StaffDetails staffDetails = new StaffDetails();
+        staffDetails.setStaffUserProfileId(savedUserProfile.getUserprofileid());
+       StaffDetails savedStaffDetails= staffDetailsService.saveStaffDetails(staffDetails);
 
         User staffUser = new User();
-        staffUser.setUsername(savedProfuserprofile.getUsername());
-        staffUser.setPassword("Staff@77");
-        staffUser.setUserType("staff");
-        staffUser.setProfId(savedProfuserprofile.getUserprofileid());
+        staffUser.setUsername(savedUserProfile.getUsername());
+        staffUser.setPassword(creationDTO.getPassword()); // Password should be encrypted
+        staffUser.setUserType("STAFF");
+        staffUser.setProfId(savedUserProfile.getUserprofileid());
         staffUser.setIsPasswordChanged("No");
+        User savedUser = userService.saveUser(staffUser);
 
-        User savedStaffUser = userService.saveUser(staffUser);
+        // ... update the staff table with the userProfileId as before
 
-        return  savedStaffUser.toString();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Staff account created successfully for: " + savedUser.getUsername()+savedStaffDetails.toString());
     }
 
 

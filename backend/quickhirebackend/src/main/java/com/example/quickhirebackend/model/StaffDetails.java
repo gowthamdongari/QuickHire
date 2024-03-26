@@ -1,8 +1,15 @@
 package com.example.quickhirebackend.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "staffdetails")
 public class StaffDetails {
 
-    private int staffId; // auto-incremented primary key
-    private Integer staffUserProfileId; // nullable foreign key reference to a user profile
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int staffid; // auto-incremented primary key
+    private Integer staff_userprofileid; // nullable foreign key reference to a user profile
 
     // Constructors, getters, and setters
 
@@ -11,7 +18,7 @@ public class StaffDetails {
     }
 
     public int getStaffId() {
-        return staffId;
+        return staffid;
     }
 
     // No setter for auto-incremented primary key
@@ -20,19 +27,19 @@ public class StaffDetails {
     // }
 
     public Integer getStaffUserProfileId() {
-        return staffUserProfileId;
+        return staff_userprofileid;
     }
 
     public void setStaffUserProfileId(Integer staffUserProfileId) {
-        this.staffUserProfileId = staffUserProfileId;
+        this.staff_userprofileid = staffUserProfileId;
     }
 
     // toString() method for debugging purposes
     @Override
     public String toString() {
         return "StaffDetails{" +
-                "staffId=" + staffId +
-                ", staffUserProfileId=" + staffUserProfileId +
+                "staffId=" + staffid +
+                ", staffUserProfileId=" + staff_userprofileid +
                 '}';
     }
 }
