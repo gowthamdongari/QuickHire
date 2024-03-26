@@ -20,6 +20,8 @@ public class ProfessionalRegistrationRequest {
     private String major;
     private String schoolName;
 
+    private  Integer userprofileid;
+
     // Getters and Setters
     public String getAddress() {
         return address;
@@ -131,5 +133,10 @@ public class ProfessionalRegistrationRequest {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public  void  setUserprofileid(Integer userprofileid){this.userprofileid=userprofileid;}
+    public Integer getUserprofileid(){
+        return  this.userprofileid;
     }
 }

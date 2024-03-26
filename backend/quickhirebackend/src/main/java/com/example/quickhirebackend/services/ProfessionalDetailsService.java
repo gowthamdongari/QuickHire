@@ -31,12 +31,16 @@ public class ProfessionalDetailsService {
         return professionalDetailsRepository.findById(id);
     }
 
-    public   ProfessionalDetails updateEmployerRequest(ProfessionalDetails professionalDetails) {
+    public   ProfessionalDetails updateProfessionalDetails(ProfessionalDetails professionalDetails) {
         return professionalDetailsRepository.save(professionalDetails);
     }
 
     public void deleteProfessionalDetails(Integer id) {
         professionalDetailsRepository.deleteById(id);
+    }
+
+    public  Optional<ProfessionalDetails>  getProfessionalDetailsByUserProfileId(Integer id){
+        return professionalDetailsRepository.findByProfid(id);
     }
 
 }
