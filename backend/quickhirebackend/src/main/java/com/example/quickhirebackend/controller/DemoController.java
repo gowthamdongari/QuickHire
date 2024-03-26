@@ -3,10 +3,16 @@ package com.example.quickhirebackend.controller;
 import com.example.quickhirebackend.dao.ProfessionalDao;
 import com.example.quickhirebackend.dao.ProfessionalRequestDao;
 import com.example.quickhirebackend.dao.UserProfileDao;
+import com.example.quickhirebackend.dto.EmployerRegistrationRequest;
+import com.example.quickhirebackend.dto.JobPostRequest;
+import com.example.quickhirebackend.dto.ProfessionalRegistrationRequest;
 import com.example.quickhirebackend.model.*;
 import com.example.quickhirebackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
@@ -28,8 +34,10 @@ public class DemoController {
     private final JobDescriptionService jobDescriptionService;
 
     private  final UserService userService;
+
+    private final MatchService matchService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
@@ -39,117 +47,162 @@ public class DemoController {
         this.employerDetailsService = employerDetailsService;
         this.jobDescriptionService = jobDescriptionService;
         this.userService = userService;
+        this.matchService = matchService;
     }
-    @GetMapping("/1")
-    public String demo1(){
+    @PostMapping("/registerProfessional")
+    public ResponseEntity<String> registerProfessional(@RequestBody ProfessionalRegistrationRequest request) {
+        // Extract user profile information from the request
+        UserProfile userProfile = new UserProfile();
+        userProfile.setAddress(request.getAddress());
+        userProfile.setFirstname(request.getFirstname());
+        userProfile.setLastname(request.getLastname());
+        userProfile.setEmail(request.getEmail());
+        userProfile.setPhone(request.getPhone());
+        userProfile.setCity(request.getCity());
+        userProfile.setState(request.getState());
+        userProfile.setPincode(request.getPincode());
+        userProfile.setUsername(request.getUsername());
+        UserProfile savedUserProfile = userProfileDao.CreateUser(userProfile);
 
-        UserProfile profUserprofile = new UserProfile();
-        profUserprofile.setAddress("Mcfarlin 349");
-        profUserprofile.setFirstname("Ram");
-        profUserprofile.setLastname("Aruva");
-        profUserprofile.setEmail("ram@gmail.com");
-        profUserprofile.setPhone("9900900090");
-        profUserprofile.setCity("Dallas");
-        profUserprofile.setState("Texas");
-        profUserprofile.setPincode("3244555");
-        profUserprofile.setUsername("ram"+new Date().getTime());
-        UserProfile savedProfuserprofile= userProfileDao.CreateUser(profUserprofile);
+        // Extract qualification information from the request
+        Qualification qualification = new Qualification();
+        qualification.setProfId(savedUserProfile.getUserprofileid());
+        qualification.setType(request.getQualificationType());
+        qualification.setKeywords(request.getQualificationKeywords());
+        qualificationService.createQualification(qualification);
 
-        Qualification profqualification = new Qualification();
-        profqualification.setProfId(profUserprofile.getUserprofileid());
-        profqualification.setType("skills");
-        profqualification.setKeywords("java");
-        // profqualification.setJobId(0);
-        qualificationService.createQualification(profqualification);
-
+        // Create a professional request
         ProfessionalRequest professionalRequest = new ProfessionalRequest();
+        professionalRequest.setCompletionTime(new Date()); // Consider allowing this to be set via the request as well
+        professionalRequest.setRequestType(request.getRequestType());
+        professionalRequest.setMajor(request.getMajor());
+        professionalRequest.setSchoolName(request.getSchoolName());
+        professionalRequest.setProfId(savedUserProfile.getUserprofileid());
+        professionalRequestDao.createProfessionalRequest(professionalRequest);
 
-        professionalRequest.setCompletionTime(new Date());
-        professionalRequest.setRequestType("new account");
-        professionalRequest.setMajor("Grad");
-        professionalRequest.setSchoolName("Smu");
-        professionalRequest.setProfId(savedProfuserprofile.getUserprofileid());
-        //professionalRequestDao.createProfessionalRequest(professionalRequest);
-
-        return savedProfuserprofile.toString()+ professionalRequestDao.createProfessionalRequest(professionalRequest).toString();
-        //Userprof dem;
-
+        return ResponseEntity.ok("Professional registered successfully: " + savedUserProfile.toString());
     }
 
-    @GetMapping("/2")
-    public String demo2(){
+    @PostMapping("/registerEmployer")
+    public ResponseEntity<String> registerEmployer(@RequestBody EmployerRegistrationRequest request) {
+        // Extract UserProfile information and create it
+        UserProfile userProfile = new UserProfile();
+        userProfile.setAddress(request.getAddress());
+        userProfile.setFirstname(request.getFirstname());
+        userProfile.setLastname(request.getLastname());
+        userProfile.setEmail(request.getEmail());
+        userProfile.setPhone(request.getPhone());
+        userProfile.setCity(request.getCity());
+        userProfile.setState(request.getState());
+        userProfile.setPincode(request.getPincode());
+        userProfile.setUsername(request.getUsername() + new Date().getTime()); // Ensuring unique username
+        UserProfile savedUserProfile = userProfileDao.CreateUser(userProfile);
 
-        UserProfile empProfile = new UserProfile();
-        empProfile.setAddress("Mcfarlin 349");
-        empProfile.setFirstname("Ram");
-        empProfile.setLastname("Aruva");
-        empProfile.setEmail("ram@gmail.com");
-        empProfile.setPhone("9900900090");
-        empProfile.setCity("Dallas");
-        empProfile.setState("Texas");
-        empProfile.setPincode("3244555");
-        empProfile.setUsername("ram"+new Date().getTime());
-        UserProfile savedProfuserprofile= userProfileDao.CreateUser(empProfile);
+        // Create EmployerRequest with the saved UserProfile ID
+        EmployerRequest employerRequest = new EmployerRequest();
+        employerRequest.setRequestType(request.getRequestType());
+        employerRequest.setCompanyName(request.getCompanyName());
+        employerRequest.setProfId(savedUserProfile.getUserprofileid());
+        employerRequestService.createEmployerRequest(employerRequest);
 
-        EmployerRequest inEmployerRequest = new EmployerRequest();
-        inEmployerRequest.setRequestType("new Account");
-        inEmployerRequest.setCompanyName("google");
-        inEmployerRequest.setProfId(savedProfuserprofile.getUserprofileid());
-
-        employerRequestService.createEmployerRequest(inEmployerRequest);
-
-        return  savedProfuserprofile.toString();
-        //Userprof dem;
-
+        // Assuming successful creation
+        return ResponseEntity.ok("Employer registered successfully." + savedUserProfile.toString());
     }
-
-    @GetMapping("/3")
-
-    public  String demo3(){
-        //retieve the prof details
-        ProfessionalDetails profdetails = professionalDetailsService.getProfessionalDetailsById(1).stream().findFirst().orElse(null);
-        profdetails.setSchoolName("Harvard");
-        professionalDetailsService.updateEmployerRequest(profdetails);
-        return "udpated successfully";
-    }
+//    @PostMapping("/updateProfessionalProfile")
+//    public ResponseEntity<String> updateProfessionalProfile(@RequestBody ProfessionalRegistrationRequest request) {
+//        // Assume you have methods in your services to find and update the profile and related entities
+//        UserProfile userProfile = userProfileDao.getUserById(request.getUserProfileId()).orElse(null);
+//        professionalDetailsService.dlldld(request.getUsername());
+//        if (userProfile == null) {
+//            return ResponseEntity.badRequest().body("User profile not found.");
+//        }
+//
+//        // Update fields except username
+//        userProfile.setAddress(request.getAddress());
+//        userProfile.setFirstname(request.getFirstname());
+//        userProfile.setLastname(request.getLastname());
+//        userProfile.setEmail(request.getEmail());
+//        userProfile.setPhone(request.getPhone());
+//        userProfile.setCity(request.getCity());
+//        userProfile.setState(request.getState());
+//        userProfile.setPincode(request.getPincode());
+//        UserProfile savedUserProfile =userProfileDao.updateUser(userProfile); // Assuming an update method exists
+//
+//        // Update Qualification
+//        Qualification qualification = qualificationService.findByProfId(userProfile.getUserprofileid());
+//        if (qualification != null) {
+//            qualification.setType(request.getQualificationType());
+//            qualification.setKeywords(request.getQualificationKeywords());
+//            qualificationService.update(qualification); // Assuming an update method exists
+//        } else {
+//            return ResponseEntity.badRequest().body("Qualification not found.");
+//        }
+//
+//        // Update ProfessionalRequest
+//        ProfessionalRequest professionalRequest = professionalRequestDao.findByProfId(userProfile.getUserprofileid());
+//        if (professionalRequest != null) {
+//            professionalRequest.setRequestType(request.getRequestType());
+//            professionalRequest.setMajor(request.getMajor());
+//            professionalRequest.setSchoolName(request.getSchoolName());
+//            professionalRequest.setCompletionTime(request.getCompletionTime()); // Update this as per the new field
+//            professionalRequestDao.update(professionalRequest); // Assuming an update method exists
+//        } else {
+//            return ResponseEntity.badRequest().body("Professional request not found.");
+//        }
+//
+//        return ResponseEntity.ok("Profile updated successfully." + savedUserProfile.toString());
+//    }
 
     @GetMapping("/4")
     public  String  demo4(){
         //retrieve the emp details
         EmployerDetails employerDetails = employerDetailsService.getEmployerDetailsById(1).stream().findFirst().orElse(null);
 
-        employerDetails.setCompanyName("myseflf");
+        employerDetails.setCompanyName("Google");
         employerDetailsService.updateEmployerDetails(employerDetails.getEmployerId(),employerDetails);
         return "Emp details updated successfully";
     }
 
+    @GetMapping("/5")
+    public String demo5(){
+        Matches MatchData = new Matches();
+        MatchData.setMatchPercentage("70%");
+        MatchData.setProfessionalId(1);
+        MatchData.setJobId(1);
 
-    @GetMapping("/6")
-    public String demo6(){
-        JobDescription empPostJob = new JobDescription();
-        empPostJob.setJobId(2134);
-        empPostJob.setPositionName("SDE I");
-        empPostJob.setFirstname("Jeff");
-        empPostJob.setLastname("Bezos");
-        empPostJob.setEmail("Jeff@amazon.com");
-        empPostJob.setPhone("9898989898");
-        empPostJob.setStartDate(new Date());
-        empPostJob.setEndDate(new Date());
-        empPostJob.setPayPerHour("60$");
-        empPostJob.setStartTime( LocalTime.of(10, 30));
-        empPostJob.setEndTime(LocalTime.of(6, 30));
-        empPostJob.setEmpid(1);
+       Matches savedmatch = matchService.saveMatch(MatchData);
 
-      JobDescription savedjobud =  jobDescriptionService.createJobDescription(empPostJob);
-        Qualification profqualification = new Qualification();
-       // profqualification.setProfId(profUserprofile.getUserprofileid());
-        profqualification.setType("skills");
-        profqualification.setKeywords("Reactjs");
-        profqualification.setJobId(savedjobud.getJobdescriptionId());
-        qualificationService.createQualification(profqualification);
-        return savedjobud.toString();
-
+        return savedmatch.toString();
     }
+
+    @PostMapping("/postJob")
+    public String postJob(@RequestBody JobPostRequest jobRequest){
+        JobDescription empPostJob = new JobDescription();
+        empPostJob.setJobId(jobRequest.getJobId());
+        empPostJob.setPositionName(jobRequest.getPositionName());
+        empPostJob.setFirstname(jobRequest.getFirstname());
+        empPostJob.setLastname(jobRequest.getLastname());
+        empPostJob.setEmail(jobRequest.getEmail());
+        empPostJob.setPhone(jobRequest.getPhone());
+        empPostJob.setStartDate(jobRequest.getStartDate());
+        empPostJob.setEndDate(jobRequest.getEndDate());
+        empPostJob.setPayPerHour(jobRequest.getPayPerHour());
+        empPostJob.setStartTime(jobRequest.getStartTime());
+        empPostJob.setEndTime(jobRequest.getEndTime());
+        empPostJob.setEmpid(jobRequest.getEmpid());
+
+        JobDescription savedJob = jobDescriptionService.createJobDescription(empPostJob);
+
+        Qualification qualification = new Qualification();
+        qualification.setType(jobRequest.getQualificationType());
+        qualification.setKeywords(jobRequest.getQualificationKeywords());
+        qualification.setJobId(savedJob.getJobdescriptionId()); // Assuming getJobdescriptionId() returns the identifier of the job
+
+        qualificationService.createQualification(qualification);
+
+        return savedJob.toString(); // It's better to return a structured object
+    }
+
 
     @GetMapping("/15")
     public  String demo15(){
@@ -181,7 +234,7 @@ public class DemoController {
     @GetMapping("/16")
     public String demo16(){
         //retrieve the profesiional request
-        ProfessionalRequest profreqdetails = professionalRequestDao.getProfessionalRequestById(4).stream().findFirst().orElse(null);
+        ProfessionalRequest profreqdetails = professionalRequestDao.getProfessionalRequestById(5).stream().findFirst().orElse(null);
         profreqdetails.setRequestType("account accepted");
         professionalRequestDao.updateProfessionalRequest(profreqdetails);
         UserProfile userProfile = userProfileDao.getUserById(profreqdetails.getProfId()).stream().findFirst().orElse(null);
