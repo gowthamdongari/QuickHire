@@ -10,10 +10,7 @@ import com.example.quickhirebackend.model.*;
 import com.example.quickhirebackend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.Date;
@@ -204,60 +201,64 @@ public class DemoController {
     }
 
 
-    @GetMapping("/15")
-    public  String demo15(){
+    @PostMapping("/staffEmployerApproval/{employerRequestId}")
+    public  ResponseEntity<String> demo15(@PathVariable("employerRequestId") int employerRequestId){
         //retrieve the emp request
-        EmployerRequest empreq = employerRequestService.getEmployerRequestById(2).stream().findFirst().orElse(null);
-        empreq.setRequestType("account accepted");
-        EmployerRequest updatempreq = employerRequestService.updateEmployerRequest(empreq);
-        UserProfile emuserprof = userProfileDao.getUserById(updatempreq.getProfId()).stream().findFirst().orElse(null);
-        emuserprof.setStatus("active");
-        userProfileDao.updateUser(emuserprof);
+        EmployerRequest employerRequestedData = employerRequestService.getEmployerRequestById(employerRequestId).stream().findFirst().orElse(null);
+        assert employerRequestedData != null;
+        employerRequestedData.setRequestType("account accepted");
+        EmployerRequest updatedEmployerRequest = employerRequestService.updateEmployerRequest(employerRequestedData);
+        UserProfile employerUserprofile = userProfileDao.getUserById(updatedEmployerRequest.getProfId()).stream().findFirst().orElse(null);
+        assert employerUserprofile != null;
+        employerUserprofile.setStatus("active");
+        userProfileDao.updateUser(employerUserprofile);
 
-        EmployerDetails newempdetails = new EmployerDetails();
-        newempdetails.setCompanyName(updatempreq.getCompanyName());
-        newempdetails.setProfId(emuserprof.getUserprofileid());
-        employerDetailsService.createEmployerDetails(newempdetails);
-        User accpeted = new User();
-        accpeted.setUsername(emuserprof.getUsername());
-        accpeted.setPassword("ahja7&aaa");
-        accpeted.setProfId(emuserprof.getUserprofileid());
-        accpeted.setUserType("employer");
-        accpeted.setStatus("active");
-        accpeted.setIsPasswordChanged("no");
-        userService.saveUser(accpeted);
+        EmployerDetails newemployerDetails = new EmployerDetails();
+        newemployerDetails.setCompanyName(updatedEmployerRequest.getCompanyName());
+        newemployerDetails.setProfId(employerUserprofile.getUserprofileid());
+        EmployerDetails savedemployerdetails =employerDetailsService.createEmployerDetails(newemployerDetails);
+        User employerNewUser = new User();
+        employerNewUser.setUsername(employerUserprofile.getUsername());
+        employerNewUser.setPassword("ahja7&aaa");
+        employerNewUser.setProfId(employerUserprofile.getUserprofileid());
+        employerNewUser.setUserType("employer");
+        employerNewUser.setStatus("active");
+        employerNewUser.setIsPasswordChanged("no");
+        userService.saveUser(employerNewUser);
 
 
-        return "saved succeffully";
+        return ResponseEntity.ok("Employer as been added to users"+savedemployerdetails.toString());
     }
 
-    @GetMapping("/16")
-    public String demo16(){
+    @PostMapping("/professionalApproval/{professionalRequestId}")
+    public ResponseEntity<String> demo16(@PathVariable("professionalRequestId") int professionalRequestId){
         //retrieve the profesiional request
-        ProfessionalRequest profreqdetails = professionalRequestDao.getProfessionalRequestById(5).stream().findFirst().orElse(null);
-        profreqdetails.setRequestType("account accepted");
-        professionalRequestDao.updateProfessionalRequest(profreqdetails);
-        UserProfile userProfile = userProfileDao.getUserById(profreqdetails.getProfId()).stream().findFirst().orElse(null);
+        ProfessionalRequest professionalRequestDetails = professionalRequestDao.getProfessionalRequestById(professionalRequestId).stream().findFirst().orElse(null);
+        assert professionalRequestDetails != null;
+        professionalRequestDetails.setRequestType("account accepted");
+        professionalRequestDao.updateProfessionalRequest(professionalRequestDetails);
+        UserProfile userProfile = userProfileDao.getUserById(professionalRequestDetails.getProfId()).stream().findFirst().orElse(null);
+        assert userProfile != null;
         userProfile.setStatus("active");
         userProfileDao.updateUser(userProfile);
 
-        ProfessionalDetails profdetails = new ProfessionalDetails();
-        profdetails.setProfId(userProfile.getUserprofileid());
-        profdetails.setCompletionTime(profreqdetails.getCompletionTime());
-        profdetails.setMajor(profreqdetails.getMajor());
-        profdetails.setSchoolName(profreqdetails.getSchoolName());
-        professionalDetailsService.createProfessionalDetails(profdetails);
+        ProfessionalDetails professionalDetails = new ProfessionalDetails();
+        professionalDetails.setProfId(userProfile.getUserprofileid());
+        professionalDetails.setCompletionTime(professionalRequestDetails.getCompletionTime());
+        professionalDetails.setMajor(professionalRequestDetails.getMajor());
+        professionalDetails.setSchoolName(professionalRequestDetails.getSchoolName());
+        ProfessionalDetails savedProfessionalDetails = professionalDetailsService.createProfessionalDetails(professionalDetails);
 
-        User accpeted = new User();
-        accpeted.setUsername(userProfile.getUsername());
-        accpeted.setPassword("ahja7&aaa");
-        accpeted.setProfId(userProfile.getUserprofileid());
-        accpeted.setUserType("professional");
-        accpeted.setStatus("active");
-        accpeted.setIsPasswordChanged("no");
-        userService.saveUser(accpeted);
+        User professionalNewUser = new User();
+        professionalNewUser.setUsername(userProfile.getUsername());
+        professionalNewUser.setPassword("ahja7&aaa");
+        professionalNewUser.setProfId(userProfile.getUserprofileid());
+        professionalNewUser.setUserType("professional");
+        professionalNewUser.setStatus("active");
+        professionalNewUser.setIsPasswordChanged("no");
+        userService.saveUser(professionalNewUser);
 
-        return  "saved succeffully";
+        return  ResponseEntity.ok("Professional Details saved"+savedProfessionalDetails.toString());
     }
 
     @GetMapping("/19")
