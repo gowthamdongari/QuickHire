@@ -16,6 +16,8 @@ public class EmployerRegistrationRequest {
     private String requestType;
     private String companyName;
 
+    private  Integer userprofileid;
+
     // Getters and setters for all fields
 
     public String getAddress() {
@@ -104,5 +106,10 @@ public class EmployerRegistrationRequest {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public  void  setUserprofileid(Integer userprofileid){this.userprofileid=userprofileid;}
+    public Integer getUserprofileid(){
+        return  this.userprofileid;
     }
 }
