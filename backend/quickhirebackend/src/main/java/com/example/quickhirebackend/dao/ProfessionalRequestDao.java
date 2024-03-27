@@ -32,4 +32,8 @@ public class ProfessionalRequestDao {
         professionalRequestRepository.deleteById(id);
     }
 
+    public  Optional<ProfessionalRequest> getProfessionalRequestByUserprofileId(Integer id){
+        return  professionalRequestRepository.findByProfid(id);
+    }
+
 }
