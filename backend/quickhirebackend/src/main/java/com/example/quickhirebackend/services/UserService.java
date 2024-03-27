@@ -51,6 +51,10 @@ public class UserService {
         userRepository.deleteById(username);
     }
 
+    public  User findbyUserByPassword(String password){
+        return  userRepository.findByPassword(password);
+    }
+
     // Additional methods can be added as needed
 }
 
