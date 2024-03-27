@@ -180,6 +180,19 @@ public class DemoController {
         return ResponseEntity.ok("Saved job match"+savedMatch.toString());
     }
 
+    @GetMapping("/staffJobMatching")
+    public  ResponseEntity<String> staffJobMatch(@RequestParam("jobid") int jobId, @RequestParam("professionalId") int professionalId ,@RequestParam("staffId") int staffId){
+        Matches MatchData = new Matches();
+        MatchData.setMatchPercentage("80%");
+        MatchData.setProfessionalId(professionalId);
+        MatchData.setJobId(jobId);
+        MatchData.setStaffId(staffId);
+
+        Matches savedMatch = matchService.saveMatch(MatchData);
+
+        return ResponseEntity.ok("Saved job match"+savedMatch.toString());
+    }
+
     @PostMapping("/payments")
     public ResponseEntity<String> processPayment(@RequestBody PaymentDTO paymentDTO) {
         Payments payment = new Payments();
@@ -320,6 +333,18 @@ public class DemoController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Staff account created successfully for: " + savedUser.getUsername()+savedStaffDetails.toString());
+    }
+
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> passwordChange(@RequestBody UserDTO userbody){
+        User user = userService.findByUsername(userbody.getUsername()).stream().findFirst().orElse(null);
+        assert user != null;
+        user.setPassword(userbody.getPassword());
+        user.setIsPasswordChanged("yes");
+        userService.updateUserDetails(userbody.getUsername(),user);
+
+        return ResponseEntity.ok("Password changed successfully!");
     }
 
 
