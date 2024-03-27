@@ -368,5 +368,60 @@ public class DemoController {
         return ResponseEntity.ok("Password changed successfully!");
     }
 
+    @GetMapping("/professionalAccountDeleteRequest/{userProfileId}")
+    public ResponseEntity<String> professionalAccountDeleteRequest(@PathVariable("userProfileId") int userProfileId ){
+        ProfessionalRequest professionalRequest = professionalRequestDao.getProfessionalRequestByUserprofileId(userProfileId).stream().findFirst().orElse(null);
+        assert professionalRequest != null;
+        professionalRequest.setRequestType("Delete Requested");
+        professionalRequestDao.updateProfessionalRequest(professionalRequest);
+        return  ResponseEntity.ok("Delete Requested successfully!");
+    }
+
+    @GetMapping("/employerAccountDeleteRequest/{userProfileId}")
+    public  ResponseEntity<String> employerAccountDeleteRequest(@PathVariable("userProfileId") int userProfileId){
+        EmployerRequest employerRequest = employerRequestService.getEmployerRequestByUserProfileId(userProfileId).stream().findFirst().orElse(null);
+        assert employerRequest != null;
+        employerRequest.setRequestType("Delete Requested");
+        employerRequestService.updateEmployerRequest(employerRequest);
+        return  ResponseEntity.ok("Delete Requested Successfully");
+    }
+
+    @GetMapping("/staffProfessionalAccountDelete/{professionalRequestId}")
+    public  ResponseEntity<String> staffProfessionalDelete(@PathVariable("professionalRequestId") int professionalRequestId){
+        ProfessionalRequest professionalDeleteRequest = professionalRequestDao.getProfessionalRequestById(professionalRequestId).stream().findFirst().orElse(null);
+        assert professionalDeleteRequest != null;
+        professionalDeleteRequest.setRequestType("Account Deleted");
+        professionalRequestDao.updateProfessionalRequest(professionalDeleteRequest);
+        UserProfile professionalUserProfile = userProfileDao.getUserById(professionalDeleteRequest.getProfId()).stream().findFirst().orElse(null);
+        assert professionalUserProfile != null;
+        professionalUserProfile.setStatus("Deleted");
+        userProfileDao.updateUser(professionalUserProfile);
+        User professionalUser = userService.findByUsername(professionalUserProfile.getUsername()).stream().findFirst().orElse(null);
+        assert professionalUser != null;
+        professionalUser.setStatus("inactive");
+        userService.updateUserDetails(professionalUser.getUsername(),professionalUser);
+        return  ResponseEntity.ok("Professional Account Deleted successfully!");
+    }
+
+    @GetMapping("/staffEmployerAccountDelete/{employerRequestId}")
+    public  ResponseEntity<String> employerRequestDelete(@PathVariable("employerRequestId") int employerRequestId){
+        EmployerRequest employerRequest = employerRequestService.getEmployerRequestById(employerRequestId).stream().findFirst().orElse(null);
+        assert employerRequest != null;
+        employerRequest.setRequestType("Account Deleted");
+        employerRequestService.updateEmployerRequest(employerRequest);
+
+        UserProfile employerProfile = userProfileDao.getUserById(employerRequest.getProfId()).stream().findFirst().orElse(null);
+        assert employerProfile != null;
+        employerProfile.setStatus("Deleted");
+        userProfileDao.updateUser(employerProfile);
+
+        User employerUser = userService.findByUsername(employerProfile.getUsername()).stream().findFirst().orElse(null);
+        assert employerUser != null;
+        employerUser.setStatus("inactive");
+        userService.updateUserDetails(employerUser.getUsername(),employerUser);
+        return  ResponseEntity.ok("Employer Account Deleted successfully!");
+
+    }
+
 
 }

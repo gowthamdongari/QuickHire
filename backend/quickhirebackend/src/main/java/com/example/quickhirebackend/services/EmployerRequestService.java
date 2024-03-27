@@ -34,4 +34,9 @@ public class EmployerRequestService {
     public void deleteEmployerRequest(Integer id) {
         employerRequestRepository.deleteById(id);
     }
+
+    public  Optional<EmployerRequest> getEmployerRequestByUserProfileId(Integer id){
+        return  employerRequestRepository.findByProfid(id);
+    }
+
 }
