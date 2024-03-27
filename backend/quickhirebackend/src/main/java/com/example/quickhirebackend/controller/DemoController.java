@@ -158,14 +158,35 @@ public class DemoController {
         return ResponseEntity.ok("Profile updated successfully." + savedUserProfile.toString());
     }
 
-    @GetMapping("/4")
-    public  String  demo4(){
-        //retrieve the emp details
-        EmployerDetails employerDetails = employerDetailsService.getEmployerDetailsById(1).stream().findFirst().orElse(null);
+    @PostMapping("/updateEmployerProfile")
+    public ResponseEntity<String> updateProfessionalProfile(@RequestBody EmployerRegistrationRequest request) {
+        // Assume you have methods in your services to find and update the profile and related entities
+        UserProfile userProfile = userProfileDao.getUserById(request.getUserprofileid()).stream().findFirst().orElse(null);
 
-        employerDetails.setCompanyName("Google");
-        employerDetailsService.updateEmployerDetails(employerDetails.getEmployerId(),employerDetails);
-        return "Emp details updated successfully";
+
+        // Update fields except username
+        assert userProfile != null;
+        userProfile.setAddress(request.getAddress());
+        userProfile.setFirstname(request.getFirstname());
+        userProfile.setLastname(request.getLastname());
+        userProfile.setEmail(request.getEmail());
+        userProfile.setPhone(request.getPhone());
+        userProfile.setCity(request.getCity());
+        userProfile.setState(request.getState());
+        userProfile.setPincode(request.getPincode());
+        userProfile.setUserprofileid(request.getUserprofileid());
+        UserProfile savedUserProfile = userProfileDao.updateUser(userProfile); // Assuming an update method exists
+
+        EmployerDetails EmployerDetails = employerDetailsService.getEmployerDetailsByUserProfileId(userProfile.getUserprofileid()).stream().findFirst().orElse(null);
+
+        if (EmployerDetails != null) {
+            EmployerDetails.setCompanyName(request.getCompanyName());
+
+            employerDetailsService.updateEmployerDetails(EmployerDetails.getEmployerId(), EmployerDetails); // Assuming an update method exists
+        } else {
+            return ResponseEntity.badRequest().body("Company name not found.");
+        }
+        return ResponseEntity.ok("Employer profile updated successfully." + savedUserProfile.toString());
     }
 
     @GetMapping("/jobMatchRequest")

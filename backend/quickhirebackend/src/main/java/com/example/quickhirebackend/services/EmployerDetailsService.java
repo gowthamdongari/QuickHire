@@ -2,6 +2,7 @@ package com.example.quickhirebackend.services;
 
 import com.example.quickhirebackend.dao.EmployerDetailsRepository;
 import com.example.quickhirebackend.model.EmployerDetails;
+import com.example.quickhirebackend.model.ProfessionalDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,10 @@ public class EmployerDetailsService {
 
     public Optional<EmployerDetails> getEmployerDetailsById(Integer employerId) {
         return employerDetailsRepository.findById(employerId);
+    }
+
+    public  Optional<EmployerDetails>  getEmployerDetailsByUserProfileId(Integer id){
+        return employerDetailsRepository.findByProfid(id);
     }
 
     public EmployerDetails updateEmployerDetails(Integer employerId, EmployerDetails employerDetails) {
