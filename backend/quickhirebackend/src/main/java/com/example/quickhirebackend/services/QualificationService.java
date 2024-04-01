@@ -37,5 +37,9 @@ public class QualificationService {
         return  qualificationRepository.findFirstByProfid(id);
     }
 
+    public Qualification getQualificationbyJobid(Integer id){
+        return  qualificationRepository.findByJobid(id).stream().findFirst().orElse(null);
+    }
+
 }
 

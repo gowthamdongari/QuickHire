@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Objects;
 
 @RestController
 public class DemoController {
@@ -195,10 +196,13 @@ public class DemoController {
         MatchData.setMatchPercentage("70%");
         MatchData.setProfessionalId(professionalId);
         MatchData.setJobId(jobId);
-
+        //retrieve job qualifications
+        Qualification jobqualification = qualificationService.getQualificationbyJobid(jobId);
+        Integer userprofileid = Objects.requireNonNull(professionalDetailsService.getProfessionalDetailsById(professionalId).stream().findFirst().orElse(null)).getProfId();
+        Qualification professionalQualification = qualificationService.getQualificationByUserProfile(userprofileid).stream().findFirst().orElse(null);
        Matches savedMatch = matchService.saveMatch(MatchData);
 
-        return ResponseEntity.ok("Saved job match"+savedMatch.toString());
+        return ResponseEntity.ok("Saved job match"+savedMatch.toString()+"/n"+"with jobqualifications as"+jobqualification+"/n"+"and professional qualifications"+professionalQualification);
     }
 
     @GetMapping("/staffJobMatching")
@@ -374,7 +378,7 @@ public class DemoController {
         assert professionalRequest != null;
         professionalRequest.setRequestType("Delete Requested");
         professionalRequestDao.updateProfessionalRequest(professionalRequest);
-        return  ResponseEntity.ok("Delete Requested successfully!");
+        return  ResponseEntity.ok("Delete Requested successfully!"+professionalRequest);
     }
 
     @GetMapping("/employerAccountDeleteRequest/{userProfileId}")
@@ -383,7 +387,7 @@ public class DemoController {
         assert employerRequest != null;
         employerRequest.setRequestType("Delete Requested");
         employerRequestService.updateEmployerRequest(employerRequest);
-        return  ResponseEntity.ok("Delete Requested Successfully");
+        return  ResponseEntity.ok("Delete Requested Successfully"+employerRequest);
     }
 
     @GetMapping("/staffProfessionalAccountDelete/{professionalRequestId}")
@@ -400,7 +404,7 @@ public class DemoController {
         assert professionalUser != null;
         professionalUser.setStatus("inactive");
         userService.updateUserDetails(professionalUser.getUsername(),professionalUser);
-        return  ResponseEntity.ok("Professional Account Deleted successfully!");
+        return  ResponseEntity.ok("Professional Account Deleted successfully!" +professionalUser);
     }
 
     @GetMapping("/staffEmployerAccountDelete/{employerRequestId}")
@@ -419,7 +423,7 @@ public class DemoController {
         assert employerUser != null;
         employerUser.setStatus("inactive");
         userService.updateUserDetails(employerUser.getUsername(),employerUser);
-        return  ResponseEntity.ok("Employer Account Deleted successfully!");
+        return  ResponseEntity.ok("Employer Account Deleted successfully!"+employerUser);
 
     }
 

@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface QualificationRepository extends JpaRepository<Qualification, Integer> {
     // Custom methods can be added here if needed
     Optional<Qualification> findFirstByProfid(Integer profid);
+    Optional<Qualification> findByJobid(Integer jobid);
+
 }
