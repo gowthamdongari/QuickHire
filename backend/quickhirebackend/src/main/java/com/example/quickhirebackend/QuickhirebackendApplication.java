@@ -10,4 +10,5 @@ public class QuickhirebackendApplication {
 		SpringApplication.run(QuickhirebackendApplication.class, args);
 	}
 
+
 }
