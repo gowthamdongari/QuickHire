@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 import java.util.Date;
 
 @RestController
@@ -27,7 +26,7 @@ public class DemoController {
 
     private  final EmployerDetailsService employerDetailsService;
 
-    private final JobDescriptionService jobDescriptionService;
+    private final JobService jobService;
 
     private  final UserService userService;
 
@@ -37,7 +36,7 @@ public class DemoController {
 
     private  final  StaffDetailsService staffDetailsService;
     @Autowired
-    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobDescriptionService jobDescriptionService, UserService userService, MatchService matchService, PaymentService paymentService, StaffDetailsService staffDetailsService) {
+    public DemoController(ProfessionalDao professionalDao, UserProfileDao userProfileDao, QualificationService qualificationService, ProfessionalRequestDao professionalRequestDao, EmployerRequestService employerRequestService, ProfessionalDetailsService professionalDetailsService, EmployerDetailsService employerDetailsService, JobService jobService, UserService userService, MatchService matchService, PaymentService paymentService, StaffDetailsService staffDetailsService) {
         this.professionalDao = professionalDao;
         this.userProfileDao = userProfileDao;
         this.qualificationService = qualificationService;
@@ -45,7 +44,7 @@ public class DemoController {
         this.employerRequestService = employerRequestService;
         this.professionalDetailsService = professionalDetailsService;
         this.employerDetailsService = employerDetailsService;
-        this.jobDescriptionService = jobDescriptionService;
+        this.jobService = jobService;
         this.userService = userService;
         this.matchService = matchService;
         this.paymentService = paymentService;
@@ -251,7 +250,7 @@ public class DemoController {
         empPostJob.setEndTime(jobRequest.getEndTime());
         empPostJob.setEmpid(jobRequest.getEmpid());
 
-        JobDescription savedJob = jobDescriptionService.createJobDescription(empPostJob);
+        JobDescription savedJob = jobService.createJobDescription(empPostJob);
 
         Qualification qualification = new Qualification();
         qualification.setType(jobRequest.getQualificationType());

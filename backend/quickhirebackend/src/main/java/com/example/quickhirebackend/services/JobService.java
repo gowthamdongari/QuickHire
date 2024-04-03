@@ -1,21 +1,29 @@
 package com.example.quickhirebackend.services;
 import com.example.quickhirebackend.dao.JobDescriptionRepository;
+import com.example.quickhirebackend.dao.QualificationRepository;
+import com.example.quickhirebackend.dto.JobPostRequest;
+import com.example.quickhirebackend.dto.QualificationRecord;
 import com.example.quickhirebackend.model.JobDescription;
+import com.example.quickhirebackend.model.Qualification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JobDescriptionService {
+public class JobService {
 
     private final JobDescriptionRepository jobDescriptionRepository;
+    private  final QualificationRepository qualificationRepository;
 
     @Autowired
-    public JobDescriptionService(JobDescriptionRepository jobDescriptionRepository) {
+    public JobService(JobDescriptionRepository jobDescriptionRepository, QualificationRepository qualificationRepository) {
         this.jobDescriptionRepository = jobDescriptionRepository;
+        this.qualificationRepository = qualificationRepository;
     }
 
     @Transactional
@@ -62,6 +70,44 @@ public class JobDescriptionService {
     @Transactional
     public void deleteJobDescription(int jobDescriptionId) {
         jobDescriptionRepository.deleteById(jobDescriptionId);
+    }
+
+    public int newJobPost(JobPostRequest jobData) throws Exception {
+        try{
+            //first need to parse the time and date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+            //Date startDate = dateFormat.parse(jobData.getStartDate());
+            //need to create a job details table
+            JobDescription newJobDesc = new JobDescription();
+            newJobDesc.setJobId(jobData.getJobId());
+            newJobDesc.setPositionName(jobData.getPositionName());
+            newJobDesc.setFirstname(jobData.getFirstname());
+            newJobDesc.setLastname(jobData.getLastname());
+            newJobDesc.setEmail(jobData.getEmail());
+            newJobDesc.setPhone(jobData.getPhone());
+            newJobDesc.setStartDate(jobData.getStartDate());
+            newJobDesc.setEndDate(jobData.getEndDate());
+            newJobDesc.setStartTime(jobData.getStartTime());
+            newJobDesc.setEndTime(jobData.getEndTime());
+            newJobDesc.setEmpid(jobData.getEmpid());
+           int jobdescriptionId= createJobDescription(newJobDesc).getJobdescriptionId();
+
+           //need to assign qualifications with jobdescid;
+            for (QualificationRecord qualificationRecord:jobData.getQualifications()){
+                Qualification jobQualification = new Qualification();
+                jobQualification.setJobId(jobdescriptionId);
+                jobQualification.setType(qualificationRecord.type());
+                jobQualification.setKeywords(qualificationRecord.keywords());
+                qualificationRepository.save(jobQualification);
+            }
+
+            return  jobdescriptionId;
+        }
+        catch (Exception e){
+             throw  new Exception(e.getMessage());
+        }
     }
 }
 
