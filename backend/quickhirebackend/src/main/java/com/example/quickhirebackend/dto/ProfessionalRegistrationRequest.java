@@ -1,4 +1,8 @@
 package com.example.quickhirebackend.dto;
+
+import java.util.Date;
+import java.util.List;
+
 public class ProfessionalRegistrationRequest {
     // Fields for the UserProfile
     private String address;
@@ -15,12 +19,26 @@ public class ProfessionalRegistrationRequest {
     private String qualificationType;
     private String qualificationKeywords;
 
+
     // Fields for the ProfessionalRequest
     private String requestType;
     private String major;
     private String schoolName;
 
     private  Integer userprofileid;
+
+    private  List<QualificationRecord> qualifications;
+
+    private Date completiontime;
+    public Date getCompletiontime() {
+        return completiontime;
+    }
+
+    public void setCompletiontime(Date completiontime) {
+        this.completiontime = completiontime;
+    }
+
+
 
     // Getters and Setters
     public String getAddress() {
@@ -111,6 +129,15 @@ public class ProfessionalRegistrationRequest {
         this.qualificationKeywords = qualificationKeywords;
     }
 
+
+    public  void  setQualifications(List<QualificationRecord> qualifications){
+        this.qualifications=qualifications;
+    }
+
+    public List<QualificationRecord> getQualifications() {
+        return qualifications;
+    }
+
     public String getRequestType() {
         return requestType;
     }
@@ -140,3 +167,4 @@ public class ProfessionalRegistrationRequest {
         return  this.userprofileid;
     }
 }
+
