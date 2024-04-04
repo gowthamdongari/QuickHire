@@ -2,7 +2,9 @@ package com.example.quickhirebackend.controller.employerController;
 
 import com.example.quickhirebackend.customExceptions.CustomDuplicateUsernameException;
 import com.example.quickhirebackend.dto.EmployerRegistrationRequest;
+import com.example.quickhirebackend.dto.JobPostRequest;
 import com.example.quickhirebackend.services.EmployerRegisterService;
+import com.example.quickhirebackend.services.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployerController {
 
     private final EmployerRegisterService employerRegisterService;
+    private  final JobService jobService;
 
-    public EmployerController(EmployerRegisterService employerRegisterService) {
+    public EmployerController(EmployerRegisterService employerRegisterService, JobService jobService) {
         this.employerRegisterService = employerRegisterService;
+        this.jobService = jobService;
     }
 
     @PostMapping("/employerRegister")
@@ -31,4 +35,16 @@ public class EmployerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Employer register"+e.getMessage());
         }
     }
+
+    @PostMapping("/jobPosting")
+    public  ResponseEntity<?> jobCreation(@RequestBody JobPostRequest jobData){
+        try{
+            int jobid = jobService.newJobPost(jobData);
+            return new ResponseEntity<>("Registration is successfully done! and request id is "+jobid, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Posting job"+e.getMessage());
+        }
+    }
+
 }

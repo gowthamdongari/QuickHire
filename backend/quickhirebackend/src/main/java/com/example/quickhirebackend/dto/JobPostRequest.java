@@ -1,6 +1,7 @@
 package com.example.quickhirebackend.dto;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 public class JobPostRequest {
     private int jobId;
@@ -17,6 +18,16 @@ public class JobPostRequest {
     private int empid;
     private String qualificationType;
     private String qualificationKeywords;
+    private List<QualificationRecord> qualifications;
+
+    public List<QualificationRecord> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(List<QualificationRecord> qualificationRecords) {
+        this.qualifications= qualificationRecords;
+    }
+
 
     // Getters
     public int getJobId() { return jobId; }
