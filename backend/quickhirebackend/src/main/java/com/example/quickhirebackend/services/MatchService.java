@@ -1,8 +1,18 @@
 package com.example.quickhirebackend.services;
+import com.example.quickhirebackend.customExceptions.CustomDuplicateUsernameException;
+import com.example.quickhirebackend.customExceptions.CustomMatchException;
 import com.example.quickhirebackend.dao.MatchRepository;
+import com.example.quickhirebackend.dao.ProfessionalDetailsRepository;
+import com.example.quickhirebackend.dao.QualificationRepository;
+import com.example.quickhirebackend.dto.JobMatchRequestRecord;
 import com.example.quickhirebackend.model.Matches;
+import com.example.quickhirebackend.model.ProfessionalDetails;
+import com.example.quickhirebackend.model.Qualification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,14 +21,25 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
 
+    private  final QualificationRepository qualificationRepository;
+    private  final ProfessionalDetailsRepository professionalDetailsRepository;
+
     @Autowired
-    public MatchService(MatchRepository matchRepository) {
+    public MatchService(MatchRepository matchRepository, QualificationRepository qualificationRepository, ProfessionalDetailsRepository professionalDetailsRepository) {
         this.matchRepository = matchRepository;
+        this.qualificationRepository = qualificationRepository;
+        this.professionalDetailsRepository = professionalDetailsRepository;
     }
 
     // Create or Update a Match record
     public Matches saveMatch(Matches match) {
-        return matchRepository.save(match);
+        try{
+            return matchRepository.save(match);
+        }
+        catch (DataIntegrityViolationException e){
+             throw  new CustomMatchException("A match with same job and professional is already Exists",e);
+        }
+
     }
 
     // Retrieve all Match records
@@ -48,4 +69,30 @@ public class MatchService {
     public void deleteMatch(Integer id) {
         matchRepository.deleteById(id);
     }
+
+    public  JobMatchRequestRecord  professionalJobMatch(JobMatchRequestRecord jobMatchData) throws Exception {
+        try{
+           if(jobMatchData.matchId()==null){
+               //need to bring the qualifications of job and professional from table
+               List<Qualification> jobQualifications =  qualificationRepository.findByJobid(jobMatchData.jobId());
+               //need to get the userprofileid
+               Integer userProfilId = professionalDetailsRepository.findById(jobMatchData.professionalId()).stream().findFirst().orElse(new ProfessionalDetails()).getProfId();
+               List<Qualification> professionalQualifications = qualificationRepository.findByProfid(userProfilId);
+               //need to write logic for match percentage based on qualifications
+
+               Matches matchData = new Matches();
+               matchData.setJobId(jobMatchData.jobId());
+               matchData.setMatchPercentage("70%");
+               matchData.setProfessionalId(jobMatchData.professionalId());
+               Matches savedMatch= saveMatch(matchData);
+              return   new JobMatchRequestRecord(savedMatch.getMatchId(), savedMatch.getProfessionalId(), savedMatch.getJobId(), savedMatch.getStaffId(), jobQualifications,professionalQualifications);
+           }
+        }
+        catch (Exception e){
+         throw  new Exception(e.getMessage());
+        }
+        return jobMatchData;
+    }
+
+
 }
