@@ -3,7 +3,7 @@ import java.sql.Date;
 
 public class PaymentDTO {
     private Integer profid;
-    private String amount;
+    private Double amount;
     private Date startdate;
     private Date enddate;
     private String status;
@@ -18,15 +18,15 @@ public class PaymentDTO {
         return profid;
     }
 
-    public void setProfId(Integer profId) {
-        this.profid = profId;
+    public void setProfId(Integer profid) {
+        this.profid = profid;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

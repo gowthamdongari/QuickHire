@@ -45,4 +45,13 @@ public class PaymentService {
         paymentRepository.deleteById(paymentId);
     }
 
+
+    public Double balanceChecker(Integer profid){
+//        Double sum= paymentRepository.sumAmountByProfid(profid);
+//        if(sum==null){
+//            return 0.0;
+//        }
+        return  0.0;
+    }
+
 }

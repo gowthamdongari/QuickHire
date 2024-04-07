@@ -52,4 +52,21 @@ public class EmployerRegisterService {
              throw  new Exception(e.getMessage());
          }
     }
+
+    public String DeleteRequest(Integer userProfileId) throws Exception {
+        try{
+            EmployerRequest employerRequest = employerRequestService.getEmployerRequestByUserProfileId(userProfileId).stream().findFirst().orElse(null);
+            if(employerRequest!=null){
+              employerRequest.setRequestType("Delete Requested");
+              employerRequestService.updateEmployerRequest(employerRequest);
+              return "Delete Requested Successfully!";
+            }
+            else {
+                throw new CustomDuplicateUsernameException("Request failed!");
+            }
+        }
+        catch (Exception e){
+             throw new Exception(e.getMessage());
+        }
+    }
 }
