@@ -14,18 +14,24 @@ public class RequestService {
     private final UserRepository userRepository;
     private final ProfessionalRequestRepository professionalRequestRepository;
     private final ProfessionalDetailsRepository professionalDetailsRepository;
-    public RequestService(EmployerRequestRepository employerRequestRepository, EmployerDetailsRepository employerDetailsRepository, UserProfileRepository userProfileRepository, UserRepository userRepository, ProfessionalRequestRepository professionalRequestRepository, ProfessionalDetailsRepository professionalDetailsRepository) {
+    private  final  LoginService loginService;
+    private  final  EmailService emailService;
+
+    public RequestService(EmployerRequestRepository employerRequestRepository, EmployerDetailsRepository employerDetailsRepository, UserProfileRepository userProfileRepository, UserRepository userRepository, ProfessionalRequestRepository professionalRequestRepository, ProfessionalDetailsRepository professionalDetailsRepository, LoginService loginService, EmailService emailService) {
         this.employerRequestRepository = employerRequestRepository;
         this.employerDetailsRepository = employerDetailsRepository;
         this.userProfileRepository = userProfileRepository;
         this.userRepository = userRepository;
         this.professionalRequestRepository = professionalRequestRepository;
         this.professionalDetailsRepository = professionalDetailsRepository;
+        this.loginService = loginService;
+        this.emailService = emailService;
     }
 
     public String employerRequest(ReviewRecord employerRequest) throws Exception {
         try{
        EmployerRequest employerRequestData = employerRequestRepository.findById(employerRequest.id()).stream().findFirst().orElse(null);
+       UserProfile userProfile = userProfileRepository.findById(employerRequestData.getProfId()).stream().findFirst().orElse(null);
        if (employerRequest.requestType() == "Rejected"){
         return "";
        }else {
@@ -41,20 +47,13 @@ public class RequestService {
            employerDetailsRepository.save(newEmloyerDetails);
 
            // set status to active
-           UserProfile userProfile = userProfileRepository.findById(employerRequestData.getProfId()).stream().findFirst().orElse(null);
+
            assert userProfile != null;
            userProfile.setStatus("Active");
            userProfileRepository.save(userProfile);
 
            // update user table
-           User user = new User();
-           user.setProfId(employerRequestData.getProfId());
-           user.setPassword("QuickHire1234");
-           user.setUserType("Employer");
-           user.setStatus("Active");
-           user.setIsPasswordChanged("No");
-           user.setUsername(userProfile.getUsername());
-           userRepository.save(user);
+           createNewUser(employerRequestData.getProfId(),"Employer","Active",userProfile.getUsername(),userProfile.getEmail());
 
            return "Employer has been Succesfully Accepted";
        }}
@@ -63,8 +62,11 @@ public class RequestService {
         }
     }
 
-    public String professionalRequest(ReviewRecord professionalRequest) throws Exception { try{
-        ProfessionalRequest professionalRequestData = professionalRequestRepository.findById(professionalRequest.id()).stream().findFirst().orElse(null);
+    public String professionalRequest(ReviewRecord professionalRequest) throws Exception {
+        try{
+            LoginService loginService = new LoginService();
+           ProfessionalRequest professionalRequestData = professionalRequestRepository.findById(professionalRequest.id()).stream().findFirst().orElse(null);
+           UserProfile userProfile = userProfileRepository.findById(professionalRequestData.getProfId()).stream().findFirst().orElse(new UserProfile());
         if (professionalRequest.requestType() == "Rejected"){
             return "";
         }else {
@@ -81,19 +83,12 @@ public class RequestService {
             professionalDetailsRepository.save(professionalDetails);
 
             // set status in user profile
-            UserProfile userProfile = userProfileRepository.findById(professionalRequestData.getProfId()).stream().findFirst().orElse(new UserProfile());
+
             userProfile.setStatus("Active");
             userProfileRepository.save(userProfile);
 
             // create  username password usertype status profid ispasswordchanges
-            User user = new User();
-            user.setUsername(userProfile.getUsername());
-            user.setPassword("Quickhire1234");
-            user.setStatus("Active");
-            user.setUserType("Professional");
-            user.setProfId(userProfile.getUserprofileid());
-            user.setIsPasswordChanged("No");
-            userRepository.save(user);
+            createNewUser(userProfile.getUserprofileid(),"Professional","Active",userProfile.getUsername(),userProfile.getEmail());
 
             return "Professional account has been Created!";
         }
@@ -101,4 +96,22 @@ public class RequestService {
         throw  new Exception(e.getMessage());
     }
     }
+
+    public void createNewUser(Integer profId, String userType, String status, String userName, String email){
+        User user = new User();
+        user.setProfId(profId);
+        user.setUserType(userType);
+        user.setStatus(status);
+        user.setIsPasswordChanged("No");
+        user.setUsername(userName);
+        String randomPassword = loginService.passwordGenerator();
+        String hashedPassword = loginService.passwordHasher(randomPassword);
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+        String subject = "QuickHire Account Accepted";
+        String body="We are happy to share you that your account has been Activated, and this is your credentials  to login username:"+userName+"password:"+randomPassword+"/n"+"Best"+"/n"+"Team QuickHire";
+        emailService.sendMail(email,subject,body);
+
+    }
+
 }

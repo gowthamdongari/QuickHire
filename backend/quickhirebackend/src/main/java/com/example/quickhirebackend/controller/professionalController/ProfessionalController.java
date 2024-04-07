@@ -1,10 +1,14 @@
 package com.example.quickhirebackend.controller.professionalController;
 
+import com.example.quickhirebackend.controller.employerController.EmployerController;
 import com.example.quickhirebackend.customExceptions.CustomDuplicateUsernameException;
 import com.example.quickhirebackend.customExceptions.CustomMatchException;
 import com.example.quickhirebackend.dto.JobMatchRequestRecord;
+import com.example.quickhirebackend.dto.PaymentDTO;
 import com.example.quickhirebackend.dto.ProfessionalRegistrationRequest;
+import com.example.quickhirebackend.model.Payments;
 import com.example.quickhirebackend.services.MatchService;
+import com.example.quickhirebackend.services.PaymentService;
 import com.example.quickhirebackend.services.ProfessionalRegisterService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +21,12 @@ public class ProfessionalController {
 
      private  final ProfessionalRegisterService professionalRegisterService;
      private  final MatchService matchService;
+     private  final PaymentService paymentService;
 
-    public ProfessionalController(ProfessionalRegisterService professionalRegisterService, MatchService matchService) {
+    public ProfessionalController(ProfessionalRegisterService professionalRegisterService, MatchService matchService, PaymentService paymentService) {
         this.professionalRegisterService = professionalRegisterService;
         this.matchService = matchService;
+        this.paymentService = paymentService;
     }
 
     @PostMapping("/professionalRegister")
@@ -47,6 +53,29 @@ public class ProfessionalController {
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Match Register"+e.getMessage());
+        }
+    }
+
+    record PaymentReturnDataRecord(Double intialBalance, Double updatedBalance, Payments paymentsDetails){}
+    @PostMapping("/professional/payment")
+    public ResponseEntity<?> employPayment(@RequestBody PaymentDTO paymentDTO){
+        try{
+            Double intialAmount = paymentService.balanceChecker(paymentDTO.getProfId());
+            Payments payments = new Payments();
+            payments.setProfId(paymentDTO.getProfId());
+            payments.setAmount(paymentDTO.getAmount());
+            payments.setStartDate(paymentDTO.getStartDate());
+            payments.setEndDate(paymentDTO.getEndDate());
+            Payments payedDetails= paymentService.createPayment(payments);
+            Double updatedAmount = paymentService.balanceChecker(paymentDTO.getProfId());
+
+            PaymentReturnDataRecord paymentReturnData = new PaymentReturnDataRecord(intialAmount,updatedAmount,payedDetails);
+
+            return new ResponseEntity<>(paymentReturnData,HttpStatus.CREATED);
+
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Posting job"+e.getMessage());
         }
     }
 }
