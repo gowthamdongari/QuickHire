@@ -64,7 +64,6 @@ public class RequestService {
 
     public String professionalRequest(ReviewRecord professionalRequest) throws Exception {
         try{
-            LoginService loginService = new LoginService();
            ProfessionalRequest professionalRequestData = professionalRequestRepository.findById(professionalRequest.id()).stream().findFirst().orElse(null);
            UserProfile userProfile = userProfileRepository.findById(professionalRequestData.getProfId()).stream().findFirst().orElse(new UserProfile());
         if (professionalRequest.requestType() == "Rejected"){
