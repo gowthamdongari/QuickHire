@@ -1,5 +1,11 @@
 package com.example.quickhirebackend.services;
 
+import com.example.quickhirebackend.customExceptions.LoginException;
+import com.example.quickhirebackend.dao.UserProfileRepository;
+import com.example.quickhirebackend.dao.UserRepository;
+import com.example.quickhirebackend.dto.UserActiveInfo;
+import com.example.quickhirebackend.model.UserProfile;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +20,13 @@ import java.util.stream.Stream;
 public class LoginService {
 
 
+    private  final UserRepository userRepository;
+    private  final UserProfileRepository userProfileRepository;
+
+    public LoginService(UserRepository userRepository, UserProfileRepository userProfileRepository) {
+        this.userRepository = userRepository;
+        this.userProfileRepository = userProfileRepository;
+    }
 
     public String passwordHasher(String password){
        String salt= BCrypt.gensalt(12);
@@ -24,6 +37,28 @@ public class LoginService {
         return BCrypt.checkpw(password,hashedPassword);
     }
 
+    public Pair<UserActiveInfo, UserProfile> userLogin(String username, String password){
+         boolean isValidLogin = checkPassword(password,userRepository.findPasswordByUsername(username));
+         if(isValidLogin){
+             UserActiveInfo user = userRepository.findActiveUserWithoutPassword(username).stream().findFirst().orElse(null);
+             if(user==null){
+                 throw  new LoginException("Your account has been deleted please contact admin team for further details!");
+             }
+              UserProfile userDetails = userProfileRepository.findById(user.profid()).stream().findFirst().orElse(new UserProfile());
+             return  new Pair<>(user,userDetails);
+         }else{
+             throw new LoginException("Login Failed! Invalid Credentials.");
+         }
+    }
+
+    public String changePassword(String username, String password){
+          int val = userRepository.updatePasswordByUsername(username,passwordHasher(password));
+          if(val>0){
+              return "Password changed successfully!";
+          }else{
+              return "Unable to change password please try again!";
+          }
+    }
   public  String passwordGenerator(){
       // generate a string having 2 numbers, 2 special chars, 2 upper case letters, and 2 lower case letters
        Stream<Character> randomPasswordStream = Stream.concat(getRandomNumbers(2),
@@ -52,7 +87,7 @@ public class LoginService {
       return specialCharStream;
   }
 
-    public static Stream<Character> getRandomNumbers(int length) {
+  public static Stream<Character> getRandomNumbers(int length) {
 
         Stream<Character> numberStream;
 
