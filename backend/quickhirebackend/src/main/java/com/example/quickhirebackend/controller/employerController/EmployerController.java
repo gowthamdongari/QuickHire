@@ -63,6 +63,7 @@ public class EmployerController {
             payments.setAmount(paymentDTO.getAmount());
             payments.setStartDate(paymentDTO.getStartDate());
             payments.setEndDate(paymentDTO.getEndDate());
+            payments.setStatus(paymentDTO.getStatus());
             Payments payedDetails= paymentService.createPayment(payments);
             Double updatedAmount = 0.0;
 
