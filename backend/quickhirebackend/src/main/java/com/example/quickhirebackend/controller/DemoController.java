@@ -356,16 +356,16 @@ public class DemoController {
     }
 
 
-    @PostMapping("/changePassword")
-    public ResponseEntity<String> passwordChange(@RequestBody UserDTO userbody){
-        User user = userService.findByUsername(userbody.getUsername()).stream().findFirst().orElse(null);
-        assert user != null;
-        user.setPassword(userbody.getPassword());
-        user.setIsPasswordChanged("yes");
-        userService.updateUserDetails(userbody.getUsername(),user);
-
-        return ResponseEntity.ok("Password changed successfully!");
-    }
+//    @PostMapping("/changePassword")
+//    public ResponseEntity<String> passwordChange(@RequestBody UserDTO userbody){
+//        User user = userService.findByUsername(userbody.getUsername()).stream().findFirst().orElse(null);
+//        assert user != null;
+//        user.setPassword(userbody.getPassword());
+//        user.setIsPasswordChanged("yes");
+//        userService.updateUserDetails(userbody.getUsername(),user);
+//
+//        return ResponseEntity.ok("Password changed successfully!");
+//    }
 
     @GetMapping("/professionalAccountDeleteRequest/{userProfileId}")
     public ResponseEntity<String> professionalAccountDeleteRequest(@PathVariable("userProfileId") int userProfileId ){
