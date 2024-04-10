@@ -69,4 +69,6 @@ public class EmployerRegisterService {
              throw new Exception(e.getMessage());
         }
     }
+
+
 }
