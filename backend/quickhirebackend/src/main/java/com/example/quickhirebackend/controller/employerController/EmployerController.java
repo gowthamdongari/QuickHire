@@ -76,5 +76,20 @@ public class EmployerController {
         }
     }
 
+    record Response(boolean isEdited, String msg){};
+    @PutMapping("/employer/editAccount")
+    public ResponseEntity<?> employEditAccount(@RequestBody EmployerRegistrationRequest employEditData){
+        try{
+             return ResponseEntity.status(HttpStatus.OK).body(new Response(true,employerRegisterService.employerEditMethod(employEditData)));
+        }
+        catch (CustomDuplicateUsernameException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false,e.getMessage()));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(false,e.getMessage()));
+        }
+
+    }
+
 
 }
