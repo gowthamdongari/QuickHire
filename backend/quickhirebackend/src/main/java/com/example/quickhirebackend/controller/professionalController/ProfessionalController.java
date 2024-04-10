@@ -1,6 +1,5 @@
 package com.example.quickhirebackend.controller.professionalController;
 
-import com.example.quickhirebackend.controller.employerController.EmployerController;
 import com.example.quickhirebackend.customExceptions.CustomDuplicateUsernameException;
 import com.example.quickhirebackend.customExceptions.CustomMatchException;
 import com.example.quickhirebackend.dto.JobMatchRequestRecord;
@@ -13,6 +12,7 @@ import com.example.quickhirebackend.services.ProfessionalRegisterService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,6 +73,22 @@ public class ProfessionalController {
 
             return new ResponseEntity<>(paymentReturnData,HttpStatus.CREATED);
 
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Posting job"+e.getMessage());
+        }
+    }
+
+    record EditResponse(boolean isEdited, String message){}
+    @PutMapping("/professional/editAccount")
+    public ResponseEntity<?> professionalAccountEdit(@RequestBody ProfessionalRegistrationRequest professionalEditData){
+        try{
+           String ans = professionalRegisterService.professionalEdit(professionalEditData);
+            EditResponse editData = new EditResponse(true,ans);
+            return  ResponseEntity.ok(editData);
+        }
+        catch (CustomDuplicateUsernameException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new EditResponse(false,e.getMessage()));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Posting job"+e.getMessage());
