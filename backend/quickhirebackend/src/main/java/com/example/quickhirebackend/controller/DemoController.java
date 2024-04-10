@@ -323,37 +323,37 @@ public class DemoController {
         return  ResponseEntity.ok("Professional Details saved"+savedProfessionalDetails.toString());
     }
 
-    @PostMapping("/createStaff")
-    public ResponseEntity<String> createStaffAccount(@RequestBody StaffAccountCreationDTO creationDTO) {
-        UserProfile staffProfile = new UserProfile();
-        staffProfile.setFirstname(creationDTO.getFirstname());
-        staffProfile.setLastname(creationDTO.getLastname());
-        staffProfile.setEmail(creationDTO.getEmail());
-        staffProfile.setPhone(creationDTO.getPhone());
-        staffProfile.setAddress(creationDTO.getAddress());
-        staffProfile.setCity(creationDTO.getCity());
-        staffProfile.setState(creationDTO.getState());
-        staffProfile.setPincode(creationDTO.getPincode());
-        staffProfile.setUsername(creationDTO.getUsername());
-        UserProfile savedUserProfile = userProfileDao.CreateUser(staffProfile);
-
-        StaffDetails staffDetails = new StaffDetails();
-        staffDetails.setStaffUserProfileId(savedUserProfile.getUserprofileid());
-       StaffDetails savedStaffDetails= staffDetailsService.saveStaffDetails(staffDetails);
-
-        User staffUser = new User();
-        staffUser.setUsername(savedUserProfile.getUsername());
-        staffUser.setPassword(creationDTO.getPassword()); // Password should be encrypted
-        staffUser.setUserType("STAFF");
-        staffUser.setProfId(savedUserProfile.getUserprofileid());
-        staffUser.setIsPasswordChanged("No");
-        User savedUser = userService.saveUser(staffUser);
-
-        // ... update the staff table with the userProfileId as before
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Staff account created successfully for: " + savedUser.getUsername()+savedStaffDetails.toString());
-    }
+//    @PostMapping("/createStaff")
+//    public ResponseEntity<String> createStaffAccount(@RequestBody StaffAccountCreationDTO creationDTO) {
+//        UserProfile staffProfile = new UserProfile();
+//        staffProfile.setFirstname(creationDTO.getFirstname());
+//        staffProfile.setLastname(creationDTO.getLastname());
+//        staffProfile.setEmail(creationDTO.getEmail());
+//        staffProfile.setPhone(creationDTO.getPhone());
+//        staffProfile.setAddress(creationDTO.getAddress());
+//        staffProfile.setCity(creationDTO.getCity());
+//        staffProfile.setState(creationDTO.getState());
+//        staffProfile.setPincode(creationDTO.getPincode());
+//        staffProfile.setUsername(creationDTO.getUsername());
+//        UserProfile savedUserProfile = userProfileDao.CreateUser(staffProfile);
+//
+//        StaffDetails staffDetails = new StaffDetails();
+//        staffDetails.setStaffUserProfileId(savedUserProfile.getUserprofileid());
+//       StaffDetails savedStaffDetails= staffDetailsService.saveStaffDetails(staffDetails);
+//
+//        User staffUser = new User();
+//        staffUser.setUsername(savedUserProfile.getUsername());
+//        staffUser.setPassword(creationDTO.getPassword()); // Password should be encrypted
+//        staffUser.setUserType("STAFF");
+//        staffUser.setProfId(savedUserProfile.getUserprofileid());
+//        staffUser.setIsPasswordChanged("No");
+//        User savedUser = userService.saveUser(staffUser);
+//
+//        // ... update the staff table with the userProfileId as before
+//
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body("Staff account created successfully for: " + savedUser.getUsername()+savedStaffDetails.toString());
+//    }
 
 
 //    @PostMapping("/changePassword")

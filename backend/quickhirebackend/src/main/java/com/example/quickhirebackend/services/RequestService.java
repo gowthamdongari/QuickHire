@@ -1,8 +1,11 @@
 package com.example.quickhirebackend.services;
 
+import com.example.quickhirebackend.customExceptions.CustomDuplicateUsernameException;
 import com.example.quickhirebackend.dao.*;
 import com.example.quickhirebackend.dto.ReviewRecord;
+import com.example.quickhirebackend.dto.StaffAccountCreationDTO;
 import com.example.quickhirebackend.model.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +19,9 @@ public class RequestService {
     private final ProfessionalDetailsRepository professionalDetailsRepository;
     private  final  LoginService loginService;
     private  final  EmailService emailService;
+    private  final  StaffDetailsRepository staffDetailsRepository;
 
-    public RequestService(EmployerRequestRepository employerRequestRepository, EmployerDetailsRepository employerDetailsRepository, UserProfileRepository userProfileRepository, UserRepository userRepository, ProfessionalRequestRepository professionalRequestRepository, ProfessionalDetailsRepository professionalDetailsRepository, LoginService loginService, EmailService emailService) {
+    public RequestService(EmployerRequestRepository employerRequestRepository, EmployerDetailsRepository employerDetailsRepository, UserProfileRepository userProfileRepository, UserRepository userRepository, ProfessionalRequestRepository professionalRequestRepository, ProfessionalDetailsRepository professionalDetailsRepository, LoginService loginService, EmailService emailService, StaffDetailsRepository staffDetailsRepository) {
         this.employerRequestRepository = employerRequestRepository;
         this.employerDetailsRepository = employerDetailsRepository;
         this.userProfileRepository = userProfileRepository;
@@ -26,6 +30,7 @@ public class RequestService {
         this.professionalDetailsRepository = professionalDetailsRepository;
         this.loginService = loginService;
         this.emailService = emailService;
+        this.staffDetailsRepository = staffDetailsRepository;
     }
 
     public String employerRequest(ReviewRecord employerRequest) throws Exception {
@@ -110,6 +115,65 @@ public class RequestService {
         String subject = "QuickHire Account Accepted";
         String body="We are happy to share you that your account has been Activated, and this is your credentials  to login username:"+userName+"password:"+randomPassword+"/n"+"Best"+"/n"+"Team QuickHire";
         emailService.sendMail(email,subject,body);
+
+    }
+
+    public String professionalDeleteRequest(Integer requestID){
+        //need to update in professional request data
+        ProfessionalRequest professionalRequest = professionalRequestRepository.findById(requestID).stream().findFirst().orElse(new ProfessionalRequest());
+        professionalRequest.setRequestType("Account Deleted");
+        professionalRequestRepository.save(professionalRequest);
+        //need to update in userprofile
+        DeleteUserDetails(professionalRequest.getProfId());
+        return "Account Deleted Successfully!";
+    }
+
+    public  String employerDeleteRequest(Integer requestID){
+        //update employerReq
+        EmployerRequest employerRequestData = employerRequestRepository.findById(requestID).stream().findFirst().orElse(new EmployerRequest());
+        employerRequestData.setRequestType("Account Deleted");
+        employerRequestRepository.save(employerRequestData);
+        //update the userprofile
+        DeleteUserDetails(employerRequestData.getProfId());
+        return  "Account Deleted Successfully!";
+    }
+    public void DeleteUserDetails(Integer userID){
+        UserProfile userData = userProfileRepository.findById(userID).stream().findFirst().orElse(new UserProfile());
+        userData.setStatus("Deleted");
+        userProfileRepository.save(userData);
+
+        User user = userRepository.findById(userData.getUsername()).stream().findFirst().orElse(new User());
+        user.setStatus("Inactive");
+        userRepository.save(user);
+    }
+
+    public String staffAccountCreation(StaffAccountCreationDTO staffData){
+        //creating userprofile
+        try {
+            UserProfile newStaffMember = new UserProfile();
+            newStaffMember.setFirstname(staffData.getFirstname());
+            newStaffMember.setLastname(staffData.getLastname());
+            newStaffMember.setStatus("Active");
+            newStaffMember.setCity(staffData.getCity());
+            newStaffMember.setState(staffData.getState());
+            newStaffMember.setPincode(staffData.getPincode());
+            newStaffMember.setAddress(staffData.getAddress());
+            newStaffMember.setPincode(staffData.getPincode());
+            newStaffMember.setUsername(staffData.getUsername());
+            newStaffMember.setEmail(staffData.getEmail());
+            newStaffMember.setPhone(staffData.getPhone());
+            UserProfile savedStaffUserProfile = userProfileRepository.save(newStaffMember);
+
+            createNewUser(savedStaffUserProfile.getUserprofileid(), "Staff", "Active", savedStaffUserProfile.getUsername(), savedStaffUserProfile.getEmail());
+            //creating staff profile
+            StaffDetails staffDetails = new StaffDetails();
+            staffDetails.setStaffUserProfileId(savedStaffUserProfile.getUserprofileid());
+            staffDetailsRepository.save(staffDetails);
+            return "Staff account has been created Successfully! and please check your mail for credentials ";
+        }
+        catch (DataIntegrityViolationException e){
+            throw  new CustomDuplicateUsernameException("Username Already Existed!");
+        }
 
     }
 

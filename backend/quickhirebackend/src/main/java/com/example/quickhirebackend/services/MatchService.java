@@ -37,7 +37,7 @@ public class MatchService {
             return matchRepository.save(match);
         }
         catch (DataIntegrityViolationException e){
-             throw  new CustomMatchException("A match with same job and professional is already Exists",e);
+            return matchRepository.findByProfessionalidAndJobid(match.getProfessionalId(),match.getJobId()).stream().findFirst().orElse(null);
         }
 
     }
@@ -71,19 +71,22 @@ public class MatchService {
     }
 
     public  JobMatchRequestRecord  professionalJobMatch(JobMatchRequestRecord jobMatchData) throws Exception {
+        //need to bring the qualifications of job and professional from table
+        List<Qualification> jobQualifications =  qualificationRepository.findByJobid(jobMatchData.jobId());
+        //need to get the userprofileid
+        Integer userProfilId = professionalDetailsRepository.findById(jobMatchData.professionalId()).stream().findFirst().orElse(new ProfessionalDetails()).getProfId();
+        List<Qualification> professionalQualifications = qualificationRepository.findByProfid(userProfilId);
         try{
            if(jobMatchData.matchId()==null){
-               //need to bring the qualifications of job and professional from table
-               List<Qualification> jobQualifications =  qualificationRepository.findByJobid(jobMatchData.jobId());
-               //need to get the userprofileid
-               Integer userProfilId = professionalDetailsRepository.findById(jobMatchData.professionalId()).stream().findFirst().orElse(new ProfessionalDetails()).getProfId();
-               List<Qualification> professionalQualifications = qualificationRepository.findByProfid(userProfilId);
-               //need to write logic for match percentage based on qualifications
 
+               //need to write logic for match percentage based on qualifications
                Matches matchData = new Matches();
                matchData.setJobId(jobMatchData.jobId());
                matchData.setMatchPercentage("70%");
                matchData.setProfessionalId(jobMatchData.professionalId());
+               if(jobMatchData.staffId()!=null){
+                   matchData.setStaffId(jobMatchData.staffId());
+               }
                Matches savedMatch= saveMatch(matchData);
               return   new JobMatchRequestRecord(savedMatch.getMatchId(), savedMatch.getProfessionalId(), savedMatch.getJobId(), savedMatch.getStaffId(), jobQualifications,professionalQualifications);
            }
