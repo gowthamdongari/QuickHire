@@ -90,6 +90,20 @@ public class EmployerController {
         }
 
     }
+    record  DeleteRequestRecord(Integer userProfileId){};
+    @PutMapping("/employer/deleteRequest")
+    public ResponseEntity<?> deleteRequest(@RequestBody DeleteRequestRecord deleteRequestData){
+        try{
+            String msg = employerRegisterService.DeleteRequest(deleteRequestData.userProfileId());
+            return ResponseEntity.status(HttpStatus.OK).body(msg);
+        }
+        catch (CustomDuplicateUsernameException e){
+            return  ResponseEntity.status(HttpStatus.OK).body(e.getMessage());
+        }
+        catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
 
 }

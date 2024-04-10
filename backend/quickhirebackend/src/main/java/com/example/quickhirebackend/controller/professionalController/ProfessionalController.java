@@ -94,4 +94,15 @@ public class ProfessionalController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error occurred while Posting job"+e.getMessage());
         }
     }
+
+    record DeleteRecord(Integer userProfileID){}
+    @PutMapping("/professional/DeleteRequest")
+    public ResponseEntity<?> professionalDeleteRequest(@RequestBody DeleteRecord deleteData){
+       try{
+           return ResponseEntity.ok(professionalRegisterService.professionalDeleteDetails(deleteData.userProfileID()));
+       }
+       catch (Exception e){
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+       }
+    }
 }

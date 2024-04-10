@@ -105,4 +105,14 @@ public class ProfessionalRegisterService {
         }
        return "Your Account Details have been modified successfully!";
     }
+
+    public String professionalDeleteDetails(Integer profId){
+        ProfessionalRequest professionalRequestData = professionalRequestRepository.findByProfid(profId).stream().findFirst().orElse(null);
+        if(professionalRequestData==null){
+            throw  new NullPointerException();
+        }
+        professionalRequestData.setRequestType("Delete Requested");
+        professionalRequestRepository.save(professionalRequestData);
+        return "Delete Requested successfully!";
+    }
 }
